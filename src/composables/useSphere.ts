@@ -8,7 +8,7 @@ export interface SpherePropsType {
 
 export const SphereProps = {
   size: { type: [Number, String], default: 300 },
-  opacity: { type: Number, default: 100 },
+  opacity: { type: [Number, String], default: 100 },
   color: { type: String, default: 'none' }
 }
 
