@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePath } from '@/composables/usePath'
+import { usePath } from '@/composables'
 import PlanetLayer from '@/components/Planet/PlanetLayer.vue'
 import { computed } from 'vue'
 
@@ -26,34 +26,14 @@ const layers = computed(() => {
 </script>
 
 <template>
-  <div
-    :class="`
-        planet
-        top-24
-        absolute 
-        rounded-full
-        bg-red-600 
-
-
-      `"
-  >
-    <!-- <div class="planet-layers">
-      <PlanetLayer
-        v-for="(layer, index) in layers"
-        :key="index"
-        :size="size"
-        :speed="speed"
-      >
-        <img :src="layer" />
-      </PlanetLayer>
-    </div> -->
+  <div class="planet">
     <PlanetLayer :size="size" :speed="speed" :offset-y="-85">
       <img :src="layers[0]" />
     </PlanetLayer>
     <PlanetLayer
       :size="size + 50"
       :speed="-speed"
-      :opacity="70"
+      :opacity="100"
       :rotation="40"
       :offset-x="40"
       :offset-y="-90"
@@ -85,9 +65,12 @@ const layers = computed(() => {
 }
 
 .planet {
+  position: relative;
   width: v-bind('cssSize');
   height: v-bind('cssSize');
-  /* box-shadow: 0 0 100px #000; */
+  /* top: 6rem; */
+  background-color: red;
+  border-radius: 50%;
 }
 
 .planet-ambient-shadow {
@@ -101,7 +84,7 @@ const layers = computed(() => {
     rgb(0 0 0 / 0) 60%,
     rgb(0 0 0/ 1) 100%
   );
-  box-shadow: inset 0 0 10px theme('colors.darken');
+  box-shadow: inset 0 0 10px #000;
   /* z-index: 1; */
 }
 </style>
