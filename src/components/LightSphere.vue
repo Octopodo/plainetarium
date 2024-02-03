@@ -15,8 +15,6 @@ const { style: sphereStyle } = useSphere(props)
 const { style: shaderStyle } = useLightShader(props)
 
 const devStyle = props.dev ? useDevLight(props) : {}
-
-console.log('Shader Style', shaderStyle.value)
 </script>
 <template>
   <div class="shader" :style="[sphereStyle, shaderStyle, devStyle]"></div>
