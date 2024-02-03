@@ -9,7 +9,7 @@ import {
   type LightDistanceParams,
   type LightColorParams,
   type LightRotationParams
-} from '@/composables/useLight'
+} from '@/composables/api'
 
 export interface LightShaderPropsType
   extends LightDistanceParams,
@@ -30,8 +30,12 @@ export function useLightShader(props: Required<LightShaderPropsType>) {
   const { cssLightCenter, cssLightEnd } = useLightDistance(props)
   const { cssXRotation, cssYRotation } = useLightRotation(props)
 
-  const fromColor = computed(() => (props.light ? solidColor.value : transparentColor.value))
-  const toColor = computed(() => (props.light ? transparentColor.value : solidColor.value))
+  const fromColor = computed(() =>
+    props.light ? solidColor.value : transparentColor.value
+  )
+  const toColor = computed(() =>
+    props.light ? transparentColor.value : solidColor.value
+  )
 
   const style = computed(() => {
     const cssProps: CSSProperties = {
@@ -41,6 +45,7 @@ export function useLightShader(props: Required<LightShaderPropsType>) {
         ${fromColor.value} ${cssLightCenter.value}, 
         ${toColor.value} ${cssLightEnd.value})`
     }
+    console.log('GRADIENT', cssProps)
     return cssProps
   })
 

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { inject, ref } from 'vue'
-import { type Control } from './types'
-import { useCopyToClipboard } from '@/composables'
+import { type Control } from '@/types'
+import { useCopyToClipboard } from '@/composables/ui'
 const controls = inject('controls') as Control[]
 const elementName = inject('elementName', 'PlainItem') as string
 const outputColor = inject('master-color') as string
@@ -16,7 +16,7 @@ function handleCopy() {
 <template>
   <div>
     <h1 class="output-title">OUTPUT</h1>
-    <div class="playground-html-output">
+    <div class="Ui-html-output">
       <div class="button-controls">
         <button @click="isExpanded = !isExpanded">
           {{ isExpanded ? '▲' : '▼' }}
@@ -26,7 +26,11 @@ function handleCopy() {
       </div>
       <div v-show="isExpanded" class="output-copy">
         <h2 class="output-tag">&lt;{{ elementName }}</h2>
-        <p class="output-content" v-for="(control, index) in controls" :key="index">
+        <p
+          class="output-content"
+          v-for="(control, index) in controls"
+          :key="index"
+        >
           :{{ control.modelName }}="{{ control.model.value }}" <br />
         </p>
         <h2 class="output-tag">/&gt;</h2>
@@ -36,19 +40,19 @@ function handleCopy() {
 </template>
 
 <style scoped>
-.playground-html-output {
+.Ui-html-output {
   position: relative;
   background-color: #0d0d0d;
   margin-top: 0;
   padding: 20px 40px;
 }
-.playground-html-output p {
+.Ui-html-output p {
   font-size: 0.8rem;
   color: #1cfb41;
   text-shadow: rgba(1, 255, 43, 0.9) 0px 0px 3px;
   cursor: text;
 }
-/* .playground-html-output:hover p {
+/* .Ui-html-output:hover p {
   font-size: 0.8rem;
   color: #1cfb41;
   text-shadow: rgba(129, 255, 150, 0.9) 0px 0px 6px;
@@ -61,7 +65,7 @@ function handleCopy() {
   font-size: 1rem;
   margin: 0;
 }
-/* .playground-html-output:hover .output-tag {
+/* .Ui-html-output:hover .output-tag {
   color: rgba(255, 241, 174, 0.9);
   text-shadow: rgba(255, 213, 1, 0.9) 0px 0px 10px;
   font-size: 1rem;
@@ -117,3 +121,4 @@ button:hover {
   width: 100%;
 }
 </style>
+@/composables/core

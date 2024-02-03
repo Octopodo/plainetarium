@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import LightPlayground from '@/components/playgrounds/LightPlayground.vue'
-import PlaygroundControls from '@/components/playgrounds/BasePlayground/PlaygroundControls.vue'
-import PlaygroundLayout from '@/components/playgrounds/BasePlayground/PlaygroundLayout.vue'
+import LightPlayground from '@/components/ui/LightPlayground.vue'
 
 const props = defineProps({
   controls: Array<any>

@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-import { type Control } from '@/components/playgrounds/BasePlayground/types'
+import { type Control } from '@/types'
 
 export function useCopyToClipboard() {
   const outputString = ref('')

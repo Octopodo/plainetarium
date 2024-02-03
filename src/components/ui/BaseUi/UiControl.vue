@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import { ref, inject, watch, computed, type PropType, type Ref } from 'vue'
-import { type Control } from './types'
+import { type Control } from '@/types'
 
 import tinycolor from 'tinycolor2'
 const emit = defineEmits(['update:controlValue'])
 const color = inject('master-color') as Ref<string>
-const lightColor = computed(() => tinycolor(color.value).lighten(10).brighten(10).toString())
+const lightColor = computed(() =>
+  tinycolor(color.value).lighten(10).brighten(10).toString()
+)
 const props = defineProps({
   control: { type: Object as PropType<Control>, required: true }
 })

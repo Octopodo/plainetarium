@@ -6,8 +6,8 @@ export interface LightDistanceParams {
 }
 
 export const LightDistanceProps = {
-  sharpness: { type: [Number, String], default: 50 },
-  distance: { type: [Number, String], default: 100 }
+  sharpness: { type: [Number, String], default: 37 },
+  distance: { type: [Number, String], default: 104 }
 }
 
 export function useLightDistance(

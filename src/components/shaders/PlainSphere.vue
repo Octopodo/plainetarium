@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useSphere, SphereProps } from '@/composables'
+import { useSphere, SphereProps } from '@/composables/api'
 
 const props = defineProps(SphereProps)
 
@@ -15,3 +15,4 @@ const mask = computed(() => {
     <slot v-bind="{ ...props }" />
   </div>
 </template>
+@/composables/core

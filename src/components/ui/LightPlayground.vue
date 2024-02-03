@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import PlaygroundLayout from '@/components/playgrounds/BasePlayground/PlaygroundLayout.vue'
-import PlainSphere from '@/components/PlainSphere.vue'
-import LightSphere from '@/components/LightSphere.vue'
+import UiLayout from './BaseUi/UiLayout.vue'
+import PlainSphere from '@/components/shaders/PlainSphere.vue'
+import LightSphere from '@/components/shaders/LightSphere.vue'
 import { ref } from 'vue'
 
 const color = ref('#a0ed54')
 const lightColor = ref('#040410')
-const sharpness = ref(50) //min 0, max 100
-const distance = ref(115) //min 0, max 140
-const xRotation = ref(0) //min 0, max 200
-const yRotation = ref(0) //min 0, max 200
+const sharpness = ref(37) //min 0, max 100
+const distance = ref(104) //min 0, max 140
+const xRotation = ref(34) //min 0, max 200
+const yRotation = ref(-41) //min 0, max 200
 const size = ref(500) //min 50 max 1500
-const opacity = ref(100) //min 0, maname
+const opacity = ref(65) //min 0, maname
 const light = ref(false)
 
 const controls = [
@@ -75,7 +75,7 @@ const controls = [
 </script>
 <template>
   <div>
-    <PlaygroundLayout :controls="controls" element-name="LightSphere">
+    <UiLayout :controls="controls" element-name="LightSphere">
       <PlainSphere :color="color" :size="size">
         <LightSphere
           :xRotation="xRotation"
@@ -88,7 +88,7 @@ const controls = [
           :light="light"
         />
       </PlainSphere>
-    </PlaygroundLayout>
+    </UiLayout>
   </div>
 </template>
 

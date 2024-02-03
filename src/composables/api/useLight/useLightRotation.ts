@@ -1,5 +1,5 @@
 import { computed, type PropType } from 'vue'
-import { type Coordinate } from '@/composables/useCoordinate'
+import { type Coordinate } from '@/types'
 const CENTER = 50
 
 export interface LightRotationParams {
@@ -9,8 +9,8 @@ export interface LightRotationParams {
 }
 
 export const LightRotationProps = {
-  xRotation: { type: [Number, String], default: 0 },
-  yRotation: { type: [Number, String], default: 0 },
+  xRotation: { type: [Number, String], default: 34 },
+  yRotation: { type: [Number, String], default: -41 },
   rotation: { type: Object as PropType<Coordinate>, required: false }
 }
 

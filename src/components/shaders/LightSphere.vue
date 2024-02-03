@@ -4,11 +4,10 @@ import {
   useSphere,
   useLightShader,
   SphereProps,
-  LightShaderProps,
-  DevProps,
-  useDevLight
-} from '@/composables'
-// import PlainSphere from '@/components/PlainSphere.vue'
+  LightShaderProps
+} from '@/composables/api'
+
+import { DevProps, useDevLight } from '@/composables/dev'
 
 const props = defineProps({ ...SphereProps, ...LightShaderProps, ...DevProps })
 const { style: sphereStyle } = useSphere(props)
@@ -19,3 +18,4 @@ const devStyle = props.dev ? useDevLight(props) : {}
 <template>
   <div class="shader" :style="[sphereStyle, shaderStyle, devStyle]"></div>
 </template>
+@/composables/core
