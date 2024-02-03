@@ -1,15 +1,16 @@
 import { useHexToTgba } from '@/composables'
-
+import { ref, computed } from 'vue'
 export interface LightColorParams {
-  color: string
+  lightColor?: string
 }
 
 export const LightColorProps = {
-  color: { type: String, default: '#000005' }
+  lightColor: { type: String, default: '#000005' }
 }
 
 export function useLightColor(props: Required<LightColorParams>) {
-  const transparentColor = useHexToTgba(props.color, 0)
-  const solidColor = useHexToTgba(props.color, 100)
+  const transparentColor = computed(() => useHexToTgba(props.lightColor, 0))
+  const solidColor = computed(() => useHexToTgba(props.lightColor, 100))
+
   return { transparentColor, solidColor }
 }
