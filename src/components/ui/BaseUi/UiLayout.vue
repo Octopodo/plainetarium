@@ -7,8 +7,8 @@ import { provide } from 'vue'
 </script>
 <template>
   <div class="Ui-layout">
-    <UiLayers />
-    <UiViewport>
+    <UiLayers class="ui-layers" />
+    <UiViewport class="ui-viewport">
       <slot />
     </UiViewport>
   </div>
@@ -21,5 +21,11 @@ import { provide } from 'vue'
   left: 50px;
   top: 10%;
   position: absolute;
+}
+
+.ui-layers {
+  grid-column: 1;
+  grid-row: 1;
+  z-index: 1;
 }
 </style>
