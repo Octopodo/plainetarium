@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@jamescoyle/vue-icon": "^0.1.2",
+    "@mdi/js": "^7.4.47",
     "@mdi/light-js": "^0.2.63",
     "@types/tinycolor2": "^1.4.6",
     "@vueuse/core": "^10.7.2",

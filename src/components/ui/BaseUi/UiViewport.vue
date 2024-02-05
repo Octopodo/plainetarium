@@ -11,6 +11,7 @@ const playgroundStore = usePlaygroundStore()
       :key="index"
     >
       <component
+        v-if="layer.visible"
         class="viewport-layer"
         :is="toRaw(layer.componentModel.component)"
         v-bind="layer.componentModel.props"

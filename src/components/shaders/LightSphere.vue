@@ -2,13 +2,19 @@
 import {
   useSphere,
   useLightShader,
-  SphereProps,
+  SphereSizeProps,
+  SphereOpacityProps,
   LightShaderProps
 } from '@/composables/api'
 
 import { DevProps, useDevLight } from '@/composables/dev'
 
-const props = defineProps({ ...SphereProps, ...LightShaderProps, ...DevProps })
+const props = defineProps({
+  ...SphereSizeProps,
+  ...SphereOpacityProps,
+  ...LightShaderProps,
+  ...DevProps
+})
 const { style: sphereStyle } = useSphere(props)
 const { style: shaderStyle } = useLightShader(props)
 

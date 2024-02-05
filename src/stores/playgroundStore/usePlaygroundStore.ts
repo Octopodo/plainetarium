@@ -15,6 +15,7 @@ export const usePlaygroundStore = defineStore('playground', {
         focused: false,
         visible: true
       }
+      layer.focused = true
       this.layers.push(layer)
     },
     removeLayer(layer: LayerData) {
@@ -30,6 +31,9 @@ export const usePlaygroundStore = defineStore('playground', {
     },
     focusLayer(layer: LayerData) {
       layer.focused = !layer.focused
+    },
+    hideLayer(layer: LayerData) {
+      layer.visible = !layer.visible
     },
     renameLayer(layer: LayerData, name: string) {
       layer.componentModel.name = name

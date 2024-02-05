@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { usePlaygroundStore } from '@/stores'
+import UiAddLayersToolbar from './UiAddLayersToolbar.vue'
 
 import UiLayer from './UiLayer.vue'
 
@@ -7,17 +8,24 @@ const playgroundStore = usePlaygroundStore()
 const layers = playgroundStore.layers
 </script>
 <template>
-  <div class="ui-layers">
-    <div
-      v-for="(layer, index) in layers"
-      :key="index"
-    >
-      <UiLayer :layer-data="layer" />
+  <div class="ui-layers-panel">
+    <UiAddLayersToolbar />
+    <div class="ui-layers">
+      <div
+        v-for="(layer, index) in layers"
+        :key="index"
+      >
+        <UiLayer :layer-data="layer" />
+      </div>
     </div>
   </div>
 </template>
 
 <style>
+.ui-layers-panel {
+  display: flex;
+  flex-direction: column;
+}
 .ui-layers {
   /* position: absolute; */
   left: 0;

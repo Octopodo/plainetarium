@@ -15,7 +15,7 @@ export function useCreateComponentModel(component: any) {
 
   Object.keys(props).forEach((key) => {
     let control: Control
-    if (key === 'dev') return
+    if (key === 'dev' || props[key].skip) return
     if (props[key] === Boolean) {
       control = {
         name: unWrapCamelCase(key),

@@ -76,7 +76,8 @@ watch(inputText, (newValue) => {
 </template>
 
 <style scoped>
-.ui-input-text {
+.double-click-input-text {
   width: 100%;
+  height: 100%;
 }
 </style>

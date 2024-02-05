@@ -3,25 +3,37 @@ import { computed } from 'vue'
 export interface SpherePropsType {
   size: number | string
   opacity: number | string
-  color: string
+  color?: string
 }
 
-export const SphereProps = {
+export const SphereSizeProps = {
   size: {
     type: [Number, String],
     default: 300,
     control: 'range',
     min: 0,
     max: 5000
-  },
+  }
+}
+
+export const SphereOpacityProps = {
   opacity: {
     type: [Number, String],
     default: 100,
     control: 'range',
     min: 0,
     max: 100
-  },
+  }
+}
+
+export const SphereColorProps = {
   color: { type: String, default: '#42938a', control: 'color' }
+}
+
+export const SphereProps = {
+  ...SphereSizeProps,
+  ...SphereOpacityProps,
+  ...SphereColorProps
 }
 
 export function useSphere(props: Required<SpherePropsType>) {
