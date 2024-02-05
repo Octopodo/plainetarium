@@ -3,12 +3,10 @@ import { ref, onMounted } from 'vue'
 
 import UiControls from './UiControls.vue'
 import UiOutput from './UiOutput.vue'
-
-const controls = ref(null)
 </script>
 <template>
   <div class="Ui-sidebar">
-    <UiControls ref="controls" />
+    <UiControls />
     <UiOutput />
   </div>
 </template>

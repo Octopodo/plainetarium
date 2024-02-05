@@ -23,7 +23,6 @@ export function useCreateComponentModel(component: any) {
         type: 'checkbox',
         modelName: key
       }
-      componentModel.controls.push(control)
     } else {
       control = {
         name: unWrapCamelCase(key),

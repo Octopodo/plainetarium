@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import UiControl from './UiControl.vue'
-import { inject } from 'vue'
 import { type Control } from '@/types'
 
 const props = defineProps({
@@ -9,8 +8,6 @@ const props = defineProps({
     required: true
   }
 })
-
-const model = props.controls[0].model
 
 const updateControl = (control: Control, value: any) => {
   control.model = value

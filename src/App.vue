@@ -8,10 +8,8 @@ import { usePlaygroundStore } from './stores'
 
 const store = usePlaygroundStore()
 
-store.addLayer(PlainSphere)
 store.addLayer(LightSphere)
-store.addLayer(LightSphere)
-store.addLayer(LightSphere)
+store.focusLayer(store.layers[store.layers.length - 1])
 </script>
 <template>
   <LightPlayground />
