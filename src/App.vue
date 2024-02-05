@@ -10,6 +10,8 @@ const store = usePlaygroundStore()
 
 store.addLayer(PlainSphere)
 store.addLayer(LightSphere)
+store.addLayer(LightSphere)
+store.addLayer(LightSphere)
 </script>
 <template>
   <LightPlayground />

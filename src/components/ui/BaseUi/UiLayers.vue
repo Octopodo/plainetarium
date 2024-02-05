@@ -26,6 +26,7 @@ const layers = playgroundStore.layers
   width: 400px;
   height: 700px;
   background-color: #272727;
-  overflow: hidden;
+  height: 75vh;
+  overflow: auto;
 }
 </style>

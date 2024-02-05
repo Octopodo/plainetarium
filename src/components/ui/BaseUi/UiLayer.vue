@@ -15,12 +15,17 @@ const layerName = ref(unWrapCamelCase(props.layerData.componentModel.name))
 const select = () => {
   playgroundStore.focusLayer(props.layerData)
 }
+
+const layerNameChanged = (newName: string) => {
+  playgroundStore.renameLayer(props.layerData, newName)
+}
 </script>
 <template>
   <div class="ui-layer">
     <UiClickableInputText
       :text="layerName"
       @click="select"
+      @on-change-cb="layerNameChanged($event)"
     />
     <UiControls
       v-if="layerData.focused"

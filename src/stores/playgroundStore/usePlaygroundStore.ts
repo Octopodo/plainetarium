@@ -12,9 +12,9 @@ export const usePlaygroundStore = defineStore('playground', {
       const layer: LayerData = {
         componentModel: model,
         controls: model.controls,
-        focused: false
+        focused: false,
+        visible: true
       }
-      this.focusLayer(layer)
       this.layers.push(layer)
     },
     removeLayer(layer: LayerData) {
@@ -30,13 +30,9 @@ export const usePlaygroundStore = defineStore('playground', {
     },
     focusLayer(layer: LayerData) {
       layer.focused = !layer.focused
-      if (layer.focused) {
-        this.focusedLayer && (this.focusedLayer.focused = false)
-        this.focusedLayer = layer
-      } else {
-        this.focusedLayer && (this.focusedLayer.focused = false)
-        this.focusedLayer = null
-      }
+    },
+    renameLayer(layer: LayerData, name: string) {
+      layer.componentModel.name = name
     }
   }
 })

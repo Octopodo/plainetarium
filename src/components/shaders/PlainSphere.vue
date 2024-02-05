@@ -11,7 +11,10 @@ const mask = computed(() => {
 </script>
 
 <template>
-  <div class="plain-sphere" :style="[sphereStyle, mask]">
+  <div
+    class="plain-sphere"
+    :style="[sphereStyle, mask]"
+  >
     <slot v-bind="{ ...props }" />
   </div>
 </template>

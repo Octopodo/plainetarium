@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-
+import { ref, nextTick, watch } from 'vue'
+import { onClickOutside, useEventListener } from '@vueuse/core'
 const emit = defineEmits(['click', 'dblclick'])
 
 const props = defineProps({
@@ -10,41 +10,48 @@ const props = defineProps({
   },
   timeout: {
     type: Number,
-    default: 300
+    default: 150
+  },
+  onChangeCb: {
+    type: Function,
+    default: () => {}
   }
 })
 
-const input = ref(props.text)
+const inputText = ref(props.text)
 const inputActive = ref(false)
 const inputElement = ref<HTMLInputElement | null>(null)
 
-let clickTimeout
-
-function doubleClick(event: MouseEvent) {
-  inputActive.value = !inputActive.value
-  emit('dblclick', input, event)
-}
+let clickTimeout: number | undefined
 
 function click(event: MouseEvent) {
-  clickTimeout = setTimeout(() => {
-    emit('click', event)
-  }, props.timeout)
-}
-
-onMounted(() => {
-  window.addEventListener('click', clickOutside)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('click', clickOutside)
-})
-
-function clickOutside(event: MouseEvent) {
-  if (inputActive.value && event.target !== inputElement.value) {
-    alert('clickOutside')
-    inputActive.value = false
+  if (event.detail === 1) {
+    clickTimeout = setTimeout(() => {
+      emit('click')
+    }, props.timeout)
+  } else if (event.detail === 2) {
+    inputActive.value = true
+    nextTick(() => {
+      inputElement.value?.focus()
+      inputElement.value?.select()
+    })
+    clearTimeout(clickTimeout)
+    emit('dblclick')
   }
 }
+
+function unFocus() {
+  inputActive.value = false
+  props.onChangeCb(inputText.value)
+}
+
+onClickOutside(inputElement, () => {
+  unFocus()
+})
+
+watch(inputText, (newValue) => {
+  props.onChangeCb(newValue)
+})
 </script>
 <template>
   <div
@@ -53,21 +60,23 @@ function clickOutside(event: MouseEvent) {
   >
     <input
       v-if="inputActive"
-      class="ui-input-text input-text"
+      class="ui-input-text"
       type="text"
-      v-model="input"
-      @blur="inputActive = false"
-      @keyup.enter="inputActive = false"
+      v-model="inputText"
+      @keyup.enter="unFocus"
       ref="inputElement"
     />
     <p
       v-else
       class="ui-input-text"
-      @dblclick="doubleClick"
     >
-      {{ props.text }}
+      {{ inputText }}
     </p>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.ui-input-text {
+  width: 100%;
+}
+</style>
