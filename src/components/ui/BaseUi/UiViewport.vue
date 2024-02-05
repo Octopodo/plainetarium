@@ -26,6 +26,7 @@ const playgroundStore = usePlaygroundStore()
   grid-template-columns: 1fr 300px;
   gap: 1rem;
   justify-items: center;
+  align-items: center;
 }
 
 .viewport-layer {
