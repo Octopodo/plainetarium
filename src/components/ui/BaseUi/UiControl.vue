@@ -11,8 +11,8 @@ const lightColor = computed(() =>
 const props = defineProps({
   control: { type: Object as PropType<Control>, required: true }
 })
-
-const value = ref(props.control.model.value)
+const isRef = props.control.model
+const value = ref(props.control.model)
 
 watch(value, (newValue) => {
   emit('update:controlValue', newValue)

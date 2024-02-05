@@ -75,8 +75,11 @@ const controls = [
 </script>
 <template>
   <div>
-    <UiLayout :controls="controls" element-name="LightSphere">
-      <PlainSphere :color="color" :size="size">
+    <UiLayout
+      :controls="controls"
+      element-name="LightSphere"
+    >
+      <!-- <PlainSphere :color="color" :size="size">
         <LightSphere
           :xRotation="xRotation"
           :yRotation="yRotation"
@@ -87,7 +90,7 @@ const controls = [
           :light-color="lightColor"
           :light="light"
         />
-      </PlainSphere>
+      </PlainSphere> -->
     </UiLayout>
   </div>
 </template>

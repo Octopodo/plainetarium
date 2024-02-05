@@ -9,9 +9,20 @@ export interface LightRotationParams {
 }
 
 export const LightRotationProps = {
-  xRotation: { type: [Number, String], default: 34 },
-  yRotation: { type: [Number, String], default: -41 },
-  rotation: { type: Object as PropType<Coordinate>, required: false }
+  xRotation: {
+    type: [Number, String],
+    default: 34,
+    control: 'range',
+    min: -300,
+    max: 300
+  },
+  yRotation: {
+    type: [Number, String],
+    default: -41,
+    control: 'range',
+    min: -300,
+    max: 300
+  }
 }
 
 export function useLightRotation(props: Required<LightRotationParams>) {

@@ -1,11 +1,14 @@
 <script lang="ts" setup>
-import { inject } from 'vue'
+import { ref, onMounted } from 'vue'
+
 import UiControls from './UiControls.vue'
 import UiOutput from './UiOutput.vue'
+
+const controls = ref(null)
 </script>
 <template>
   <div class="Ui-sidebar">
-    <UiControls />
+    <UiControls ref="controls" />
     <UiOutput />
   </div>
 </template>

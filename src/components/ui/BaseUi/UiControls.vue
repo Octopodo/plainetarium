@@ -3,15 +3,21 @@ import UiControl from './UiControl.vue'
 import { inject } from 'vue'
 import { type Control } from '@/types'
 
-const controls = inject('controls') as Control[]
+const props = defineProps({
+  controls: {
+    type: Array as () => Control[],
+    required: true
+  }
+})
+
+const model = props.controls[0].model
 
 const updateControl = (control: Control, value: any) => {
-  control.model.value = value
+  control.model = value
 }
 </script>
 <template>
   <div class="controls">
-    <h1>CONTROLS</h1>
     <UiControl
       v-for="control in controls"
       :key="control.name"
@@ -21,4 +27,8 @@ const updateControl = (control: Control, value: any) => {
   </div>
 </template>
 
-<style></style>
+<style scoped>
+.controls {
+  padding-left: 50px;
+}
+</style>

@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import LightPlayground from '@/components/ui/LightPlayground.vue'
 
-const props = defineProps({
-  controls: Array<any>
-})
+import { useCreateComponentModel } from '@/composables/ui'
+import LightSphere from './components/shaders/LightSphere.vue'
+import PlainSphere from './components/shaders/PlainSphere.vue'
+import { usePlaygroundStore } from './stores'
+
+const store = usePlaygroundStore()
+
+store.addLayer(PlainSphere)
+store.addLayer(LightSphere)
 </script>
 <template>
   <LightPlayground />

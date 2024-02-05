@@ -1,6 +1,7 @@
 <script lang="ts" setup="{ props }">
 import UiSidebar from './UiSidebar.vue'
 import UiViewport from './UiViewport.vue'
+import UiLayers from './UiLayers.vue'
 import { type Control } from '@/types'
 import { provide } from 'vue'
 
@@ -18,7 +19,7 @@ provide('master-color', colorControl?.model)
 </script>
 <template>
   <div class="Ui-layout">
-    <UiSidebar />
+    <UiLayers />
     <UiViewport>
       <slot />
     </UiViewport>
@@ -28,6 +29,9 @@ provide('master-color', colorControl?.model)
 <style scoped>
 .Ui-layout {
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 3fr 1fr;
+  left: 50px;
+  top: 10%;
+  position: absolute;
 }
 </style>

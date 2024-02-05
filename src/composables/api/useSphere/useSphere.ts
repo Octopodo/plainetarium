@@ -7,9 +7,21 @@ export interface SpherePropsType {
 }
 
 export const SphereProps = {
-  size: { type: [Number, String], default: 300 },
-  opacity: { type: [Number, String], default: 100 },
-  color: { type: String, default: 'none' }
+  size: {
+    type: [Number, String],
+    default: 300,
+    control: 'range',
+    min: 0,
+    max: 5000
+  },
+  opacity: {
+    type: [Number, String],
+    default: 100,
+    control: 'range',
+    min: 0,
+    max: 100
+  },
+  color: { type: String, default: '#42938a', control: 'color' }
 }
 
 export function useSphere(props: Required<SpherePropsType>) {

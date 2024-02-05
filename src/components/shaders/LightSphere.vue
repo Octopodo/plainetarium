@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-// import { computed } from 'vue'
 import {
   useSphere,
   useLightShader,
@@ -16,6 +15,8 @@ const { style: shaderStyle } = useLightShader(props)
 const devStyle = props.dev ? useDevLight(props) : {}
 </script>
 <template>
-  <div class="shader" :style="[sphereStyle, shaderStyle, devStyle]"></div>
+  <div
+    class="shader"
+    :style="[sphereStyle, shaderStyle, devStyle]"
+  ></div>
 </template>
-@/composables/core

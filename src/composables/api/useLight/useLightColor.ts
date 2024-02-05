@@ -1,11 +1,11 @@
 import { useHexToTgba } from '@/composables/api'
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 export interface LightColorParams {
   lightColor?: string
 }
 
 export const LightColorProps = {
-  lightColor: { type: String, default: '#000005' }
+  lightColor: { type: String, default: '#000005', control: 'color' }
 }
 
 export function useLightColor(props: Required<LightColorParams>) {

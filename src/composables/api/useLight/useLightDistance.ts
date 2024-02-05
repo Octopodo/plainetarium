@@ -1,13 +1,26 @@
 import { computed } from 'vue'
 import { CIRCLE_CORNER_EXTENTS } from '@/math'
+
 export interface LightDistanceParams {
   sharpness?: number | string
   distance?: number | string
 }
 
 export const LightDistanceProps = {
-  sharpness: { type: [Number, String], default: 37 },
-  distance: { type: [Number, String], default: 104 }
+  sharpness: {
+    type: [Number, String],
+    default: 37,
+    control: 'range',
+    min: 0,
+    max: 150
+  },
+  distance: {
+    type: [Number, String],
+    default: 104,
+    control: 'range',
+    min: 0,
+    max: 140
+  }
 }
 
 export function useLightDistance(

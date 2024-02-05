@@ -45,7 +45,6 @@ export function useLightShader(props: Required<LightShaderPropsType>) {
         ${fromColor.value} ${cssLightCenter.value}, 
         ${toColor.value} ${cssLightEnd.value})`
     }
-    console.log('GRADIENT', cssProps)
     return cssProps
   })
 
