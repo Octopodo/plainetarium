@@ -14,6 +14,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@jamescoyle/vue-icon": "^0.1.2",
+    "@mdi/light-js": "^0.2.63",
     "@types/tinycolor2": "^1.4.6",
     "@vueuse/core": "^10.7.2",
     "pinia": "^2.1.7",
