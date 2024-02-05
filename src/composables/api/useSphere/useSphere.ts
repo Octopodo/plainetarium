@@ -9,7 +9,7 @@ export interface SpherePropsType {
 export const SphereSizeProps = {
   size: {
     type: [Number, String],
-    default: 300,
+    default: 500,
     control: 'range',
     min: 0,
     max: 5000

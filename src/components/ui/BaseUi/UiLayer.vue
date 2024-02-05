@@ -76,6 +76,10 @@ const layerNameChanged = (newName: string) => {
 .white-text {
   color: #fff;
 }
+.ui-layer-header:hover {
+  background-color: #0d0d0d;
+  color: #fff;
+}
 .ui-layer-header {
   display: flex;
   flex-direction: row;
@@ -90,13 +94,7 @@ const layerNameChanged = (newName: string) => {
   border: 1px solid #0d0d0d;
   /* cursor: pointer; */
 }
-.ui-layer.not-focused:hover {
-  background-color: #0d0d0d;
-  border-top: 1px solid #0d0d0d;
-  border-left: 1px solid #0d0d0d;
-  border-right: 1px solid #0d0d0d;
-  color: #fff;
-}
+
 .input-text {
   width: 100%;
   padding: 0.5rem;

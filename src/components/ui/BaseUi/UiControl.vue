@@ -1,20 +1,36 @@
 <script lang="ts" setup>
-import { ref, inject, watch, computed, type PropType, type Ref } from 'vue'
+import { ref, watch, computed, type PropType, type Ref } from 'vue'
 import { type Control } from '@/types'
-
-import tinycolor from 'tinycolor2'
+import UiClickableInputText from '../Controls/UiClickableInputText.vue'
 const emit = defineEmits(['update:controlValue'])
-const color = inject('master-color') as Ref<string>
-const lightColor = computed(() =>
-  tinycolor(color.value).lighten(10).brighten(10).toString()
-)
+
 const props = defineProps({
   control: { type: Object as PropType<Control>, required: true }
 })
 const value = ref(props.control.model)
+const oldValue = ref(value.value.model)
+
+const invalidInput = ref(false)
+
+function updateValue(newValue: any) {
+  // Verificar si control.type es 'range' o 'number'
+  if (props.control.type === 'range' || props.control.type === 'number') {
+    // Verificar si newValue es un número válido
+    if (!/^[-+]?[0-9]*\.?[0-9]+$/g.test(newValue)) {
+      // Si no es un número válido, revertir al valor anterior
+      newValue = oldValue.value
+      invalidInput.value = true
+    }
+  }
+  // Actualizar oldValue y value
+  oldValue.value = value.value
+  value.value = newValue
+
+  emit('update:controlValue', newValue)
+}
 
 watch(value, (newValue) => {
-  emit('update:controlValue', newValue)
+  updateValue(newValue)
 })
 </script>
 <template>
@@ -30,9 +46,24 @@ watch(value, (newValue) => {
       :step="control.step"
       v-model="value"
     />
-    <p class="control-value">
-      {{ value }}
-    </p>
+    <div class="control-value-input">
+      <UiClickableInputText
+        v-if="control.type !== 'checkbox'"
+        class="control-value"
+        :error="invalidInput"
+        :text="value"
+        @change="updateValue($event)"
+        @error-handled="invalidInput = false"
+        dark-hover
+      >
+      </UiClickableInputText>
+      <p
+        v-else
+        class="control-value"
+      >
+        {{ value }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -54,13 +85,17 @@ watch(value, (newValue) => {
   width: 100%;
 }
 
+.control-value-input {
+  width: 78px;
+}
+
 .control-value {
   /* margin-top: 0.5rem; */
   font-size: 1rem;
-  color: v-bind('lightColor');
   /* color: #5bf374;
   text-shadow: rgba(1, 255, 43, 0.9) 0px 0px 2px; */
 }
+
 .control-input:active + .control-value {
   font-size: 1.2rem;
   line-height: 1.5rem;

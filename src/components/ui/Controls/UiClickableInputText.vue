@@ -1,24 +1,22 @@
 <script setup lang="ts">
-import { ref, nextTick, watch } from 'vue'
-import { onClickOutside, useEventListener } from '@vueuse/core'
-const emit = defineEmits(['click', 'dblclick'])
+import { ref, nextTick, watch, watchEffect } from 'vue'
+import { onClickOutside } from '@vueuse/core'
+const emit = defineEmits(['click', 'dblclick', 'change', 'error-handled'])
 
 const props = defineProps({
   text: {
-    type: String,
+    type: [String, Number],
     required: true
   },
   timeout: {
     type: Number,
     default: 150
   },
-  onChangeCb: {
-    type: Function,
-    default: () => {}
-  }
+  error: { type: Boolean, default: false },
+  darkHover: Boolean
 })
 
-const inputText = ref(props.text)
+const inputText = ref(String(props.text))
 const inputActive = ref(false)
 const inputElement = ref<HTMLInputElement | null>(null)
 
@@ -42,20 +40,42 @@ function click(event: MouseEvent) {
 
 function unFocus() {
   inputActive.value = false
-  props.onChangeCb(inputText.value)
+  emit('change', inputText.value)
 }
 
 onClickOutside(inputElement, () => {
   unFocus()
 })
 
-watch(inputText, (newValue) => {
-  props.onChangeCb(newValue)
+watchEffect(() => {
+  if (props.error) {
+    inputText.value = String(props.text)
+  }
+  inputText.value = String(props.text)
 })
+
+// watch(
+//   () => props.text,
+//   (newText) => {
+//     if (!inputActive.value) {
+//       inputText.value = String(newText)
+//     }
+//   }
+// )
+watch(
+  () => props.error,
+  (newText) => {
+    if (props.error) {
+      inputText.value = String(newText)
+      emit('error-handled')
+    }
+  }
+)
 </script>
 <template>
   <div
     class="double-click-input-text"
+    :class="{ 'dark-hover': darkHover }"
     @click="click"
   >
     <input
@@ -79,5 +99,13 @@ watch(inputText, (newValue) => {
 .double-click-input-text {
   width: 100%;
   height: 100%;
+}
+
+.double-click-input-text.dark-hover .ui-input-text:focus {
+  width: 100%;
+  color: #fff; /* texto claro */
+  background-color: #000; /* fondo oscuro */
+  border: none;
+  outline: none;
 }
 </style>
