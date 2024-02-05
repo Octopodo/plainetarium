@@ -33,14 +33,15 @@ export function useSphere(props: Required<SpherePropsType>) {
   const cssOpacity = computed(() => `${opacity.value / 100}`)
   const style = computed(() => {
     return {
-      width: cssSize.value,
-      height: cssSize.value,
+      width: '1000px',
+      height: '1000px',
       opacity: cssOpacity.value,
       backgroundColor: color.value,
       borderRadius: '50%',
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      transform: `scale(${size.value / 1000})`
     }
   })
 
