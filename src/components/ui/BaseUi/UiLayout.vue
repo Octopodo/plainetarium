@@ -1,5 +1,4 @@
 <script lang="ts" setup="{ props }">
-import UiSidebar from './UiSidebar.vue'
 import UiViewport from './UiViewport.vue'
 import UiLayers from './UiLayers.vue'
 import { type Control } from '@/types'

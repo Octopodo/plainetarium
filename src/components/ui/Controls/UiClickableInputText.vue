@@ -54,14 +54,6 @@ watchEffect(() => {
   inputText.value = String(props.text)
 })
 
-// watch(
-//   () => props.text,
-//   (newText) => {
-//     if (!inputActive.value) {
-//       inputText.value = String(newText)
-//     }
-//   }
-// )
 watch(
   () => props.error,
   (newText) => {

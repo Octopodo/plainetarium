@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<!-- <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
 import { usePlaygroundStore } from '@/stores'
 import UiAddLayersToolbar from './UiAddLayersToolbar.vue'
@@ -45,4 +45,4 @@ function onMove(layer: LayerData) {}
   height: 75vh;
   overflow: auto;
 }
-</style>
+</style> -->
