@@ -6,4 +6,5 @@ export interface LayerData {
   controls: Control[]
   focused: boolean
   visible: boolean
+  index: number
 }
