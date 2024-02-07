@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import LightPlayground from '@/components/ui/LightPlayground.vue'
-
+import UiLayout from '@/components/ui/BaseUi/UiLayout.vue'
+import StarField from './components/shaders/StarField.vue'
 import { useCreateComponentModel } from '@/composables/ui'
 import LightSphere from './components/shaders/LightSphere.vue'
 import PlainSphere from './components/shaders/PlainSphere.vue'
@@ -15,6 +15,10 @@ store.layers[0].controls
 store.focusLayer(store.layers[0])
 </script>
 <template>
+  <StarField
+    count="1000"
+    :contrast="[10, 20]"
+  />
   <div class="header">
     <img
       src="/favicon.svg"
@@ -24,9 +28,7 @@ store.focusLayer(store.layers[0])
     />
     <h1 class="title">Plainetarium</h1>
   </div>
-  <LightPlayground />
-
-  <!-- <PlaygroundControls /> -->
+  <UiLayout element-name="LightSphere"> </UiLayout>
 </template>
 
 <style scoped>
