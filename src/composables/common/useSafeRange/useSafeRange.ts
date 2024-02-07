@@ -3,30 +3,37 @@ import { computed } from 'vue'
 
 export function useSafeRange(
   range: RangeProp,
-  highRange: boolean = false,
   min: number = 0,
-  max: number = 100
+  max: number = 100,
+  highRange: boolean = false
 ) {
+  if (min > max) {
+    ;[min, max] = [max, min]
+  }
+
   return computed(() => {
     let high, low
+
     if (Array.isArray(range)) {
-      low = range[0] < min ? min : range[0]
-      high = range[1] > max ? max : range[1]
-      low = low > high ? high : low
-      high = high < low ? low : high
+      ;[low, high] = range
     } else {
+      const contrast = Number(range)
       if (highRange) {
-        const contrast = Number(range)
-        high = contrast < min ? min : contrast
-        high = contrast > max ? max : high
+        high = contrast
         low = min
       } else {
-        const contrast = Number(range)
-        low = contrast < min ? min : contrast
-        low = contrast > max ? max : low
+        low = contrast
         high = max
       }
     }
+
+    low = clamp(low, min, max)
+    high = clamp(high, min, max)
+
     return [low, high]
   })
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max)
 }
