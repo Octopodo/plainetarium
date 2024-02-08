@@ -14,14 +14,18 @@ export const LightRotationProps = {
     default: 34,
     control: 'range',
     min: -300,
-    max: 300
+    max: 300,
+    safeMin: -100,
+    safeMax: 100
   },
   yRotation: {
     type: [Number, String],
     default: -41,
     control: 'range',
     min: -300,
-    max: 300
+    max: 300,
+    safeMin: -100,
+    safeMax: 100
   }
 }
 

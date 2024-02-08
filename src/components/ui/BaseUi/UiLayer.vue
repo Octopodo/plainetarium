@@ -7,11 +7,13 @@ import UiControls from './UiControls.vue'
 import UiClickableInputText from '../Controls/UiClickableInputText.vue'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiEyeOutline, mdiEyeOffOutline, mdiCloseCircle } from '@mdi/js'
+import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps({
   layerData: { type: Object as PropType<Layer>, required: true }
 })
 
+const layer = ref<HTMLInputElement | null>(null)
 const playgroundStore = usePlaygroundStore()
 const layerName = ref(unWrapCamelCase(props.layerData.name))
 function select() {
@@ -33,11 +35,27 @@ function removeLayer() {
 const layerNameChanged = (newName: string) => {
   playgroundStore.renameLayer(props.layerData, newName)
 }
+
+const selectLayer = () => {
+  if (!props.layerData.selected) {
+    playgroundStore.selectLayer(props.layerData)
+  } else {
+    playgroundStore.deselectLayer(props.layerData)
+  }
+}
+onClickOutside(layer, () => {
+  playgroundStore.deselectLayer(props.layerData)
+})
 </script>
 <template>
   <div
     class="ui-layer"
-    :class="{ 'not-focused': !layerData.expanded }"
+    ref="layer"
+    :class="{
+      'not-focused': !layerData.expanded,
+      selected: layerData.selected
+    }"
+    @click="selectLayer"
   >
     <div class="ui-layer-header">
       <div @click="hideLayer">
@@ -149,5 +167,9 @@ const layerNameChanged = (newName: string) => {
 .close-icon:hover {
   cursor: pointer;
   color: #ff0000;
+}
+
+.selected {
+  border: solid 1px #047cde;
 }
 </style>

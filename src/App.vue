@@ -4,14 +4,22 @@ import StarField from './components/shaders/StarField.vue'
 import LightSphere from './components/shaders/LightSphere.vue'
 import PlainSphere from './components/shaders/PlainSphere.vue'
 import { usePlaygroundStore } from './stores'
-
+import { useCreateRandomPlanet } from '@/composables/ui'
 const store = usePlaygroundStore()
 
+const numLayers = 5
 store.addLayer(StarField)
-store.addLayer(PlainSphere)
-store.addLayer(LightSphere)
-store.layers[0].controls
 store.collapseLayer(store.layers[0])
+// store.addLayer(PlainSphere)
+// store.addLayer(LightSphere)
+// store.layers[0].controls
+// store.collapseLayer(store.layers[0])
+useCreateRandomPlanet(numLayers)
+
+function regenerateLayers() {
+  store.cleanLayers()
+  useCreateRandomPlanet(numLayers)
+}
 </script>
 <template>
   <div class="header">
@@ -20,6 +28,7 @@ store.collapseLayer(store.layers[0])
       width="50"
       alt=""
       class="logo"
+      @click="regenerateLayers"
     />
     <h1 class="title">Plainetarium</h1>
   </div>
@@ -40,6 +49,8 @@ store.collapseLayer(store.layers[0])
 .logo {
   margin-right: 1rem;
   margin-top: 0.5rem;
+  cursor: pointer;
+  z-index: 100;
 }
 
 .title {

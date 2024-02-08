@@ -57,11 +57,24 @@ export const usePlaygroundStore = defineStore('playground', {
     collapseLayer(layer: Layer) {
       layer.expanded = false
     },
+    selectLayer(layer: Layer) {
+      layer.selected = true
+    },
+    deselectLayer(layer: Layer) {
+      layer.selected = false
+    },
     hideLayer(layer: Layer) {
       layer.visible = !layer.visible
     },
     renameLayer(layer: Layer, name: string) {
       layer.name = name
+    },
+    cleanLayers() {
+      if (this.layers[0].component.__name === 'StarField') {
+        this.layers = [this.layers[0]]
+      } else {
+        this.layers = []
+      }
     }
   }
 })

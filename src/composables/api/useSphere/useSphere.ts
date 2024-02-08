@@ -12,7 +12,7 @@ export const SphereSizeProps = {
     default: 500,
     control: 'range',
     min: 0,
-    max: 5000
+    max: 1000
   }
 }
 

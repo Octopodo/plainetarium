@@ -1,6 +1,6 @@
-import { ref, onMounted, computed, watch, type Ref } from 'vue'
+import { onMounted, computed } from 'vue'
 import { Random } from 'random-js'
-import { type RangeProp, type Star, type NumericProp } from '@/types'
+import { type NumericProp } from '@/types'
 import { useSafeRange, useRandomColor } from '@/composables/common'
 
 export interface StarfieldParams {

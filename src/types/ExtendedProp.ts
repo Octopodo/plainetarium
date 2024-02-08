@@ -1,11 +1,9 @@
-export interface ExtendedProp {
+import { type ControlParams } from '.'
+
+export interface ExtendedProp extends ControlParams {
   type?: any
   default?: any
   required?: boolean
   validator?: (value: any) => boolean
   control: string
-  min?: number
-  max?: number
-  step?: number
-  callback?: Function
 }

@@ -1,5 +1,6 @@
 import { computed } from 'vue'
 import { CIRCLE_CORNER_EXTENTS } from '@/math'
+import { mdiSafe } from '@mdi/js'
 
 export interface LightDistanceParams {
   sharpness?: number | string
@@ -12,14 +13,18 @@ export const LightDistanceProps = {
     default: 37,
     control: 'range',
     min: 0,
-    max: 150
+    max: 150,
+    safeMin: 50,
+    safeMax: 100
   },
   distance: {
     type: [Number, String],
     default: 104,
     control: 'range',
     min: 0,
-    max: 140
+    max: 140,
+    safeMin: 70,
+    safeMax: 100
   }
 }
 
