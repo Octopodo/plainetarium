@@ -1,10 +1,13 @@
-import { type ComponentModel } from '.'
-import { type Control } from '.'
+import { type Control, type PropsValues } from '.'
 
-export interface LayerData {
-  componentModel: ComponentModel
+export interface Layer {
+  component: any
+  name: string
+  children: Layer[]
   controls: Control[]
+  props: PropsValues
   focused: boolean
   visible: boolean
   index: number
+  selected: boolean
 }

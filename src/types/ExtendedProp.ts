@@ -7,4 +7,5 @@ export interface ExtendedProp {
   min?: number
   max?: number
   step?: number
+  callback?: Function
 }

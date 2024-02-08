@@ -58,7 +58,8 @@ export const StarfieldProps = {
   },
   color: {
     type: [String],
-    default: ''
+    default: '',
+    control: 'color'
   },
   reset: {
     type: Boolean,

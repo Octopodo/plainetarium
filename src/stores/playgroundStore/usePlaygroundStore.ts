@@ -1,43 +1,45 @@
 import { defineStore } from 'pinia'
-import { type LayerData } from '@/types'
-import { useCreateComponentModel } from '@/composables/ui'
+import { type Layer } from '@/types'
+import { useCreateLayer, useSetControlValues } from '@/composables/ui'
 export const usePlaygroundStore = defineStore('playground', {
   state: () => ({
-    layers: [] as LayerData[]
+    layers: [] as Layer[]
   }),
   actions: {
-    addLayer(component: Object) {
-      const model = useCreateComponentModel(component)
+    addLayer(
+      component: Object,
+      focused: boolean = true,
+      visible: boolean = true,
+      selected: boolean = false
+    ) {
       const index = this.layers.length
-      const layer: LayerData = {
-        componentModel: model,
-        controls: model.controls,
-        focused: false,
-        visible: true,
-        index: index
-      }
-      layer.focused = true
+      const layer = useCreateLayer(component, index, focused, visible, selected)
       this.layers.push(layer)
+      return layer
     },
-    removeLayer(layer: LayerData) {
+
+    setControlsValues(layer: Layer, propValues: Record<string, any>) {
+      useSetControlValues(layer, propValues)
+    },
+    removeLayer(layer: Layer) {
       const index = this.layers.indexOf(layer)
       if (index === -1) return
       this.layers.splice(index, 1)
     },
-    moveByIndex(layer: LayerData, to: number) {
+    moveByIndex(layer: Layer, to: number) {
       const index = this.layers.indexOf(layer)
       if (index === -1) return
       this.layers.splice(index, 1)
       this.layers.splice(to, 0, layer)
     },
-    focusLayer(layer: LayerData) {
+    focusLayer(layer: Layer) {
       layer.focused = !layer.focused
     },
-    hideLayer(layer: LayerData) {
+    hideLayer(layer: Layer) {
       layer.visible = !layer.visible
     },
-    renameLayer(layer: LayerData, name: string) {
-      layer.componentModel.name = name
+    renameLayer(layer: Layer, name: string) {
+      layer.name = name
     }
   }
 })

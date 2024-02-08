@@ -13,8 +13,8 @@ const playgroundStore = usePlaygroundStore()
       <component
         v-if="layer.visible"
         class="viewport-layer"
-        :is="toRaw(layer.componentModel.component)"
-        v-bind="layer.componentModel.props"
+        :is="toRaw(layer.component)"
+        v-bind="layer.props"
       />
     </template>
     <!-- <slot /> -->

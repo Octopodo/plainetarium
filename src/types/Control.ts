@@ -7,4 +7,5 @@ export interface Control {
   min?: number
   max?: number
   step?: number
+  callback?: Function
 }

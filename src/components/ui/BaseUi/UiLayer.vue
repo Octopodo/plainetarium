@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type LayerData } from '@/types'
+import { type Layer } from '@/types'
 import { ref, type PropType } from 'vue'
 import { unWrapCamelCase } from '@/utils'
 import { usePlaygroundStore } from '@/stores'
@@ -9,11 +9,11 @@ import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiEyeOutline, mdiEyeOffOutline, mdiCloseCircle } from '@mdi/js'
 
 const props = defineProps({
-  layerData: { type: Object as PropType<LayerData>, required: true }
+  layerData: { type: Object as PropType<Layer>, required: true }
 })
 
 const playgroundStore = usePlaygroundStore()
-const layerName = ref(unWrapCamelCase(props.layerData.componentModel.name))
+const layerName = ref(unWrapCamelCase(props.layerData.name))
 function select() {
   playgroundStore.focusLayer(props.layerData)
 }

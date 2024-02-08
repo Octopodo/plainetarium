@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import UiLayout from '@/components/ui/BaseUi/UiLayout.vue'
 import StarField from './components/shaders/StarField.vue'
-import { useCreateComponentModel } from '@/composables/ui'
 import LightSphere from './components/shaders/LightSphere.vue'
 import PlainSphere from './components/shaders/PlainSphere.vue'
 import { usePlaygroundStore } from './stores'
@@ -9,7 +8,8 @@ import { usePlaygroundStore } from './stores'
 const store = usePlaygroundStore()
 
 store.addLayer(StarField)
-store.addLayer(PlainSphere)
+const sphere = store.addLayer(PlainSphere)
+store.setControlsValues(sphere, { size: 600 })
 store.addLayer(LightSphere)
 
 store.layers[0].controls
