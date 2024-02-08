@@ -8,6 +8,7 @@ import { usePlaygroundStore } from './stores'
 
 const store = usePlaygroundStore()
 
+store.addLayer(StarField)
 store.addLayer(PlainSphere)
 store.addLayer(LightSphere)
 
@@ -15,10 +16,6 @@ store.layers[0].controls
 store.focusLayer(store.layers[0])
 </script>
 <template>
-  <StarField
-    count="1000"
-    :contrast="[10, 20]"
-  />
   <div class="header">
     <img
       src="/favicon.svg"

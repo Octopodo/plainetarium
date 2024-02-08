@@ -24,10 +24,12 @@ const playgroundStore = usePlaygroundStore()
 <style scoped>
 .ui-viewport {
   display: grid;
-  grid-template-columns: 1fr 300px;
+  /* grid-template-columns: 1fr 3fr; */
   gap: 1rem;
   justify-items: center;
   align-items: center;
+  width: 80%;
+  height: 80%;
 }
 
 .viewport-layer {

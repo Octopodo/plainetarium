@@ -1,8 +1,7 @@
-import { type ComponentModel, type Control } from '@/types'
 import { ref } from 'vue'
+import { useCreateControl } from '@/composables/ui'
 
-import { unWrapCamelCase } from '@/utils'
-
+import { type ComponentModel, type Control } from '@/types'
 export function useCreateComponentModel(component: any) {
   const props = component.props
   const componentModel: ComponentModel = {
@@ -14,29 +13,17 @@ export function useCreateComponentModel(component: any) {
   }
 
   Object.keys(props).forEach((key) => {
-    let control: Control
-    if (key === 'dev' || props[key].skip) return
-    if (props[key] === Boolean) {
-      control = {
-        name: unWrapCamelCase(key),
-        model: ref(false),
-        type: 'checkbox',
-        modelName: key
-      }
-    } else {
-      control = {
-        name: unWrapCamelCase(key),
-        model: ref(props[key].default),
-        type: props[key].control,
-        modelName: key
-      }
-      if (control.type === 'range') {
-        control.min = props[key].min
-        control.max = props[key].max
-      }
+    const prop = props[key]
+    const control = useCreateControl(key, prop)
+    if (control) {
+      saveControl(control, key)
     }
-    componentModel.props[key] = control.model
-    componentModel.controls.push(control)
   })
+
+  function saveControl(control: Control, propName: string) {
+    control.modelName = propName
+    componentModel.props[propName] = control.model
+    componentModel.controls.push(control)
+  }
   return componentModel
 }

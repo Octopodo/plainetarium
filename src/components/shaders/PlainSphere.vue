@@ -18,4 +18,3 @@ const mask = computed(() => {
     <slot v-bind="{ ...props }" />
   </div>
 </template>
-@/composables/core

@@ -16,10 +16,12 @@ import { provide } from 'vue'
 <style scoped>
 .Ui-layout {
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  left: 50px;
+  grid-template-columns: 1fr 10fr;
+  left: 20px;
   top: 10%;
   position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 .ui-layers {
