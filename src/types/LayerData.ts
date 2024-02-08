@@ -6,7 +6,7 @@ export interface Layer {
   children: Layer[]
   controls: Control[]
   props: PropsValues
-  focused: boolean
+  expanded: boolean
   visible: boolean
   index: number
   selected: boolean

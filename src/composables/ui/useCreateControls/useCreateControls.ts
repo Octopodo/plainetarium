@@ -21,6 +21,7 @@ export function useCreateControl(
   name: string,
   prop: ExtendedProp | BooleanConstructor
 ) {
+  if (name === 'dev') return
   const control: Control = {
     name: unWrapCamelCase(name),
     model: ref(''),

@@ -8,16 +8,34 @@ export const usePlaygroundStore = defineStore('playground', {
   actions: {
     addLayer(
       component: Object,
-      focused: boolean = true,
+      expanded: boolean = true,
       visible: boolean = true,
-      selected: boolean = false
+      selected: boolean = false,
+      index?: number
     ) {
-      const index = this.layers.length
-      const layer = useCreateLayer(component, index, focused, visible, selected)
+      const _index = index || this.layers.length
+      const layer = useCreateLayer(
+        component,
+        _index,
+        expanded,
+        visible,
+        selected
+      )
       this.layers.push(layer)
+      if (index !== undefined) {
+        this.moveByIndex(layer, index)
+      }
       return layer
     },
 
+    duplicatelayer(layer: Layer) {
+      this.addLayer(
+        layer.component,
+        layer.expanded,
+        layer.visible,
+        layer.selected
+      )
+    },
     setControlsValues(layer: Layer, propValues: Record<string, any>) {
       useSetControlValues(layer, propValues)
     },
@@ -31,9 +49,13 @@ export const usePlaygroundStore = defineStore('playground', {
       if (index === -1) return
       this.layers.splice(index, 1)
       this.layers.splice(to, 0, layer)
+      layer.index = to
     },
-    focusLayer(layer: Layer) {
-      layer.focused = !layer.focused
+    expandLayer(layer: Layer) {
+      layer.expanded = true
+    },
+    collapseLayer(layer: Layer) {
+      layer.expanded = false
     },
     hideLayer(layer: Layer) {
       layer.visible = !layer.visible

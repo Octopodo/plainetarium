@@ -8,7 +8,8 @@ export function useSetControlValues(
     const control = layer.controls.find(
       (control) => control.modelName === prop
     ) as Control
-    if (control) {
+    const isCompatible = typeof control.model.value === typeof propValues[prop]
+    if (control && isCompatible) {
       control.model.value = propValues[prop]
     }
   })

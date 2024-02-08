@@ -15,7 +15,11 @@ const props = defineProps({
 const playgroundStore = usePlaygroundStore()
 const layerName = ref(unWrapCamelCase(props.layerData.name))
 function select() {
-  playgroundStore.focusLayer(props.layerData)
+  if (!props.layerData.expanded) {
+    playgroundStore.expandLayer(props.layerData)
+  } else {
+    playgroundStore.collapseLayer(props.layerData)
+  }
 }
 
 function hideLayer() {
@@ -33,7 +37,7 @@ const layerNameChanged = (newName: string) => {
 <template>
   <div
     class="ui-layer"
-    :class="{ 'not-focused': !layerData.focused }"
+    :class="{ 'not-focused': !layerData.expanded }"
   >
     <div class="ui-layer-header">
       <div @click="hideLayer">
@@ -51,11 +55,11 @@ const layerNameChanged = (newName: string) => {
         />
       </div>
       <UiClickableInputText
-        :class="[layerData.focused ? 'white-text' : '']"
+        :class="[layerData.expanded ? 'white-text' : '']"
         :timeout="200"
         :text="layerName"
         @click="select"
-        @on-change-cb="layerNameChanged($event)"
+        @change="layerNameChanged($event)"
       />
       <div @click="removeLayer">
         <SvgIcon
@@ -66,7 +70,7 @@ const layerNameChanged = (newName: string) => {
       </div>
     </div>
     <UiControls
-      v-if="layerData.focused"
+      v-if="layerData.expanded"
       :controls="layerData.controls"
     ></UiControls>
   </div>

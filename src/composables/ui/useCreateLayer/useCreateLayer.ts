@@ -1,19 +1,20 @@
 import { type Layer, type PropsValues } from '@/types'
 import { useCreateControls } from '@/composables/ui'
+import { unWrapCamelCase } from '@/utils'
 export function useCreateLayer(
   component: any,
   index: number,
-  focused: boolean = true,
+  expanded: boolean = true,
   visible: boolean = true,
   selected: boolean = false
 ) {
   const layer: Layer = {
     component: component,
-    name: component.__name,
+    name: unWrapCamelCase(component.__name),
     children: [] as Layer[],
     controls: useCreateControls(component.props),
     props: {} as PropsValues,
-    focused: focused,
+    expanded: expanded,
     visible: visible,
     index: index,
     selected: selected

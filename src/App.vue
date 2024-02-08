@@ -8,12 +8,10 @@ import { usePlaygroundStore } from './stores'
 const store = usePlaygroundStore()
 
 store.addLayer(StarField)
-const sphere = store.addLayer(PlainSphere)
-store.setControlsValues(sphere, { size: 600 })
+store.addLayer(PlainSphere)
 store.addLayer(LightSphere)
-
 store.layers[0].controls
-store.focusLayer(store.layers[0])
+store.collapseLayer(store.layers[0])
 </script>
 <template>
   <div class="header">
