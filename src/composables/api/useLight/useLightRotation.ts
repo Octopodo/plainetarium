@@ -1,11 +1,11 @@
 import { computed, type PropType } from 'vue'
 import { type Coordinate } from '@/types'
 const CENTER = 50
+import { type PropsObject } from '@/types'
 
 export interface LightRotationParams {
   xRotation?: number | string
   yRotation?: number | string
-  rotation?: Coordinate
 }
 
 export const LightRotationProps = {
@@ -29,7 +29,7 @@ export const LightRotationProps = {
   }
 }
 
-export function useLightRotation(props: Required<LightRotationParams>) {
+export function useLightRotation(props: LightRotationParams & PropsObject) {
   const xRotation = computed(() => Number(props.xRotation) + CENTER)
   const yRotation = computed(() => Number(props.yRotation) + CENTER)
 

@@ -36,7 +36,7 @@ export const SphereProps = {
   ...SphereColorProps
 }
 
-export function useSphere(props: Required<SpherePropsType>) {
+export function useSphere(props: SpherePropsType & Record<string, unknown>) {
   const size = computed(() => Number(props.size))
   const opacity = computed(() => Number(props.opacity))
   const color = computed(() => String(props.color))

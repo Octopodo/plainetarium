@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import { CIRCLE_CORNER_EXTENTS } from '@/math'
-import { mdiSafe } from '@mdi/js'
+import { type PropsObject } from '@/types'
 
 export interface LightDistanceParams {
   sharpness?: number | string
@@ -29,11 +29,10 @@ export const LightDistanceProps = {
 }
 
 export function useLightDistance(
-  props: Required<LightDistanceParams>,
+  props: LightDistanceParams & PropsObject,
   baseDistanceBias = -100
 ) {
   const sharpness = computed(() => Number(props.sharpness))
-
   const distance = computed(() => Number(props.distance))
 
   const baseDistance = computed(() => distance.value + baseDistanceBias)

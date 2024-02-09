@@ -7,22 +7,17 @@ import {
   LightShaderProps
 } from '@/composables/api'
 
-import { DevProps, useDevLight } from '@/composables/dev'
-
 const props = defineProps({
   ...SphereSizeProps,
   ...SphereOpacityProps,
-  ...LightShaderProps,
-  ...DevProps
+  ...LightShaderProps
 })
 const { style: sphereStyle } = useSphere(props)
 const { style: shaderStyle } = useLightShader(props)
-
-const devStyle = props.dev ? useDevLight(props) : {}
 </script>
 <template>
   <div
     class="shader"
-    :style="[sphereStyle, shaderStyle, devStyle]"
+    :style="[sphereStyle, shaderStyle]"
   ></div>
 </template>
