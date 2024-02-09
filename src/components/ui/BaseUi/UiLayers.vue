@@ -9,7 +9,7 @@ const playgroundStore = usePlaygroundStore()
 const layers = computed(() => playgroundStore.layers)
 </script>
 <template>
-  <div class="ui-layers-panel">
+  <div class="ui-layers-panel unselectable">
     <UiAddLayersToolbar />
     <div class="ui-layers">
       <div
@@ -38,5 +38,7 @@ const layers = computed(() => playgroundStore.layers)
   background-color: #272727;
   height: 75vh;
   overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 </style>
