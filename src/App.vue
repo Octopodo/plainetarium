@@ -7,7 +7,7 @@ import { usePlaygroundStore } from './stores'
 import { useCreateRandomPlanet } from '@/composables/ui'
 const store = usePlaygroundStore()
 
-const numLayers = 10
+const numLayers: [number, number] = [3, 30]
 store.addLayer(StarField)
 store.collapseLayer(store.layers[0])
 // store.addLayer(PlainSphere)
