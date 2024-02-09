@@ -9,9 +9,12 @@ const components = [PlainSphere, LightSphere]
 const maxOpacity = 15
 const minOpacity = 1
 const random = new Random()
-export function useCreateRandomPlanet(layers: [number, number] = [3, 5]) {
+export function useCreateRandomPlanet(
+  layers: number | [number, number] = [3, 5]
+) {
   const store = usePlaygroundStore()
-  const numberOfLayers = random.integer(layers[0], layers[1])
+  const numberOfLayers =
+    layers instanceof Array ? random.integer(layers[0], layers[1]) : layers
   generateBasePlanet()
 
   for (let i = 0; i < numberOfLayers; i++) {

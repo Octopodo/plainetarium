@@ -1,21 +1,12 @@
 <script setup lang="ts">
 import UiLayout from '@/components/ui/BaseUi/UiLayout.vue'
-import StarField from './components/shaders/StarField.vue'
-import LightSphere from './components/shaders/LightSphere.vue'
-import PlainSphere from './components/shaders/PlainSphere.vue'
+
 import { usePlaygroundStore } from './stores'
-import { useCreateRandomPlanet } from '@/composables/ui'
+import { useCreateRandomPlanet, useInitPlayground } from '@/composables/ui'
 const store = usePlaygroundStore()
 
 const numLayers: [number, number] = [3, 10]
-store.addLayer(StarField)
-store.collapseLayer(store.layers[0])
-// store.addLayer(PlainSphere)
-// store.addLayer(LightSphere)
-// store.layers[0].controls
-// store.collapseLayer(store.layers[0])
-useCreateRandomPlanet(numLayers)
-
+useInitPlayground(numLayers)
 function regenerateLayers() {
   store.cleanLayers()
   useCreateRandomPlanet(numLayers)
