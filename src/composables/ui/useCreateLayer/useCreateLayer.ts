@@ -7,10 +7,12 @@ export function useCreateLayer(
   index: number,
   expanded: boolean = true,
   visible: boolean = true,
-  selected: boolean = false
+  selected: boolean = false,
+  parent: Layer | undefined
 ) {
   const layer: Layer = {
     id: uuidv4(),
+    parent: !parent ? null : parent,
     component: component,
     name: unWrapCamelCase(component.__name),
     children: [] as Layer[],
