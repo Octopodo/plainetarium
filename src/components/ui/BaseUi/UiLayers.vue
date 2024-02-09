@@ -20,6 +20,7 @@ function onDragEnd(event: any) {
 onMounted(() => {
   new Sortable(layersRef.value as HTMLDivElement, {
     animation: 100,
+    handle: '.ui-layer-header',
     onEnd: onDragEnd
   })
 })
