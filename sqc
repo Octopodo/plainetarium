@@ -1,0 +1,266 @@
+[33mcommit 10c631c0c659fbbc5f702aa570211cfe21787f22[m[33m ([m[1;36mHEAD -> [m[1;32mdrag[m[33m, [m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Fri Feb 9 14:41:02 2024 +0100
+
+    added vuedraggable
+
+[33mcommit 1226e8e28a4d79f6c825db72b1f921d8b5eefc5f[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Fri Feb 9 14:40:40 2024 +0100
+
+    Readme updated
+
+[33mcommit 71cba528739b660c6a02f79e7db41b0cb992228c[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Fri Feb 9 13:24:19 2024 +0100
+
+    Layer text is now unselectable
+
+[33mcommit 89c173e5686cc6c6405efdee7ae6a9a9e668ec66[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Fri Feb 9 13:13:12 2024 +0100
+
+    Build
+
+[33mcommit ccfd467fbc3bb1a03d79d98dddfce648dca40ac2[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Fri Feb 9 13:12:09 2024 +0100
+
+    Fixed layer name rendering
+
+[33mcommit 7af505dedb9060893473792e4530b1370c563efb[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Fri Feb 9 13:11:55 2024 +0100
+
+    uuid installed
+
+[33mcommit d903366afa83ac1d9a980a1ec7ccccde7594c60a[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Fri Feb 9 12:38:11 2024 +0100
+
+    build
+
+[33mcommit 502ef458f255d60cd611c06c3bf8842764821101[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Fri Feb 9 12:37:42 2024 +0100
+
+    Background color is black
+
+[33mcommit 966f3402114484475c86aa12793e8f48ac699628[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Fri Feb 9 01:59:04 2024 +0100
+
+    Build
+
+[33mcommit 8424d58dd4acaa064ba1279b384fdbe74a794a5c[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Fri Feb 9 01:57:51 2024 +0100
+
+    Added range to layers
+
+[33mcommit 717d516228d5364c0aa671a59b27257c65e6a6b8[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Fri Feb 9 01:41:55 2024 +0100
+
+    FIxed layer disconection from viewport and layers panel
+
+[33mcommit a660e241105993d8bc3b21fb5c8f9624125bdb90[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Fri Feb 9 01:03:27 2024 +0100
+
+    Twiked some values
+
+[33mcommit 047701436fb3e94ed5d79d2c105e30fafcb8d1a8[m[33m ([m[1;33mtag: v.0.0.10[m[33m, [m[1;32mv.0.0.10[m[33m)[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Fri Feb 9 00:53:06 2024 +0100
+
+    Build
+
+[33mcommit fa802b04a7d971846eb692edf0912f67d60836c3[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Fri Feb 9 00:52:18 2024 +0100
+
+    Refined random planet generation system
+
+[33mcommit b5fdf3fda951b8d13199284f9c472e0076c9224e[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Thu Feb 8 22:20:33 2024 +0100
+
+    Refactored layer creation
+
+[33mcommit 9b8471bcdbb5c3c852a5cba22c95a58df1f7ffae[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Thu Feb 8 21:28:39 2024 +0100
+
+    Reestructured layer structure, component model removed
+
+[33mcommit f1d2fa29289f588abf8ad68e4437957ca4e04ae6[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Thu Feb 8 12:15:31 2024 +0100
+
+    Build
+
+[33mcommit da5bae5fc62b69c673aaef48229414d21ddbb352[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Thu Feb 8 03:26:23 2024 +0100
+
+    Cientos de vambios
+
+[33mcommit 63c5eaa9e4ad1e1eaccf2d7bc6299579879ead6e[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Wed Feb 7 15:48:47 2024 +0100
+
+    Implemented saferange composable
+
+[33mcommit 6e0dcb8ad989d00d2d8ecccaf1dbb609b0155402[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Wed Feb 7 15:03:21 2024 +0100
+
+    Working starfield
+
+[33mcommit b59cd29d664a07c47bd4869ea7679cd997cf242b[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Tue Feb 6 20:59:30 2024 +0100
+
+    Testing deploy
+
+[33mcommit f9e9d73d867f204b89e5293375ef3b6a540f9ef5[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Tue Feb 6 20:54:09 2024 +0100
+
+    Changed build to docs folder
+
+[33mcommit 30e228f7066deca09323de6ab76f2088e9b86b9f[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Tue Feb 6 20:50:37 2024 +0100
+
+    First build
+
+[33mcommit 784f0d766cb666f9fbd2d24c052926cb4fd2be2c[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Tue Feb 6 20:35:37 2024 +0100
+
+    Changes for build
+
+[33mcommit f6bb43465f47926e8432febb1b6513b4fd399859[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Tue Feb 6 14:11:30 2024 +0100
+
+    Added index to layer
+
+[33mcommit 33a4e3c5fc49016cf2c6f5c3b2a869ec4f804fa1[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Tue Feb 6 14:11:13 2024 +0100
+
+    Removed focused layer
+
+[33mcommit a2db3d55006ed9f64c8099283d7cd6dfcd7dd153[m[33m ([m[1;33mtag: v.0.0.09[m[33m, [m[1;32mv.0.0.09[m[33m)[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Tue Feb 6 13:30:18 2024 +0100
+
+    Removed vuedraggable
+
+[33mcommit 8c39af5e16ccd2dacf9dcfc5b9ae486be90965d6[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Tue Feb 6 11:19:41 2024 +0100
+
+    Installed vue draggable
+
+[33mcommit fc1eef9cd5388e269d1462b81f49e8e36b66200d[m[33m ([m[1;31morigin/playground[m[33m)[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Tue Feb 6 00:22:28 2024 +0100
+
+    Added z-index to layer controls
+
+[33mcommit cec81d2514b3b17151a5360afc5c826e0652da50[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Tue Feb 6 00:09:44 2024 +0100
+
+    Fixed message passing throug parent and child
+
+[33mcommit d391e27099269d8292c69830fb36ed09ef263e5a[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Tue Feb 6 00:09:05 2024 +0100
+
+    Added title
+
+[33mcommit 64127ccbce167c2be9361875e5242dab0f7ab1c2[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Tue Feb 6 00:08:56 2024 +0100
+
+    Adde favivon an exo 2 font
+
+[33mcommit 97cd83913cffe120dc76b1c9b34483829c6ee3c4[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Mon Feb 5 21:07:44 2024 +0100
+
+    Implemented add and remove layers system
+
+[33mcommit 1dd2e89136efb74a9db43f8244a45b1cb1cc8bd7[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Mon Feb 5 19:18:26 2024 +0100
+
+    Added material icons
+
+[33mcommit cc70687a63f5023a8cbf11786cfe8e0396e550a5[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Mon Feb 5 19:00:29 2024 +0100
+
+    Fixed double light control
+
+[33mcommit 7bcbb8004bc53278c7058ea1b6c083f65e17f25f[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Mon Feb 5 18:38:02 2024 +0100
+
+    Viewport items centered
+
+[33mcommit 40cd17a2ede6b813fbf921efe1e1e4b43b26dc8c[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Mon Feb 5 18:32:25 2024 +0100
+
+    Transformation origin fixed
+
+[33mcommit f59fac13b1df74bff4d414289f1734acc7f0451c[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Mon Feb 5 18:15:08 2024 +0100
+
+    Base playground implemented
+
+[33mcommit c8d7be4e77897d30a7341f1a826207f57451603d[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Mon Feb 5 16:54:29 2024 +0100
+
+    Layout conected to store
+
+[33mcommit d877dd0386615ddf7996fe414a4071130d6fb510[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Sat Feb 3 17:16:46 2024 +0100
+
+    Added pinia
+
+[33mcommit 062bacffc0cd7542698335aeb001c212ce6387b3[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Sat Feb 3 17:16:35 2024 +0100
+
+    Project restructured
+
+[33mcommit 46ac00628793d828a3692960e9e2c20dd8ee9192[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Sat Feb 3 14:34:00 2024 +0100
+
+     printWidth reduced to 100
+
+[33mcommit 0a95d04a27ba4c3471c0bdf9a642c596b9d36386[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Sat Feb 3 14:33:41 2024 +0100
+
+    Implemented Control interface
+
+[33mcommit cf416cfdb9c90036ac7f2566a5ec98e497fd385c[m
+Author: Miguel de Mendoza <orson_wells40@hotmail.com>
+Date:   Sat Feb 3 14:33:18 2024 +0100
+
+    Added favicon
+
+[33mcommit 6565d215b617a2c9f7590244633e6ff6f35ec228[m
+Author: Miguel de Mendoza <orson_wel
