@@ -12,9 +12,11 @@ export const usePlaygroundStore = defineStore('playground', {
       expanded: boolean = true,
       visible: boolean = true,
       selected: boolean = false,
-      index?: number
+      index?: number,
+      parent?: Layer
     ) {
-      const _index = index || this.layers.length
+      const _index =
+        index || (parent ? parent.children.length : this.layers.length)
       const layer = useCreateLayer(
         component,
         _index,
@@ -22,10 +24,17 @@ export const usePlaygroundStore = defineStore('playground', {
         visible,
         selected
       )
-      this.layers.push(layer)
+
+      if (parent) {
+        parent.children.push(layer)
+      } else {
+        this.layers.push(layer)
+      }
+
       if (index !== undefined) {
         this.moveByIndex(layer, index)
       }
+
       return layer
     },
 
@@ -43,16 +52,19 @@ export const usePlaygroundStore = defineStore('playground', {
     getLayerByIndex(index: number) {
       return this.layers[index]
     },
-    removeLayer(layer: Layer) {
-      const index = this.layers.indexOf(layer)
+    removeLayer(layer: Layer, parent?: Layer) {
+      const layers = parent ? parent.children : this.layers
+      const index = layers.indexOf(layer)
       if (index === -1) return
-      this.layers.splice(index, 1)
+      layers.splice(index, 1)
     },
-    moveByIndex(layer: Layer, to: number) {
-      const index = this.layers.indexOf(layer)
+
+    moveByIndex(layer: Layer, to: number, parent?: Layer) {
+      const layers = parent ? parent.children : this.layers
+      const index = layers.indexOf(layer)
       if (index === -1) return
-      this.layers.splice(index, 1)
-      this.layers.splice(to, 0, layer)
+      layers.splice(index, 1)
+      layers.splice(to, 0, layer)
       layer.index = to
     },
     expandLayer(layer: Layer) {
