@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import { usePlaygroundStore } from '@/stores'
 import UiAddLayersToolbar from './UiAddLayersToolbar.vue'
+import { computed } from 'vue'
 
 import UiLayer from './UiLayer.vue'
 
 const playgroundStore = usePlaygroundStore()
-const layers = playgroundStore.layers
+const layers = computed(() => playgroundStore.layers)
 </script>
 <template>
   <div class="ui-layers-panel">
@@ -25,6 +26,7 @@ const layers = playgroundStore.layers
 .ui-layers-panel {
   display: flex;
   flex-direction: column;
+  margin-top: 2rem;
 }
 .ui-layers {
   /* position: absolute; */

@@ -40,17 +40,22 @@ function regenerateLayers() {
   display: flex;
   flex-direction: row;
   top: 0;
-  position: absolute;
+  position: fixed;
   font-family: 'Exo 2', sans-serif;
   font-size: 1.5rem;
+  z-index: 100;
   left: 42%;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  left: 0;
+  backdrop-filter: blur(7px);
 }
 
 .logo {
   margin-right: 1rem;
   margin-top: 0.5rem;
+  margin-left: 1.5rem;
   cursor: pointer;
-  z-index: 100;
 }
 
 .title {

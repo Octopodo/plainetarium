@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import { usePlaygroundStore } from '@/stores'
-import { toRaw } from 'vue'
+import { toRaw, computed } from 'vue'
 
 const playgroundStore = usePlaygroundStore()
+const layers = computed(() => playgroundStore.layers)
 </script>
 <template>
   <div class="ui-viewport">
     <template
-      v-for="(layer, index) in playgroundStore.layers"
+      v-for="(layer, index) in layers"
       :key="index"
     >
       <component
