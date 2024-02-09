@@ -1,8 +1,6 @@
 <script lang="ts" setup="{ props }">
 import UiViewport from './UiViewport.vue'
 import UiLayers from './UiLayers.vue'
-import { type Control } from '@/types'
-import { provide } from 'vue'
 </script>
 <template>
   <div class="Ui-layout">

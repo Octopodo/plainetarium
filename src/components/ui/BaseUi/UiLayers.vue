@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { usePlaygroundStore } from '@/stores'
-import UiAddLayersToolbar from './UiAddLayersToolbar.vue'
 import { computed } from 'vue'
+
+import UiAddLayersToolbar from './UiAddLayersToolbar.vue'
+import Draggable from 'vuedraggable'
 
 import UiLayer from './UiLayer.vue'
 
@@ -11,14 +13,18 @@ const layers = computed(() => playgroundStore.layers)
 <template>
   <div class="ui-layers-panel unselectable">
     <UiAddLayersToolbar />
-    <div class="ui-layers">
-      <div
-        v-for="layer in layers"
-        :key="layer.id"
-      >
-        <UiLayer :layer-data="layer" />
-      </div>
-    </div>
+    <!-- <div class="ui-layers"> -->
+    <Draggable
+      :v-model="layers"
+      tag="transition-group"
+      class="ui-layers"
+      itemid="id"
+    >
+      <template #item="{ element }">
+        <UiLayer :layer-data="element" />
+      </template>
+    </Draggable>
+    <!-- </div> -->
   </div>
 </template>
 
