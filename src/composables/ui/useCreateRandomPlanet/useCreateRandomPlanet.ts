@@ -6,7 +6,7 @@ import { Random } from 'random-js'
 import { type Control, type Layer } from '@/types'
 
 const components = [PlainSphere, LightSphere]
-const maxOpacity = 15
+const maxOpacity = 10
 const minOpacity = 2
 const random = new Random()
 export function useCreateRandomPlanet(layers: number = 3) {
@@ -21,7 +21,7 @@ export function useCreateRandomPlanet(layers: number = 3) {
     const index = random.integer(0, components.length - 1)
     const component = components[index]
     const layer = store.addLayer(component, false, true, false)
-    store.renameLayer(layer, layer.component.__name)
+    store.renameLayer(layer, component.__name)
     setRandomControls(layer)
   }
 }
@@ -59,7 +59,7 @@ function generateBasePlanet() {
     distance: 90
   })
 
-  const randomLight = random.bool()
+  const randomLight = false //random.bool()
   const randomLightX = random.integer(-9, 9)
   const randomLightY = random.integer(-9, 9)
   store.setControlsValues(baseShadow, {
