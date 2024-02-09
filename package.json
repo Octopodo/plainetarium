@@ -18,9 +18,12 @@
     "@mdi/js": "^7.4.47",
     "@mdi/light-js": "^0.2.63",
     "@types/tinycolor2": "^1.4.6",
+    "@types/uuid": "^9.0.8",
     "@vueuse/core": "^10.7.2",
     "pinia": "^2.1.7",
+    "random-js": "^2.1.0",
     "tinycolor2": "^1.6.0",
+    "uuid": "^9.0.1",
     "vue": "^3.4.15"
   },
   "devDependencies": {
