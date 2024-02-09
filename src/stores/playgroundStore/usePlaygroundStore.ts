@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { type Layer } from '@/types'
 import { useCreateLayer, useSetControlValues } from '@/composables/ui'
+
 export const usePlaygroundStore = defineStore('playground', {
   state: () => ({
     layers: [] as Layer[]

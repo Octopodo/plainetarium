@@ -13,8 +13,8 @@ const layers = computed(() => playgroundStore.layers)
     <UiAddLayersToolbar />
     <div class="ui-layers">
       <div
-        v-for="(layer, index) in layers"
-        :key="index"
+        v-for="layer in layers"
+        :key="layer.id"
       >
         <UiLayer :layer-data="layer" />
       </div>

@@ -1,6 +1,7 @@
 import { type Layer, type PropsValues } from '@/types'
 import { useCreateControls } from '@/composables/ui'
 import { unWrapCamelCase } from '@/utils'
+import { v4 as uuidv4 } from 'uuid'
 export function useCreateLayer(
   component: any,
   index: number,
@@ -9,6 +10,7 @@ export function useCreateLayer(
   selected: boolean = false
 ) {
   const layer: Layer = {
+    id: uuidv4(),
     component: component,
     name: unWrapCamelCase(component.__name),
     children: [] as Layer[],
