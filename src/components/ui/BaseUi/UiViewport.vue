@@ -8,8 +8,8 @@ const layers = computed(() => playgroundStore.layers)
 <template>
   <div class="ui-viewport">
     <template
-      v-for="(layer, index) in layers"
-      :key="index"
+      v-for="layer in layers"
+      :key="layer.id"
     >
       <component
         v-if="layer.visible"

@@ -1,30 +1,43 @@
 <script lang="ts" setup>
 import { usePlaygroundStore } from '@/stores'
-import { computed } from 'vue'
+import { ref, computed, onMounted, type Ref } from 'vue'
 
+import Sortable from 'sortablejs'
 import UiAddLayersToolbar from './UiAddLayersToolbar.vue'
-import Draggable from 'vuedraggable'
 
 import UiLayer from './UiLayer.vue'
 
 const playgroundStore = usePlaygroundStore()
 const layers = computed(() => playgroundStore.layers)
+const layersRef: Ref<HTMLElement | null> = ref(null)
+
+function onDragEnd(event: any) {
+  const oldIndex = event.oldIndex
+  const newIndex = event.newIndex
+  const layer = playgroundStore.layers[oldIndex]
+  playgroundStore.moveByIndex(layer, newIndex)
+}
+onMounted(() => {
+  new Sortable(layersRef.value as HTMLDivElement, {
+    animation: 100,
+    onEnd: onDragEnd
+  })
+})
 </script>
 <template>
   <div class="ui-layers-panel unselectable">
     <UiAddLayersToolbar />
-    <!-- <div class="ui-layers"> -->
-    <Draggable
-      :v-model="layers"
-      tag="transition-group"
+    <div
       class="ui-layers"
-      itemid="id"
+      ref="layersRef"
     >
-      <template #item="{ element }">
-        <UiLayer :layer-data="element" />
+      <template
+        v-for="layer in layers"
+        :key="layer.id"
+      >
+        <UiLayer :layer-data="layer" />
       </template>
-    </Draggable>
-    <!-- </div> -->
+    </div>
   </div>
 </template>
 

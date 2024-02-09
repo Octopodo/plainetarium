@@ -40,6 +40,9 @@ export const usePlaygroundStore = defineStore('playground', {
     setControlsValues(layer: Layer, propValues: Record<string, any>) {
       useSetControlValues(layer, propValues)
     },
+    getLayerByIndex(index: number) {
+      return this.layers[index]
+    },
     removeLayer(layer: Layer) {
       const index = this.layers.indexOf(layer)
       if (index === -1) return
