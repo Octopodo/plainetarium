@@ -8,44 +8,21 @@ import UiClickableInputText from '../Controls/UiClickableInputText.vue'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiEyeOutline, mdiEyeOffOutline, mdiCloseCircle } from '@mdi/js'
 import { onClickOutside } from '@vueuse/core'
+import { useLayer, LayerProps } from '@/composables/ui'
+const props = defineProps({ ...LayerProps })
 
-const props = defineProps({
-  layerData: { type: Object as PropType<Layer>, required: true }
-})
-
-const layer = ref<HTMLInputElement | null>(null)
 const playgroundStore = usePlaygroundStore()
-const layerName = ref(unWrapCamelCase(props.layerData.name))
-function select() {
-  if (!props.layerData.expanded) {
-    playgroundStore.expandLayer(props.layerData)
-  } else {
-    playgroundStore.collapseLayer(props.layerData)
-  }
-}
 
-function hideLayer() {
-  playgroundStore.hideLayer(props.layerData)
-}
-
-function removeLayer() {
-  playgroundStore.removeLayer(props.layerData)
-}
-
-const layerNameChanged = (newName: string) => {
-  playgroundStore.renameLayer(props.layerData, newName)
-}
-
-const selectLayer = () => {
-  if (!props.layerData.selected) {
-    playgroundStore.selectLayer(props.layerData)
-  } else {
-    playgroundStore.deselectLayer(props.layerData)
-  }
-}
-onClickOutside(layer, () => {
-  playgroundStore.deselectLayer(props.layerData)
-})
+const {
+  layer,
+  layerData,
+  layerName,
+  select,
+  hideLayer,
+  removeLayer,
+  layerNameChanged,
+  selectLayer
+} = useLayer({ ...props }, playgroundStore)
 </script>
 <template>
   <div
