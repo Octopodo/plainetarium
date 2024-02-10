@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import { type Layer } from '@/types'
+import { type PropsValues } from '@/types'
 import { ref, type PropType } from 'vue'
-import { unWrapCamelCase } from '@/utils'
+
 import { usePlaygroundStore } from '@/stores'
 import UiControls from './UiControls.vue'
 import UiClickableInputText from '../Controls/UiClickableInputText.vue'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiEyeOutline, mdiEyeOffOutline, mdiCloseCircle } from '@mdi/js'
-import { onClickOutside } from '@vueuse/core'
-import { useLayer, LayerProps } from '@/composables/ui'
-const props = defineProps({ ...LayerProps })
+import { useLayer, LayerProps, type LayerPropsType } from '@/composables/ui'
 
 const playgroundStore = usePlaygroundStore()
 
+const props = defineProps(LayerProps) as LayerPropsType & PropsValues
 const {
   layer,
   layerData,
@@ -22,7 +21,7 @@ const {
   removeLayer,
   layerNameChanged,
   selectLayer
-} = useLayer({ ...props }, playgroundStore)
+} = useLayer(props, playgroundStore)
 </script>
 <template>
   <div

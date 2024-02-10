@@ -3,12 +3,12 @@ import { ref, computed, type PropType } from 'vue'
 import { unWrapCamelCase } from '@/utils'
 import { onClickOutside } from '@vueuse/core'
 
-export interface LayerPropsType extends PropsValues {
+export interface LayerPropsType {
   layerData: Layer
 }
 
 export const LayerProps = {
-  layerData: { type: Object as PropType<LayerPropsType>, required: true }
+  layerData: { type: Object as PropType<Layer>, required: true }
 }
 
 export function useLayer(props: LayerPropsType & PropsValues, store: any) {
