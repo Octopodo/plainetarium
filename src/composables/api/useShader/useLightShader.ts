@@ -1,4 +1,5 @@
 import { computed, type CSSProperties } from 'vue'
+import { type PropsValues } from '@/types'
 import {
   useLightDistance,
   useLightColor,
@@ -25,7 +26,7 @@ export const LightShaderProps = {
   light: Boolean
 }
 
-export function useLightShader(props: Required<LightShaderPropsType>) {
+export function useLightShader(props: LightShaderPropsType & PropsValues) {
   const { transparentColor, solidColor } = useLightColor(props)
   const { cssLightCenter, cssLightEnd } = useLightDistance(props)
   const { cssXRotation, cssYRotation } = useLightRotation(props)

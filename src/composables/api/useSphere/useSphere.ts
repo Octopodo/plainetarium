@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-
+import { type PropsValues } from '@/types'
 export interface SpherePropsType {
   size: number | string
   opacity: number | string
@@ -36,7 +36,7 @@ export const SphereProps = {
   ...SphereColorProps
 }
 
-export function useSphere(props: SpherePropsType & Record<string, unknown>) {
+export function useSphere(props: SpherePropsType & PropsValues) {
   const size = computed(() => Number(props.size))
   const opacity = computed(() => Number(props.opacity))
   const color = computed(() => String(props.color))
