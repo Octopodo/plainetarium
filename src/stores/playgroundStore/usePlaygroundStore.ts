@@ -87,20 +87,33 @@ export const usePlaygroundStore = defineStore('playground', {
       return this.layers[index]
     },
 
-    removeLayer(layer: Layer, parent?: Layer) {
+    removeLayer(layer: Layer) {
+      const parent = layer.parent
       const layers = parent ? parent.children : this.layers
       const index = layers.indexOf(layer)
       if (index === -1) return
       layers.splice(index, 1)
     },
 
-    moveByIndex(layer: Layer, to: number, parent?: Layer) {
+    moveByIndex(layer: Layer, to: number) {
+      const parent = layer.parent
       const layers = parent ? parent.children : this.layers
       const index = layers.indexOf(layer)
       if (index === -1) return
       layers.splice(index, 1)
       layers.splice(to, 0, layer)
       layer.index = to
+    },
+
+    isAncestor(possibleAncestor: Layer, layer: Layer): boolean {
+      let current = layer.parent
+      while (current !== null) {
+        if (current === possibleAncestor) {
+          return true
+        }
+        current = current.parent
+      }
+      return false
     }
   }
 })
