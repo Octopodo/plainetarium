@@ -13,21 +13,6 @@ const props = defineProps({
 })
 const layers = computed(() => props.layers)
 const layersRef: Ref<HTMLElement | null> = ref(null)
-
-function onDragEnd(event: any) {
-  const oldIndex = event.oldIndex as keyof typeof layers.value
-  const newIndex: number = event.newIndex
-  const layer = layers.value[oldIndex] as Layer
-
-  playgroundStore.moveByIndex(layer, newIndex)
-}
-onMounted(() => {
-  new Sortable(layersRef.value as HTMLDivElement, {
-    animation: 100,
-    handle: '.ui-layer-header',
-    onEnd: onDragEnd
-  })
-})
 </script>
 <template>
   <div class="ui-layers-panel unselectable">

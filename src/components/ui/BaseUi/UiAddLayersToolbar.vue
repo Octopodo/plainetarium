@@ -10,7 +10,7 @@ import LightSphere from '@/components/shaders/LightSphere.vue'
 const playgroundStore = usePlaygroundStore()
 
 function addLayer(component: Object) {
-  playgroundStore.addLayer(component)
+  playgroundStore.addLayer({ component })
 }
 </script>
 <template>

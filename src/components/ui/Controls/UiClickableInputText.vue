@@ -89,8 +89,9 @@ watch(
 
 <style scoped>
 .double-click-input-text {
-  width: 100%;
+  /* width: 100%; */
   height: 100%;
+  /* background-color: rgb(255 255 255 / 50%); */
 }
 
 .double-click-input-text.dark-hover .ui-input-text:focus {

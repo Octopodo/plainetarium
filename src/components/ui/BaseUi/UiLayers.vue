@@ -15,7 +15,7 @@ function onDragEnd(event: any) {
   const oldIndex = event.oldIndex
   const newIndex = event.newIndex
   const layer = playgroundStore.layers[oldIndex]
-  playgroundStore.moveByIndex(layer, newIndex)
+  // playgroundStore.moveByIndex(layer, newIndex)
 }
 onMounted(() => {
   new Sortable(layersRef.value as HTMLDivElement, {
