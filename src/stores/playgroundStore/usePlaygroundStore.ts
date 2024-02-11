@@ -1,42 +1,137 @@
 import { defineStore } from 'pinia'
 import { type Layer } from '@/types'
-import { useCreateLayer, useSetControlValues } from '@/composables/ui'
+import {
+  useCreateLayer,
+  useSetControlValues,
+  type LayerOptions
+} from '@/composables/ui'
+import { v4 as uuidv4 } from 'uuid'
+
+type MaybeLayer = Layer | null | undefined
+type MaybeLayerOrId = MaybeLayer | string
 
 export const usePlaygroundStore = defineStore('playground', {
   state: () => ({
-    layers: [] as Layer[]
+    layers: [] as Layer[],
+    layersHashList: {} as Record<string, Layer>
   }),
-  actions: {
-    addLayer(
-      component: Object,
-      expanded: boolean = true,
-      visible: boolean = true,
-      selected: boolean = false,
-      index?: number,
-      parent?: Layer
-    ) {
-      index = index || (parent ? parent.children.length : this.layers.length)
 
-      const layer = useCreateLayer(
+  actions: {
+    addLayer(options: LayerOptions) {
+      options.id = options.id || this.generateLayerId()
+      const layer = useCreateLayer(options)
+      const targetId = this.getLayerId(options.parent)
+      const index = this.getLayerIndex(layer)
+      this.insertLayer(layer, targetId, index)
+      return layer
+    },
+
+    cleanLayers() {
+      if (this.layers[0] && this.layers[0].component.__name === 'StarField') {
+        this.layers = [this.layers[0]]
+      } else {
+        this.layers = []
+      }
+    },
+
+    duplicatelayer(layer: Layer) {
+      const { component, expanded, visible, selected, parent, index } = layer
+      this.addLayer({
         component,
-        index,
         expanded,
         visible,
         selected,
-        parent
-      )
+        parent,
+        index: index + 1
+      })
+    },
 
-      if (parent) {
-        parent.children.push(layer)
-      } else {
-        this.layers.push(layer)
-      }
+    setLayerParent(
+      layerOrId: MaybeLayerOrId,
+      targetLayerOrId?: MaybeLayerOrId
+    ) {
+      const layer = this.getLayer(layerOrId)
+      if (!layer) return
+      const targetParent = this.getLayer(targetLayerOrId) || null
+      layer.parent = targetParent
+    },
 
-      if (index !== undefined) {
-        this.moveByIndex(layer, index)
-      }
+    deleteLayer(layerOrId: MaybeLayerOrId) {
+      const layer = this.getLayer(layerOrId)
+      if (!layer) return
+      this.detachLayer(layer)
+      delete this.layersHashList[layer.id]
+    },
 
+    detachLayer(layerOrId: MaybeLayerOrId) {
+      const layer = this.getLayer(layerOrId)
+      if (!layer) return
+      const targetList = this.getTargetList(layer.parent)
+      const index = targetList.indexOf(layer)
+      if (index === -1) return
+      targetList.splice(index, 1)
+      layer.index = -1
+      layer.parent = null
       return layer
+    },
+
+    insertLayer(
+      layerOrId: MaybeLayerOrId,
+      targetLayerOrId?: MaybeLayerOrId,
+      index?: number
+    ) {
+      const layer = this.getLayer(layerOrId)
+      if (!layer) return
+      const target = this.getLayer(targetLayerOrId) || null
+      const targetList = this.getTargetList(target)
+      index = !index || index === -1 ? targetList.length : index
+      targetList.splice(index, 0, layer)
+      layer.index = index
+      layer.parent = target
+      this.layersHashList[layer.id] = layer
+    },
+
+    isAncestor(
+      targetAncestorLayerOrId: MaybeLayerOrId,
+      layerOrId: MaybeLayerOrId
+    ): boolean {
+      const targetAncestor = this.getLayer(targetAncestorLayerOrId)
+      const layer = this.getLayer(layerOrId)
+      if (!targetAncestor || !layer) return false
+      let currentAcestor = layer.parent
+      while (currentAcestor !== null) {
+        if (currentAcestor === targetAncestor) {
+          return true
+        }
+        currentAcestor = currentAcestor.parent
+      }
+      return false
+    },
+
+    moveLayer(
+      layerOrId: MaybeLayerOrId,
+      targetLayerOrID: MaybeLayerOrId,
+      index?: number
+    ) {
+      const layer = this.getLayer(layerOrId)
+      if (!layer) return
+      this.detachLayer(layer)
+      this.insertLayer(layer, targetLayerOrID, index)
+      return layer
+    },
+
+    setControlsValues(layer: Layer, propValues: Record<string, any>) {
+      useSetControlValues(layer, propValues)
+    },
+
+    getLayerByIndex(index: number) {
+      return this.layers[index]
+    },
+
+    getLayer(layerOrId: MaybeLayerOrId) {
+      return typeof layerOrId === 'string'
+        ? this.getLayerById(layerOrId)
+        : layerOrId
     },
 
     expandLayer(layer: Layer) {
@@ -63,57 +158,28 @@ export const usePlaygroundStore = defineStore('playground', {
       layer.name = name
     },
 
-    cleanLayers() {
-      if (this.layers[0].component.__name === 'StarField') {
-        this.layers = [this.layers[0]]
-      } else {
-        this.layers = []
+    getLayerById(id: string) {
+      return this.layersHashList[id] || null
+    },
+
+    getLayerId(layer: MaybeLayer) {
+      return layer ? layer.id : undefined
+    },
+
+    getLayerIndex(layer: MaybeLayer) {
+      return layer ? layer.index : -1
+    },
+
+    getTargetList(target: MaybeLayer) {
+      return target ? target.children : this.layers
+    },
+
+    generateLayerId() {
+      let uuid = uuidv4()
+      while (this.layersHashList[uuid]) {
+        uuid = uuidv4()
       }
-    },
-
-    duplicatelayer(layer: Layer) {
-      this.addLayer(
-        layer.component,
-        layer.expanded,
-        layer.visible,
-        layer.selected
-      )
-    },
-    setControlsValues(layer: Layer, propValues: Record<string, any>) {
-      useSetControlValues(layer, propValues)
-    },
-
-    getLayerByIndex(index: number) {
-      return this.layers[index]
-    },
-
-    removeLayer(layer: Layer) {
-      const parent = layer.parent
-      const layers = parent ? parent.children : this.layers
-      const index = layers.indexOf(layer)
-      if (index === -1) return
-      layers.splice(index, 1)
-    },
-
-    moveByIndex(layer: Layer, to: number) {
-      const parent = layer.parent
-      const layers = parent ? parent.children : this.layers
-      const index = layers.indexOf(layer)
-      if (index === -1) return
-      layers.splice(index, 1)
-      layers.splice(to, 0, layer)
-      layer.index = to
-    },
-
-    isAncestor(possibleAncestor: Layer, layer: Layer): boolean {
-      let current = layer.parent
-      while (current !== null) {
-        if (current === possibleAncestor) {
-          return true
-        }
-        current = current.parent
-      }
-      return false
+      return uuid
     }
   }
 })
