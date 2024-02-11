@@ -24,7 +24,7 @@ export function useCreateRandomPlanet(
   function createRandomLayer() {
     const index = random.integer(0, components.length - 1)
     const component = components[index]
-    const layer = store.addLayer(component, false, true, false)
+    const layer = store.addLayer({ component })
     store.renameLayer(layer, component.__name || 'Layer')
     setRandomControls(layer)
   }
@@ -33,15 +33,10 @@ export function useCreateRandomPlanet(
 function generateBasePlanet() {
   const store = usePlaygroundStore()
   const baseSize = random.integer(100, 800)
-  const baseLayer = store.addLayer(components[0], false, true, true)
-  const baseAmbientShadowLayer = store.addLayer(
-    components[1],
-    false,
-    true,
-    false
-  )
-  const baseShadow = store.addLayer(components[1], false, true, false)
-  const baseLight = store.addLayer(components[1], false, true, false)
+  const baseLayer = store.addLayer({ component: components[0] })
+  const baseAmbientShadowLayer = store.addLayer({ component: components[1] })
+  const baseShadow = store.addLayer({ component: components[1] })
+  const baseLight = store.addLayer({ component: components[1] })
 
   store.renameLayer(baseLayer, 'Base')
   store.renameLayer(baseAmbientShadowLayer, 'Ambient Shadow')

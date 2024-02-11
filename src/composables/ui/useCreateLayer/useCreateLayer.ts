@@ -1,27 +1,32 @@
 import { type Layer, type PropsValues } from '@/types'
 import { useCreateControls } from '@/composables/ui'
 import { unWrapCamelCase } from '@/utils'
-import { v4 as uuidv4 } from 'uuid'
-export function useCreateLayer(
-  component: any,
-  index: number,
-  expanded: boolean = true,
-  visible: boolean = true,
-  selected: boolean = false,
-  parent: Layer | undefined
-) {
+import { reactive } from 'vue'
+
+export interface LayerOptions {
+  component: any
+  expanded?: boolean
+  visible?: boolean
+  selected?: boolean
+  index?: number
+  parent?: Layer | null
+  id?: string
+}
+
+export function useCreateLayer(options: LayerOptions) {
+  const { component, expanded, visible, selected, index, parent } = options
   const layer: Layer = {
-    id: uuidv4(),
+    id: options.id || '',
     parent: !parent ? null : parent,
     component: component,
     name: unWrapCamelCase(component.__name),
-    children: [] as Layer[],
+    children: [],
     controls: useCreateControls(component.props),
     props: {} as PropsValues,
-    expanded: expanded,
-    visible: visible,
-    index: index,
-    selected: selected
+    expanded: expanded || false,
+    visible: visible || true,
+    index: index || -1,
+    selected: selected || false
   }
   layer.controls.forEach((control) => {
     if (!control.modelName) return
@@ -30,3 +35,10 @@ export function useCreateLayer(
 
   return layer
 }
+
+
+interface test {
+  lay: number
+  stone: string
+}
+
