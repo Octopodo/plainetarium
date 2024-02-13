@@ -16,7 +16,7 @@ import {
 } from '@mdi/js'
 import SvgIcon from '@jamescoyle/vue-icon'
 import UiClickableInputText from '../Controls/UiClickableInputText.vue'
-import UiDragArea from '../BaseUi/UiDragArea.vue'
+import { UiDragArea } from '@/components/ui/Widgets'
 
 const props = defineProps({
   ...LayerHeaderProps,

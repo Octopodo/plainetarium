@@ -2,7 +2,7 @@
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiPlusCircle, mdiLightbulbOn10 } from '@mdi/js'
 import { usePlaygroundStore } from '@/stores'
-import UiIconButton from './UiIconButton.vue'
+import { UiIconButton } from '@/components/ui/Widgets'
 
 import PlainSphere from '@/components/shaders/PlainSphere.vue'
 import LightSphere from '@/components/shaders/LightSphere.vue'
