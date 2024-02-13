@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { usePlaygroundStore } from '@/stores'
 import { ref, computed, onMounted, type Ref } from 'vue'
+import { useSortableList } from '@/composables/ui'
 
 import Sortable from 'sortablejs'
 import UiAddLayersToolbar from './UiAddLayersToolbar.vue'
@@ -10,20 +11,7 @@ import UiLayer from './UiLayer.vue'
 const playgroundStore = usePlaygroundStore()
 const layers = computed(() => playgroundStore.layers)
 const layersRef: Ref<HTMLElement | null> = ref(null)
-
-function onDragEnd(event: any) {
-  const oldIndex = event.oldIndex
-  const newIndex = event.newIndex
-  const layer = playgroundStore.layers[oldIndex]
-  // playgroundStore.moveByIndex(layer, newIndex)
-}
-onMounted(() => {
-  new Sortable(layersRef.value as HTMLDivElement, {
-    animation: 100,
-    handle: '.ui-layer-header',
-    onEnd: onDragEnd
-  })
-})
+useSortableList(layersRef)
 </script>
 <template>
   <div class="ui-layers-panel unselectable">

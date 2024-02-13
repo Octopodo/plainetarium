@@ -16,16 +16,14 @@ import {
 } from '@mdi/js'
 import SvgIcon from '@jamescoyle/vue-icon'
 import UiClickableInputText from '../Controls/UiClickableInputText.vue'
-import { UiDragArea } from '@/components/ui/Widgets'
 
 const props = defineProps({
   ...LayerHeaderProps,
   ...LayerProps
 }) as LayerPropsType & LayerHeaderPropsType & PropsValues
 
-const clickTimeout = ref(100)
+const clickTimeout = ref(130)
 const isDoubleClick = ref(false)
-const dragZone = ref<HTMLElement[] | null>(null)
 const { layerData } = useLayer(props)
 const { layerName, hideLayer, removeLayer, changeLayerName, expandLayer } =
   useLayerHeader(props)
@@ -43,12 +41,6 @@ function delayedExpandLayer() {
 function textDoubleClick() {
   isDoubleClick.value = true
 }
-
-// onMounted(() => {
-//   watch(dragZone.value.mouseInTop, () => {
-//     console.log('mouseInTop')
-//   })
-// })
 </script>
 <template>
   <div class="ui-layer-header">
@@ -56,16 +48,6 @@ function textDoubleClick() {
       class="expand-area"
       @click="expandLayer"
     ></div>
-    <!-- <UiDragArea
-      ref="dragZone"
-      top-widht="100"
-      center-width="100"
-      bottom-width="100"
-      left-width="0"
-      right-width="0"
-      top
-      bottom
-    /> -->
     <div @click="hideLayer">
       <SvgIcon
         class="icon white-text"

@@ -22,7 +22,7 @@ export const usePlaygroundStore = defineStore('playground', {
       const layer = useCreateLayer(options)
       const targetId = this.getLayerId(options.parent)
       const index = this.getLayerIndex(layer)
-      this.insertLayer(layer, targetId, index)
+      this.insertLayer(layer, index, targetId)
       return layer
     },
 
@@ -77,16 +77,19 @@ export const usePlaygroundStore = defineStore('playground', {
 
     insertLayer(
       layerOrId: MaybeLayerOrId,
-      targetLayerOrId?: MaybeLayerOrId,
-      index?: number
+      newIndex?: number,
+      targetLayerOrId?: MaybeLayerOrId
     ) {
       const layer = this.getLayer(layerOrId)
       if (!layer) return
       const target = this.getLayer(targetLayerOrId) || null
       const targetList = this.getTargetList(target)
-      index = !index || index === -1 ? targetList.length : index
-      targetList.splice(index, 0, layer)
-      layer.index = index
+      newIndex =
+        newIndex === undefined || newIndex === null || newIndex === -1
+          ? targetList.length
+          : newIndex
+      targetList.splice(newIndex, 0, layer)
+      layer.index = newIndex
       layer.parent = target
       this.layersHashList[layer.id] = layer
     },
@@ -110,13 +113,13 @@ export const usePlaygroundStore = defineStore('playground', {
 
     moveLayer(
       layerOrId: MaybeLayerOrId,
-      targetLayerOrID: MaybeLayerOrId,
-      index?: number
+      newIndex?: number,
+      targetLayerOrID?: MaybeLayerOrId
     ) {
       const layer = this.getLayer(layerOrId)
       if (!layer) return
       this.detachLayer(layer)
-      this.insertLayer(layer, targetLayerOrID, index)
+      this.insertLayer(layer, newIndex, targetLayerOrID)
       return layer
     },
 
