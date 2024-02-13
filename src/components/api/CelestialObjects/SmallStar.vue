@@ -8,7 +8,7 @@ import {
   type Ref,
   type ComputedRef
 } from 'vue'
-import { type NumericProp } from '@/types'
+
 import tinycolor from 'tinycolor2'
 import { useRandomColor } from '@/composables/common'
 import { Random } from 'random-js'

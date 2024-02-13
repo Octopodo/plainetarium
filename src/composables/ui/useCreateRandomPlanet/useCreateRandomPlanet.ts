@@ -1,4 +1,4 @@
-import * as Shaders from '@/components/shaders'
+import * as Shaders from '@/components/api/Shaders'
 import { useRandomColor } from '@/composables/common'
 import { usePlaygroundStore } from '@/stores'
 import { Random } from 'random-js'
@@ -8,6 +8,7 @@ import { getRandomAttribute } from '@/utils'
 const maxOpacity = 15
 const minOpacity = 1
 const random = new Random()
+
 export function useCreateRandomPlanet(
   layers: number | [number, number] = [3, 5]
 ) {

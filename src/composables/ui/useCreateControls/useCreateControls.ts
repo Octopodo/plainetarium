@@ -30,11 +30,15 @@ export function useCreateControl(
   }
 
   if (prop === Boolean) {
-    createControl.chackbox(prop, control)
+    createControl.checkbox(prop, control)
   } else {
     const property = prop as ExtendedProp
     const key = property.control as keyof typeof createControl
-    createControl[key](property, control)
+    try {
+      createControl[key](property, control)
+    } catch (e) {
+      console.error(control.name, key)
+    }
   }
 
   return control
@@ -69,7 +73,7 @@ function createButtonControl(prop: ExtendedProp, control: Control) {
 }
 
 const createControl = {
-  chackbox: createCheckboxControl,
+  checkbox: createCheckboxControl,
   color: createColorControl,
   range: createRangeControl,
   button: createButtonControl

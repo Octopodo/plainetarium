@@ -1,4 +1,4 @@
-import StarField from '@/components/shaders/StarField.vue'
+import { StarField } from '@/components/api/CelestialObjects'
 import { useCreateRandomPlanet } from '@/composables/ui'
 import { usePlaygroundStore } from '@/stores'
 export function useInitPlayground(layerRange: [number, number] = [3, 5]) {
