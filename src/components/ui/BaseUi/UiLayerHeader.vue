@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropsValues } from '@/types'
 import type { LayerPropsType, LayerHeaderPropsType } from '@/composables/ui'
-import { ref } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import {
   LayerProps,
   LayerHeaderProps,
@@ -16,6 +16,7 @@ import {
 } from '@mdi/js'
 import SvgIcon from '@jamescoyle/vue-icon'
 import UiClickableInputText from '../Controls/UiClickableInputText.vue'
+import UiDragArea from '../BaseUi/UiDragArea.vue'
 
 const props = defineProps({
   ...LayerHeaderProps,
@@ -24,6 +25,7 @@ const props = defineProps({
 
 const clickTimeout = ref(100)
 const isDoubleClick = ref(false)
+const dragZone = ref<HTMLElement[] | null>(null)
 const { layerData } = useLayer(props)
 const { layerName, hideLayer, removeLayer, changeLayerName, expandLayer } =
   useLayerHeader(props)
@@ -41,6 +43,12 @@ function delayedExpandLayer() {
 function textDoubleClick() {
   isDoubleClick.value = true
 }
+
+// onMounted(() => {
+//   watch(dragZone.value.mouseInTop, () => {
+//     console.log('mouseInTop')
+//   })
+// })
 </script>
 <template>
   <div class="ui-layer-header">
@@ -48,6 +56,16 @@ function textDoubleClick() {
       class="expand-area"
       @click="expandLayer"
     ></div>
+    <!-- <UiDragArea
+      ref="dragZone"
+      top-widht="100"
+      center-width="100"
+      bottom-width="100"
+      left-width="0"
+      right-width="0"
+      top
+      bottom
+    /> -->
     <div @click="hideLayer">
       <SvgIcon
         class="icon white-text"
@@ -71,6 +89,7 @@ function textDoubleClick() {
       @dblclick="textDoubleClick"
       @change="changeLayerName($event)"
     />
+    <slot />
     <div @click="removeLayer">
       <SvgIcon
         class="close-icon"
