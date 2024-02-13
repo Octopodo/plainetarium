@@ -12,8 +12,8 @@ const props = defineProps({
   ...SphereOpacityProps,
   ...LightShaderProps
 })
-const { style: sphereStyle } = useSphere(props)
 const { style: shaderStyle } = useLightShader(props)
+const { style: sphereStyle } = useSphere(props)
 </script>
 <template>
   <div

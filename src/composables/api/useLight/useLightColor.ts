@@ -1,21 +1,30 @@
-import { useHexToTgba } from '@/composables/api'
-import { computed } from 'vue'
+import type { ColorParams } from '@/composables/api/'
+import { ColorProps, useColor } from '@/composables/api/'
 import { type PropsObject } from '@/types'
+import { computed } from 'vue'
+import tinycolor from 'tinycolor2'
+import { useOverwriteProp } from '@/composables/ui'
 
 export interface LightColorParams {
   lightColor?: string
 }
+const colorName = 'lightColor'
 
-export const LightColorProps = {
-  lightColor: { type: String, default: '#000005', control: 'color' }
-}
+export const LightColorProps = useOverwriteProp(
+  ColorProps,
+  'color',
+  colorName,
+  { type: String, default: '#000005', control: 'color' }
+)
 
-export function useLightColor(props: LightColorParams & PropsObject) {
-  const lightColor = computed(() => String(props.lightColor) || '#fff')
-  const transparentColor = computed(
-    () => useHexToTgba(lightColor.value, 0).value
+ColorProps.color = LightColorProps.lightColor
+
+export function useLightColor(
+  props: ColorParams & LightColorParams & PropsObject
+) {
+  const { color } = useColor(props, colorName)
+  const transparentColor = computed(() =>
+    tinycolor(color.value).setAlpha(0).toRgbString()
   )
-  const solidColor = computed(() => useHexToTgba(lightColor.value, 100).value)
-
-  return { transparentColor, solidColor }
+  return { solidColor: color, transparentColor }
 }

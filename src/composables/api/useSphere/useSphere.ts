@@ -1,6 +1,7 @@
 import { computed } from 'vue'
 import { type PropsValues } from '@/types'
-export interface SpherePropsType {
+import { useColor, ColorProps, type ColorParams } from '@/composables/api/'
+export interface SpherePropsType extends ColorParams {
   size: number | string
   opacity: number | string
   color?: string
@@ -26,20 +27,20 @@ export const SphereOpacityProps = {
   }
 }
 
-export const SphereColorProps = {
-  color: { type: String, default: '#42938a', control: 'color' }
-}
+// export const SphereColorProps = {
+//   color: { type: String, default: '#42938a', control: 'color' }
+// }
 
 export const SphereProps = {
   ...SphereSizeProps,
   ...SphereOpacityProps,
-  ...SphereColorProps
+  ...ColorProps
 }
 
 export function useSphere(props: SpherePropsType & PropsValues) {
   const size = computed(() => Number(props.size))
   const opacity = computed(() => Number(props.opacity))
-  const color = computed(() => String(props.color))
+  const { color } = useColor(props)
 
   const cssSize = computed(() => `${size.value}px`)
   const cssOpacity = computed(() => `${opacity.value / 100}`)
