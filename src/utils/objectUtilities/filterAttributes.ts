@@ -12,14 +12,14 @@ function filterAttributes(
   return newObj
 }
 
-export function getAttributesWith(
+export function getPartialObjectWith(
   obj: { [key: string]: any },
   keys: string[] | string
 ): { [key: string]: any } {
   return filterAttributes(obj, keys)
 }
 
-export function getAttributesWithout(
+export function getPartialObjectWithout(
   obj: { [key: string]: any },
   keys: string[] | string
 ): { [key: string]: any } {
