@@ -1,11 +1,10 @@
-import LightSphere from '@/components/shaders/LightSphere.vue'
-import PlainSphere from '@/components/shaders/PlainSphere.vue'
+import * as Shaders from '@/components/shaders'
 import { useRandomColor } from '@/composables/common'
 import { usePlaygroundStore } from '@/stores'
 import { Random } from 'random-js'
 import { type Control, type Layer } from '@/types'
+import { getRandomAttribute } from '@/utils'
 
-const components = [PlainSphere, LightSphere]
 const maxOpacity = 15
 const minOpacity = 1
 const random = new Random()
@@ -22,8 +21,7 @@ export function useCreateRandomPlanet(
   }
 
   function createRandomLayer() {
-    const index = random.integer(0, components.length - 1)
-    const component = components[index]
+    const component = getRandomAttribute(Shaders)
     const layer = store.addLayer({ component })
     store.renameLayer(layer, component.__name || 'Layer')
     setRandomControls(layer)
@@ -33,10 +31,12 @@ export function useCreateRandomPlanet(
 function generateBasePlanet() {
   const store = usePlaygroundStore()
   const baseSize = random.integer(100, 800)
-  const baseLayer = store.addLayer({ component: components[0] })
-  const baseAmbientShadowLayer = store.addLayer({ component: components[1] })
-  const baseShadow = store.addLayer({ component: components[1] })
-  const baseLight = store.addLayer({ component: components[1] })
+  const baseLayer = store.addLayer({ component: Shaders.PlainSphere })
+  const baseAmbientShadowLayer = store.addLayer({
+    component: Shaders.LightSphere
+  })
+  const baseShadow = store.addLayer({ component: Shaders.LightSphere })
+  const baseLight = store.addLayer({ component: Shaders.LightSphere })
 
   store.renameLayer(baseLayer, 'Base')
   store.renameLayer(baseAmbientShadowLayer, 'Ambient Shadow')
