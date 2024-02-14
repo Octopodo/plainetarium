@@ -1,13 +1,20 @@
 import { computed } from 'vue'
 import { type PropsValues } from '@/types'
-import { useColor, ColorProps, type ColorParams } from '@/composables/api/'
-export interface SpherePropsType extends ColorParams {
-  size: number | string
-  opacity: number | string
-  container?: boolean
-}
+import {
+  useColor,
+  useSize,
+  useOpacity,
+  SizeProps,
+  OpacityProps,
+  ColorProps,
+  type ColorParams,
+  type SizeParams,
+  type OpacityParams
+} from '@/composables/api/'
+export type SpherePropsType = ColorParams & SizeParams & OpacityParams
 
 export const SphereSizeProps = {
+  ...SizeProps,
   size: {
     type: [Number, String],
     default: 500,
@@ -17,50 +24,55 @@ export const SphereSizeProps = {
   }
 }
 
-export const SphereOpacityProps = {
-  opacity: {
-    type: [Number, String],
-    default: 100,
-    control: 'range',
-    min: 0,
-    max: 100
-  }
-}
+SphereSizeProps.width.hideControl = true
+SphereSizeProps.height.hideControl = true
 
 export const SphereContainerProps = {
-  container: { type: Boolean, default: false, controlHidden: true }
+  container: { type: Boolean, default: false, hideControl: true }
 }
 
 export const SphereProps = {
   ...ColorProps,
   ...SphereSizeProps,
-  ...SphereOpacityProps,
+  ...OpacityProps,
   ...SphereContainerProps
 }
 
 export function useSphere(props: SpherePropsType & PropsValues) {
-  const size = computed(() => Number(props.size))
-  const opacity = computed(() => Number(props.opacity))
-  const { color } = useColor(props)
+  const {
+    style: sizeStyle,
+    width,
+    height,
+    cssWidth,
+    cssHeight
+  } = useSize(props)
+  const { style: opacityStyle, opacity } = useOpacity(props)
+  const { style: colorStyle, color } = useColor(props)
 
-  const cssSize = computed(() => `${size.value}px`)
-  const cssOpacity = computed(() => `${opacity.value / 100}`)
-  const cssColor = computed(() =>
-    props.container === true ? 'none' : color.value
-  )
   const style = computed(() => {
     return {
       width: '1000px',
       height: '1000px',
-      opacity: cssOpacity.value,
-      backgroundColor: cssColor.value,
+      opacity: opacity.value,
+      backgroundColor: color.value,
       borderRadius: '50%',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      transform: `scale(${size.value / 1000})`
+      transform: `scale(${width.value / 1000})`
     }
   })
 
-  return { size, opacity, color, cssSize, cssOpacity, style }
+  return {
+    style,
+    sizeStyle,
+    opacityStyle,
+    colorStyle,
+    width,
+    height,
+    cssWidth,
+    cssHeight,
+    opacity,
+    color
+  }
 }

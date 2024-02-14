@@ -6,5 +6,5 @@ export interface ExtendedProp extends ControlParams {
   required?: boolean
   validator?: (value: any) => boolean
   control: string
-  controlHidden?: boolean
+  hideControl?: boolean
 }

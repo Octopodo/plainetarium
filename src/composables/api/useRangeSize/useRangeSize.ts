@@ -82,5 +82,5 @@ export function useRangeSize(props: RangeSizeParams & PropsValues) {
     }
   })
 
-  return { resetSize, style }
+  return { resetSize, style, size }
 }

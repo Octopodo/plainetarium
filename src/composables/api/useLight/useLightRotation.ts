@@ -16,7 +16,8 @@ export const LightRotationProps = {
     min: -300,
     max: 300,
     safeMin: -100,
-    safeMax: 100
+    safeMax: 100,
+    hideControl: false
   },
   yRotation: {
     type: [Number, String],
@@ -25,7 +26,8 @@ export const LightRotationProps = {
     min: -300,
     max: 300,
     safeMin: -100,
-    safeMax: 100
+    safeMax: 100,
+    hideControl: false
   }
 }
 

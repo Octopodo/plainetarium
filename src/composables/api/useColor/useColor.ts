@@ -12,21 +12,24 @@ export const ColorProps = {
   color: {
     type: String,
     default: '',
-    control: 'color'
+    control: 'color',
+    hideControl: false
   },
   saturation: {
     type: [Number, String],
     control: 'range',
     default: 0,
     min: -100,
-    max: 100
+    max: 100,
+    hideControl: false
   },
   lightness: {
     type: [Number, String],
     control: 'range',
     default: 0,
     min: -100,
-    max: 100
+    max: 100,
+    hideControl: false
   }
 }
 

@@ -1,19 +1,37 @@
 import { onMounted, computed } from 'vue'
 import { Random } from 'random-js'
 import { type NumericProp } from '@/types'
-import { useSafeRange, useRandomColor } from '@/composables/common'
+import { useRandomColor } from '@/composables/common'
 
-export interface StarfieldParams {
+import {
+  useOpacity,
+  ColorProps,
+  OpacityProps,
+  RangeSizeProps,
+  type RangeSizeParams,
+  type ColorParams,
+  type OpacityParams
+} from '@/composables/api'
+
+export interface StarfieldParams
+  extends RangeSizeParams,
+    ColorParams,
+    OpacityParams {
   count: NumericProp
-  minSize: NumericProp
-  maxSize: NumericProp
-  opacity: NumericProp
-  contrast: NumericProp
-  saturation: NumericProp
-  color: string
 }
 
+const StarfieldColorProps = {
+  ...ColorProps,
+  color: {
+    type: String,
+    default: '',
+    hideControl: true
+  }
+}
 export const StarfieldProps = {
+  ...RangeSizeProps,
+  ...StarfieldColorProps,
+  ...OpacityProps,
   count: {
     type: [Number, String],
     default: 1000,
@@ -21,49 +39,10 @@ export const StarfieldProps = {
     min: 1,
     max: 1000
   },
-  minSize: {
-    type: [Number, String],
-    default: 1,
-    control: 'range',
-    min: 1,
-    max: 100
-  },
-  maxSize: {
-    type: [Number, String],
-    default: 3,
-    control: 'range',
-    min: 1,
-    max: 100
-  },
-  saturation: {
-    type: [Number, String],
-    default: 100,
-    control: 'range',
-    min: 0,
-    max: 100
-  },
-  contrast: {
-    type: [Number, String],
-    default: 50,
-    control: 'range',
-    min: 0,
-    max: 100
-  },
-  opacity: {
-    type: [Number, String],
-    default: 100,
-    control: 'range',
-    min: 0,
-    max: 100
-  },
-  color: {
-    type: [String],
-    default: '',
-    control: 'color'
-  },
+
   reset: {
-    type: Boolean,
-    default: false,
+    type: Function,
+    default: () => {},
     control: 'button'
   },
   width: {
@@ -100,7 +79,6 @@ function generateStars(props: Required<StarfieldParams>) {
   const maxSize = computed(() => Number(props.maxSize))
 
   // const sizeRange = useSafeRange(props.size)
-  const contrastRange = useSafeRange(props.contrast)
 
   for (let i = 0; i < starCount.value; i++) {
     const color = computed(() =>

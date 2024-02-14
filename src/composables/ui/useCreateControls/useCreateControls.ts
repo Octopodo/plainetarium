@@ -33,7 +33,7 @@ export function useCreateControl(
     createControl.checkbox(prop, control)
   } else {
     const property = prop as ExtendedProp
-    if (property.controlHidden) return
+    if (property.hideControl) return
     const key = property.control as keyof typeof createControl
     try {
       createControl[key](property, control)

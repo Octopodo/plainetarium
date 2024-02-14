@@ -1,8 +1,10 @@
+export * from './useSize'
 export * from './useColor'
+export * from './useOpacity'
+export * from './useRangeSize'
+
 export * from './useSphere'
 export * from './useLight'
-export * from './useSphere'
 export * from './useShader'
 export * from './useStarfield'
-export * from './useRangeSize'
 export * from './usePlanetGenerator'

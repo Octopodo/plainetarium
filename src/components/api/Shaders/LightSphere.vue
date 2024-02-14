@@ -3,14 +3,14 @@ import {
   useSphere,
   useLightShader,
   SphereSizeProps,
-  SphereOpacityProps,
+  OpacityProps,
   LightShaderProps,
   SphereContainerProps
 } from '@/composables/api'
 
 const props = defineProps({
   ...SphereSizeProps,
-  ...SphereOpacityProps,
+  ...OpacityProps,
   ...LightShaderProps,
   ...SphereContainerProps
 })

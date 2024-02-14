@@ -6,7 +6,7 @@ import { InitPlayground } from '@/composables/ui'
 const store = usePlaygroundStore()
 
 const numLayers: [number, number] = [3, 10]
-InitPlayground.withBasePlanet()
+InitPlayground.withPlainSphere()
 
 function regenerateLayers() {
   store.cleanLayers()
