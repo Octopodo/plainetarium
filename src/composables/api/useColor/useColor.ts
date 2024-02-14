@@ -1,7 +1,6 @@
 import tinycolor from 'tinycolor2'
 import type { PropsValues } from '@/types'
-import { onMounted, ref, computed, type Ref } from 'vue'
-import { useRandomColor } from '@/composables/common'
+import { computed } from 'vue'
 
 export interface ColorParams {
   color?: string
@@ -31,11 +30,8 @@ export const ColorProps = {
   }
 }
 
-export function useColor(
-  props: ColorParams & PropsValues,
-  colorKeyName = 'color'
-) {
-  const colorAtrr = computed(() => String(props[colorKeyName]))
+export function useColor(props: ColorParams & PropsValues) {
+  const colorAtrr = computed(() => String(props.color))
   const saturation = computed(() => Number(props.saturation))
   const lightness = computed(() => Number(props.lightness))
 

@@ -2,14 +2,15 @@
 import UiLayout from '@/components/ui/BaseUi/UiLayout.vue'
 
 import { usePlaygroundStore } from './stores'
-import { useCreateRandomPlanet, useInitPlayground } from '@/composables/ui'
+import { InitPlayground } from '@/composables/ui'
 const store = usePlaygroundStore()
 
 const numLayers: [number, number] = [3, 10]
-useInitPlayground(numLayers)
+InitPlayground.withBasePlanet()
+
 function regenerateLayers() {
   store.cleanLayers()
-  useCreateRandomPlanet(numLayers)
+  InitPlayground.withRandomPlanet(numLayers)
 }
 </script>
 <template>

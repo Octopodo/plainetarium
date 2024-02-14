@@ -157,7 +157,8 @@ export const usePlaygroundStore = defineStore('playground', {
       layer.visible = !layer.visible
     },
 
-    renameLayer(layer: Layer, name: string) {
+    renameLayer(layer: Layer, name?: string) {
+      if (!name) return
       layer.name = name
     },
 
