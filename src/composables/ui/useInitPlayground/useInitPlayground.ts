@@ -28,6 +28,8 @@ InitPlayground.withLightSphere = function () {
 }
 InitPlayground.withPlainSphere = function () {
   useCreatePlainSphere()
+  const store = usePlaygroundStore()
+  const stop = 0
 }
 
 InitPlayground.withStarField = function () {

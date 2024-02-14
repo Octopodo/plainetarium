@@ -11,7 +11,14 @@ import {
   type SizeParams,
   type OpacityParams
 } from '@/composables/api/'
-export type SpherePropsType = ColorParams & SizeParams & OpacityParams
+
+export interface SphereContainerInterface {
+  container: boolean
+}
+export type SpherePropsType = PropsValues &
+  ColorParams &
+  SizeParams &
+  OpacityParams
 
 export const SphereSizeProps = {
   ...SizeProps,
@@ -38,7 +45,8 @@ export const SphereProps = {
   ...SphereContainerProps
 }
 
-export function useSphere(props: SpherePropsType & PropsValues) {
+const stop = 0
+export function useSphere(props: SpherePropsType) {
   const {
     style: sizeStyle,
     width,

@@ -1,10 +1,11 @@
 import type { PropType } from 'vue'
 import type { PropsValues } from '@/types'
 import { computed, ref, type Ref } from 'vue'
+import { ExtendedProp } from '@/composables/api'
 
-type Width = number | string | undefined
-type Height = number | string | undefined
-type Size = Width | [Width, Height] | { width: Width; height: Height }
+export type Width = number | string | undefined
+export type Height = number | string | undefined
+export type Size = Width | [Width, Height] | { width: Width; height: Height }
 
 export interface SizeParams {
   size?: Size
@@ -13,30 +14,27 @@ export interface SizeParams {
 }
 
 export const SizeProps = {
-  size: {
+  size: new ExtendedProp({
     type: [Number, String, Array, Object] as PropType<Size>,
     default: 100,
     control: 'range',
     min: 0,
-    max: 1000,
-    hideControl: false
-  },
-  width: {
+    max: 1000
+  }).value,
+  width: new ExtendedProp({
     type: [Number, String] as PropType<Width>,
     default: 100,
     control: 'range',
     min: 0,
-    max: 1000,
-    hideControl: false
-  },
-  height: {
+    max: 1000
+  }).value,
+  height: new ExtendedProp({
     type: [Number, String] as PropType<Height>,
     default: 100,
     control: 'range',
     min: 0,
-    max: 1000,
-    hideControl: false
-  }
+    max: 1000
+  }).value
 }
 
 export function useSize(props: SizeParams & PropsValues, units: string = 'px') {

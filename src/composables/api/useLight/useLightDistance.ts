@@ -1,14 +1,14 @@
 import { computed } from 'vue'
 import { CIRCLE_CORNER_EXTENTS } from '@/math'
 import { type PropsObject } from '@/types'
-
+import { ExtendedProp } from '@/composables/api'
 export interface LightDistanceParams {
   sharpness?: number | string
   distance?: number | string
 }
 
 export const LightDistanceProps = {
-  sharpness: {
+  sharpness: new ExtendedProp({
     type: [Number, String],
     default: 37,
     control: 'range',
@@ -16,8 +16,8 @@ export const LightDistanceProps = {
     max: 150,
     safeMin: 50,
     safeMax: 100
-  },
-  distance: {
+  }).value,
+  distance: new ExtendedProp({
     type: [Number, String],
     default: 104,
     control: 'range',
@@ -25,7 +25,7 @@ export const LightDistanceProps = {
     max: 140,
     safeMin: 70,
     safeMax: 100
-  }
+  }).value
 }
 
 export function useLightDistance(

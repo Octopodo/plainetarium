@@ -1,7 +1,7 @@
 import tinycolor from 'tinycolor2'
 import type { PropsValues } from '@/types'
 import { computed } from 'vue'
-
+import { ExtendedProp } from '@/composables/api/'
 export interface ColorParams {
   color?: string
   saturation: number | string
@@ -9,28 +9,28 @@ export interface ColorParams {
 }
 
 export const ColorProps = {
-  color: {
+  color: new ExtendedProp({
     type: String,
     default: '',
     control: 'color',
     hideControl: false
-  },
-  saturation: {
+  }).value,
+
+  saturation: new ExtendedProp({
     type: [Number, String],
-    control: 'range',
     default: 0,
+    control: 'range',
     min: -100,
-    max: 100,
-    hideControl: false
-  },
-  lightness: {
+    max: 100
+  }).value,
+
+  lightness: new ExtendedProp({
     type: [Number, String],
-    control: 'range',
     default: 0,
+    control: 'range',
     min: -100,
-    max: 100,
-    hideControl: false
-  }
+    max: 100
+  }).value
 }
 
 export function useColor(props: ColorParams & PropsValues) {

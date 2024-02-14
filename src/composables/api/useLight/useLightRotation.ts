@@ -1,15 +1,16 @@
 import { computed, type PropType } from 'vue'
 import { type Coordinate } from '@/types'
-const CENTER = 50
 import { type PropsObject } from '@/types'
+import { ExtendedProp } from '@/composables/api'
 
+const CENTER = 50
 export interface LightRotationParams {
   xRotation?: number | string
   yRotation?: number | string
 }
 
 export const LightRotationProps = {
-  xRotation: {
+  xRotation: new ExtendedProp({
     type: [Number, String],
     default: 34,
     control: 'range',
@@ -18,8 +19,8 @@ export const LightRotationProps = {
     safeMin: -100,
     safeMax: 100,
     hideControl: false
-  },
-  yRotation: {
+  }).value,
+  yRotation: new ExtendedProp({
     type: [Number, String],
     default: -41,
     control: 'range',
@@ -28,7 +29,7 @@ export const LightRotationProps = {
     safeMin: -100,
     safeMax: 100,
     hideControl: false
-  }
+  }).value
 }
 
 export function useLightRotation(props: LightRotationParams & PropsObject) {

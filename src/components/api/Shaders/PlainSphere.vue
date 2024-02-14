@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useSphere, SphereProps } from '@/composables/api'
+import { useSphere, SphereProps, type SpherePropsType } from '@/composables/api'
 
 const props = defineProps(SphereProps)
 
