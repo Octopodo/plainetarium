@@ -5,8 +5,8 @@ import { useRandomColor } from '@/composables/common'
 
 export interface ColorParams {
   color?: string
-  [key: string]: any
   saturation: number | string
+  lightness: number | string
 }
 
 export const ColorProps = {
@@ -44,7 +44,7 @@ export function useColor(
     const saturateFn = saturation.value >= 0 ? 'saturate' : 'desaturate'
     const tnColor = tinycolor(colorAtrr.value)
       [saturateFn](Math.abs(saturation.value))
-      [lightnessFn](Math.abs(props.lightness))
+      [lightnessFn](Math.abs(lightness.value))
       .toRgbString()
     return tnColor
   })

@@ -2,11 +2,11 @@ import { computed, type CSSProperties } from 'vue'
 import { type PropsValues } from '@/types'
 
 import {
+  ColorProps,
   useLightDistance,
   useLightColor,
   useLightRotation,
   LightDistanceProps,
-  LightColorProps,
   LightRotationProps,
   type LightDistanceParams,
   type ColorParams,
@@ -21,8 +21,8 @@ export interface LightShaderPropsType
 }
 
 export const LightShaderProps = {
+  ...ColorProps,
   ...LightDistanceProps,
-  ...LightColorProps,
   ...LightRotationProps,
   light: Boolean
 }
