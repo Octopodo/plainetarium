@@ -50,19 +50,20 @@ onClickOutside(inputElement, () => {
 watchEffect(() => {
   if (props.error) {
     inputText.value = String(props.text)
+    emit('error-handled')
   }
   inputText.value = String(props.text)
 })
 
-watch(
-  () => props.error,
-  (newText) => {
-    if (props.error) {
-      inputText.value = String(newText)
-      emit('error-handled')
-    }
-  }
-)
+// watch(
+//   () => props.error,
+//   (newText) => {
+//     if (props.error) {
+//       inputText.value = String(newText)
+//       emit('error-handled')
+//     }
+//   }
+// )
 </script>
 <template>
   <div
