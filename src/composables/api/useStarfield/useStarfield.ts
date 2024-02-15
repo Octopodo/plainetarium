@@ -2,6 +2,7 @@ import { onMounted, computed } from 'vue'
 import { Random } from 'random-js'
 import { type NumericProp } from '@/types'
 import { useRandomColor } from '@/composables/common'
+import { ExtendedProp } from '@/composables/api'
 
 import {
   useColor,
@@ -34,41 +35,39 @@ const StarfieldColorProps = {
 }
 
 const StarfieldSizeProps = {
-  ...SizeProps,
-  width: {
-    type: [Number, String],
-    default: 2500,
-    control: 'range',
-    min: 1,
-    max: 3000
-  },
-  height: {
-    type: [Number, String],
-    default: 1700,
-    control: 'range',
-    min: 1,
-    max: 3000
-  }
+  ...SizeProps
 }
+
+StarfieldSizeProps.width.default = 2500
+StarfieldSizeProps.height.default = 1700
+StarfieldSizeProps.width.max = 3000
+StarfieldSizeProps.height.max = 3000
+StarfieldSizeProps.size.hideControl = true
+
 export const StarfieldProps = {
+  count: {},
   ...StarfieldSizeProps,
   ...RangeSizeProps,
   ...StarfieldColorProps,
   ...OpacityProps,
-  count: {
-    type: [Number, String],
-    default: 1000,
-    control: 'range',
-    min: 1,
-    max: 1000
-  },
-
-  reset: {
-    type: Function,
-    default: () => {},
-    control: 'button'
-  }
+  reset: {}
 }
+
+StarfieldProps.count = new ExtendedProp({
+  type: [Number, String],
+  default: 1000,
+  control: 'range',
+  min: 1,
+  max: 1000
+}).value
+
+StarfieldProps.reset = new ExtendedProp({
+  type: Function,
+  default: () => {},
+  control: 'button'
+}).value
+
+const stop = 0
 export function useStarfield(props: Required<StarfieldParams>) {
   let stars
   let regenerate
