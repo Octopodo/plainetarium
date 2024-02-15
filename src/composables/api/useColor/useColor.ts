@@ -35,15 +35,15 @@ export const ColorProps = {
 
 export function useColor(props: ColorParams & PropsValues) {
   const colorAtrr = computed(() => String(props.color))
-  const saturation = computed(() => Number(props.saturation))
-  const lightness = computed(() => Number(props.lightness))
+  const saturationAtrr = computed(() => Number(props.saturation))
+  const lightnessAtt = computed(() => Number(props.lightness))
 
   const color = computed(() => {
-    const lightnessFn = lightness.value >= 0 ? 'lighten' : 'darken'
-    const saturateFn = saturation.value >= 0 ? 'saturate' : 'desaturate'
+    const lightnessFn = lightnessAtt.value >= 0 ? 'lighten' : 'darken'
+    const saturateFn = saturationAtrr.value >= 0 ? 'saturate' : 'desaturate'
     const tnColor = tinycolor(colorAtrr.value)
-      [saturateFn](Math.abs(saturation.value))
-      [lightnessFn](Math.abs(lightness.value))
+      [saturateFn](Math.abs(saturationAtrr.value))
+      [lightnessFn](Math.abs(lightnessAtt.value))
       .toRgbString()
     return tnColor
   })
@@ -54,5 +54,5 @@ export function useColor(props: ColorParams & PropsValues) {
     }
   })
 
-  return { style, color }
+  return { style, color, saturation: saturationAtrr, lightness: lightnessAtt }
 }
