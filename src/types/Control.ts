@@ -12,6 +12,6 @@ export interface ControlParams {
 export interface Control extends ControlParams {
   name: string
   model: Ref<any>
-  type: string
+  controlType: string | undefined
   modelName?: string
 }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import UiLayout from '@/components/ui/BaseUi/UiLayout.vue'
-
+import TestingLab from '@/components/TestingLab.vue'
 import { usePlaygroundStore } from './stores'
 import { InitPlayground } from '@/composables/ui'
 const store = usePlaygroundStore()
@@ -25,6 +25,7 @@ function regenerateLayers() {
     <h1 class="title">Plainetarium</h1>
   </div>
   <UiLayout element-name="LightSphere"> </UiLayout>
+  <TestingLab />
 </template>
 
 <style scoped>

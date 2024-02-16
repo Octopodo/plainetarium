@@ -14,10 +14,11 @@ const invalidInput = ref(false)
 
 function updateValue(newValue: any) {
   // Verificar si control.type es 'range' o 'number'
-  if (props.control.type === 'range' || props.control.type === 'number') {
-    // Verificar si newValue es un número válido
+  if (
+    props.control.controlType === 'range' ||
+    props.control.controlType === 'number'
+  ) {
     if (!/^[-+]?[0-9]*\.?[0-9]+$/g.test(newValue)) {
-      // Si no es un número válido, revertir al valor anterior
       newValue = oldValue.value
       invalidInput.value = true
     }
@@ -40,7 +41,7 @@ watch(value, (newValue) => {
     </label>
     <input
       class="control-input"
-      :type="control.type"
+      :type="control.controlType"
       :min="control.min"
       :max="control.max"
       :step="control.step"
@@ -48,7 +49,7 @@ watch(value, (newValue) => {
     />
     <div class="control-value-input">
       <UiClickableInputText
-        v-if="control.type !== 'checkbox'"
+        v-if="control.controlType !== 'checkbox'"
         class="control-value"
         :error="invalidInput"
         :text="value"

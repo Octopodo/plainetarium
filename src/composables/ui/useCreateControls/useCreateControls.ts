@@ -25,7 +25,7 @@ export function useCreateControl(
   const control: Control = {
     name: unWrapCamelCase(name),
     model: ref(''),
-    type: '',
+    controlType: '',
     modelName: name
   }
 
@@ -50,18 +50,18 @@ function createCheckboxControl(
   control: Control
 ) {
   control.model = ref(false)
-  control.type = 'checkbox'
+  control.controlType = 'checkbox'
 }
 
 function createColorControl(prop: ExtendedProp, control: Control) {
   control.model = ref(prop.default)
-  control.type = prop.control
+  control.controlType = prop.control
   control.callback = prop.callback || (() => {})
 }
 
 function createRangeControl(prop: ExtendedProp, control: Control) {
   control.model = ref(prop.default)
-  control.type = prop.control
+  control.controlType = prop.control
   control.min = prop.min
   control.max = prop.max
   control.callback = prop.callback || (() => {})
@@ -69,7 +69,7 @@ function createRangeControl(prop: ExtendedProp, control: Control) {
 
 function createButtonControl(prop: ExtendedProp, control: Control) {
   control.model = ref('')
-  control.type = prop.control
+  control.controlType = prop.control
   control.callback = prop.callback || (() => {})
 }
 
