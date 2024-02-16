@@ -45,6 +45,7 @@ function createComposable(name, dir) {
   const indexFilePath = path.join(dirPath, 'index.ts')
   const exportText = `export * from './${name}';`
   const composablesIndexPath = path.join(composablesPath, dir, 'index.ts')
+  if (fs.existsSync(filePath)) return
 
   fs.mkdirSync(dirPath, { recursive: true })
 
@@ -59,10 +60,18 @@ function createComposable(name, dir) {
 function createComponent(name, dir) {
   const dirPath = path.join(componentsPath, dir)
   const filePath = path.join(dirPath, `${name}.vue`)
+  const indexFilePath = path.join(dirPath, 'index.ts')
+  const exportText = `export { default as ${name} } from './${name}.vue';`
+  console.log('Indexpath', indexFilePath)
 
+  if (fs.existsSync(filePath)) return
   fs.mkdirSync(dirPath, { recursive: true })
 
   fs.writeFileSync(filePath, componentTemplate)
+
+  if (fs.existsSync(indexFilePath)) {
+    fs.appendFileSync(indexFilePath, exportText)
+  }
 }
 
 if (type === 'composable') {
