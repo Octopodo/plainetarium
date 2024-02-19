@@ -186,20 +186,40 @@ export class ExtendedProps {
   }
 
   private reorderKeys(newOrder?: string[], insertIndex: number = 0) {
-    newOrder = newOrder || this._order
-    const finalOrder: string[] = [...this._order]
-    insertIndex = Math.min(insertIndex, finalOrder.length - newOrder.length)
-    for (let i = 0; i < finalOrder.length; i++) {
-      const key = finalOrder[i]
-      const index = newOrder.indexOf(key)
-      if (index !== -1) {
-        finalOrder.splice(i, 1)
+    newOrder = this.getValidKeys(newOrder || this._order)
+    const finalOrder = this.removeKeysFromOrder(newOrder, [...this._order])
+    this._order = this.insertKeysAt(newOrder, insertIndex, finalOrder)
+  }
+
+  private getValidKeys(keys: string[]): string[] {
+    return keys.filter(
+      (key) =>
+        this._order.includes(key) ||
+        Object.hasOwnProperty.call(this._props, key)
+    )
+  }
+
+  private removeKeysFromOrder(keys: string[], order: string[]): string[] {
+    for (let i = 0; i < order.length; i++) {
+      const key = order[i]
+      const index = keys.indexOf(key)
+      const isKey = Object.hasOwnProperty.call(this._props, key)
+      if (index !== -1 && isKey) {
+        order.splice(i, 1)
         i--
       }
     }
+    return order
+  }
 
-    finalOrder.splice(insertIndex, 0, ...newOrder)
-    this._order = finalOrder
+  private insertKeysAt(
+    keys: string[],
+    index: number,
+    order: string[]
+  ): string[] {
+    index = Math.min(index, order.length - keys.length)
+    order.splice(index, 0, ...keys)
+    return order
   }
 
   reorder(newOrder?: string[], insertIndex: number = 0) {

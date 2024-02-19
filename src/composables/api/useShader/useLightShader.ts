@@ -31,6 +31,20 @@ LightShaderProps.merge(
   { container: { default: true } }
 )
 
+LightShaderProps.reorder([
+  'size',
+  'opacity',
+  'color',
+  'saturation',
+  'lightness',
+  'xRotation',
+  'yRotation',
+  'sharpness',
+  'distance',
+  'light'
+])
+
+const stop = 0
 export function useLightShader(props: LightShaderPropsType & PropsValues) {
   const { transparentColor, solidColor } = useLightColor(props)
   const { cssLightCenter, cssLightEnd } = useLightDistance(props)
