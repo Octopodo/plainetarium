@@ -1,6 +1,6 @@
 import { computed, type CSSProperties } from 'vue'
 import { type PropsValues } from '@/types'
-
+import { ExtendedProps } from '@/composables/api/'
 import {
   ColorProps,
   useLightDistance,
@@ -8,6 +8,7 @@ import {
   useLightRotation,
   LightDistanceProps,
   LightRotationProps,
+  OpacityProps,
   type LightDistanceParams,
   type ColorParams,
   type LightRotationParams
@@ -20,12 +21,16 @@ export interface LightShaderPropsType
   light?: boolean
 }
 
-export const LightShaderProps = {
-  ...ColorProps,
-  ...LightDistanceProps,
-  ...LightRotationProps,
-  light: Boolean
-}
+export const LightShaderProps = new ExtendedProps('LightShader', {
+  light: { type: Boolean, default: true }
+})
+
+LightShaderProps.merge(
+  LightDistanceProps.clone(),
+  LightRotationProps.clone(),
+  ColorProps.clone(),
+  OpacityProps.clone()
+)
 
 export function useLightShader(props: LightShaderPropsType & PropsValues) {
   const { transparentColor, solidColor } = useLightColor(props)

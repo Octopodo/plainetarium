@@ -1,7 +1,8 @@
 import { useCreateBasePlanet, useCreateRandomLayers } from '@/composables/api'
-import * as Shaders from '@/components/api/Shaders'
 import { Random } from 'random-js'
+import { useGetShaders } from '../useGetShaders'
 
+const Shaders = useGetShaders()
 const random = new Random()
 
 export function useCreateRandomPlanet(

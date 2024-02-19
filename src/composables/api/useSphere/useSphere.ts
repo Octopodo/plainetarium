@@ -1,5 +1,6 @@
 import { computed } from 'vue'
 import { type PropsValues } from '@/types'
+import { ExtendedProps } from '@/composables/api'
 import {
   useColor,
   useSize,
@@ -20,32 +21,25 @@ export type SpherePropsType = PropsValues &
   SizeParams &
   OpacityParams
 
-export const SphereSizeProps = {
-  ...SizeProps,
+export const SphereProps = new ExtendedProps('SphereProps', {
+  container: { type: Boolean, default: false, hideControl: true }
+})
+
+SphereProps.merge(ColorProps.clone(), OpacityProps.clone(), SizeProps.clone(), {
   size: {
-    type: [Number, String],
     default: 500,
-    control: 'range',
     min: 0,
     max: 1000
+  },
+  width: {
+    hideControl: true
+  },
+  height: {
+    hideControl: true
   }
-}
+})
 
-SphereSizeProps.width.hideControl = true
-SphereSizeProps.height.hideControl = true
-
-export const SphereContainerProps = {
-  container: { type: Boolean, default: false, hideControl: true }
-}
-
-export const SphereProps = {
-  ...ColorProps,
-  ...SphereSizeProps,
-  ...OpacityProps,
-  ...SphereContainerProps
-}
-
-const stop = 0
+SphereProps.reorder(['size', 'opacity', 'color'])
 export function useSphere(props: SpherePropsType) {
   const {
     style: sizeStyle,

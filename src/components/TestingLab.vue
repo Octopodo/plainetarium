@@ -1,8 +1,4 @@
-<script setup lang="ts">
-import { usePropsTest } from '@/composables/api'
-
-usePropsTest()
-</script>
+<script setup lang="ts"></script>
 <template>
   <div></div>
 </template>

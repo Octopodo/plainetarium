@@ -10,4 +10,3 @@ export * from './useLight'
 export * from './useShader'
 export * from './useStarfield'
 export * from './usePlanetGenerator'
-export * from './usePropsTest';

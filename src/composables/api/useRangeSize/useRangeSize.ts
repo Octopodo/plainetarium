@@ -1,7 +1,7 @@
 import { watch, ref, computed, onMounted } from 'vue'
 import { Random } from 'random-js'
 import type { PropsValues } from '@/types'
-import { ExtendedProp } from '@/composables/api'
+import { ExtendedProps } from '@/composables/api'
 
 const random = new Random()
 
@@ -10,22 +10,22 @@ export interface RangeSizeParams {
   maxSize: number | string
 }
 
-export const RangeSizeProps = {
-  minSize: new ExtendedProp({
+export const RangeSizeProps = new ExtendedProps('RangeSize', {
+  minSize: {
     type: [Number, String],
     default: 0,
     control: 'range',
     min: 0,
     max: 100
-  }).value,
-  maxSize: new ExtendedProp({
+  },
+  maxSize: {
     type: [Number, String],
     default: 100,
     control: 'range',
     min: 0,
     max: 100
-  }).value
-}
+  }
+})
 
 export function useRangeSize(props: RangeSizeParams & PropsValues) {
   const size = ref(0)

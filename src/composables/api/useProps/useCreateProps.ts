@@ -1,35 +1,15 @@
 import type { ExtendedProp as ExtendedPropType } from '@/types'
 import type { set } from '@vueuse/core'
 type Props = { [key: string]: ExtendedPropType }
+import { defineProps } from 'vue'
 
-export class ExtendedProp {
-  value: any
-
-  constructor(params: any) {
-    this.value = {
-      type: params.type,
-      default: params.default,
-      required: params.required,
-      validator: params.validator,
-      control: params.control,
-      hideControl: params.hideControl,
-      min: params.min,
-      max: params.max,
-      step: params.step,
-      callback: params.callback,
-      safeMax: params.safeMax,
-      safeMin: params.safeMin
-    }
-  }
-}
-
-function extendProp(params: any) {
+export function extendProp(params: any) {
   return {
     type: params.type,
     default: params.default,
     required: params.required,
-    validator: params.validator || function () {},
-    control: params.control || 'range',
+    validator: params.validator,
+    control: params.control,
     hideControl: params.hideControl || false,
     min: params.min,
     max: params.max,
@@ -39,16 +19,37 @@ function extendProp(params: any) {
     safeMin: params.safeMin
   }
 }
-export class UberProps {
-  name: string
-  props: Props
-  order: string[]
+export class ExtendedProps {
+  private _name: string
+  private _props: Props
+  private _order: string[]
 
-  constructor(name: string, props: Props, order?: string[]) {
-    this.name = name
-    this.props = {}
-    this.order = order || Object.keys(props)
+  constructor(name: string, props?: Props, _order?: string[]) {
+    this._name = name
+    this._props = {}
+    this._order = []
+    if (!props) return
     this.add(props)
+
+    if (_order && _order.length) {
+      this.reorder(_order)
+    }
+  }
+
+  get props() {
+    return this._props
+  }
+
+  get order() {
+    return this._order
+  }
+
+  get name() {
+    return this._name
+  }
+
+  rename(name: string) {
+    this._name = name
   }
 
   add(name: string, prop: any): void
@@ -64,8 +65,8 @@ export class UberProps {
   addSingleProp(name: string, prop: any) {
     prop = extendProp(prop)
     if (!prop) return
-    ;(this.props as Props)[name] = extendProp(prop)
-    this.order.push(name)
+    ;(this._props as Props)[name] = extendProp(prop)
+    this._order.push(name)
   }
 
   addProps(props: Props) {
@@ -75,18 +76,18 @@ export class UberProps {
   }
 
   remove(key: string) {
-    const propIndex = this.order.indexOf(key)
+    const propIndex = this._order.indexOf(key)
     if (propIndex === -1) return
-    this.order.splice(propIndex, 1)
-    delete (this.props as Props)[key]
+    this._order.splice(propIndex, 1)
+    delete (this._props as Props)[key]
   }
 
   getProps() {
-    return this.props
+    return this._props
   }
 
   define() {
-    return defineProps(this.props)
+    return defineProps(this._props)
   }
 
   unshift(props: string[] | string) {
@@ -95,11 +96,29 @@ export class UberProps {
   }
 
   shift(count: number = 1) {
-    this.reorder(this.order.slice(count))
+    if (count > this._order.length) {
+      count = this._order.length
+    }
+    if (count <= 0) {
+      return
+    }
+    const shiftProps = this._order.slice(0, count)
+    shiftProps.forEach((prop) => {
+      this.remove(prop)
+    })
   }
 
   pop(count: number = 1) {
-    this.reorder(this.order.slice(0, -count))
+    if (count > this._order.length) {
+      count = this._order.length
+    }
+    if (count <= 0) {
+      return
+    }
+    const popProps = this._order.slice(-count)
+    popProps.forEach((prop) => {
+      this.remove(prop)
+    })
   }
 
   insert(props: string[] | string, index: number) {
@@ -108,12 +127,67 @@ export class UberProps {
   }
 
   clone() {
-    return new UberProps(this.name, this.props, this.order)
+    return new ExtendedProps(this.name, this._props, this._order)
+  }
+
+  merge(...propsArray: ExtendedProps[] | any[]) {
+    if (propsArray.length === 0) {
+      return
+    }
+
+    // Iterate over the propsArray and merge each ExtendedProps
+    for (const props of propsArray) {
+      this.mergeSingleProp(props)
+    }
+  }
+
+  mergeSingleProp(props: ExtendedProps) {
+    const incomingProps = props.props || props
+
+    for (const key in incomingProps) {
+      if (Object.prototype.hasOwnProperty.call(this._props, key)) {
+        this.overwriteAttributes(key, incomingProps[key])
+      } else {
+        this.add(key, incomingProps[key])
+      }
+    }
+  }
+
+  mergeHard(...propsArray: ExtendedProps[]) {
+    if (propsArray.length === 0) {
+      return
+    }
+
+    // Iterate over the propsArray and merge each ExtendedProps
+    for (const props of propsArray) {
+      this.mergeSinglePropHard(props)
+    }
+  }
+
+  mergeSinglePropHard(props: ExtendedProps) {
+    const incomingProps = props.props
+
+    for (const key in incomingProps) {
+      if (Object.prototype.hasOwnProperty.call(this._props, key)) {
+        this.remove(key)
+      }
+
+      this.add(key, incomingProps[key])
+    }
+  }
+
+  overwriteAttributes(key: string, newAttributes: any) {
+    const propAttributes = this._props[key] as { [attr: string]: any }
+    for (const attr in newAttributes) {
+      if (attr in propAttributes) {
+        propAttributes[attr] = newAttributes[attr]
+      }
+    }
   }
 
   private reorderKeys(newOrder?: string[], insertIndex: number = 0) {
-    newOrder = newOrder || this.order
-    const finalOrder: string[] = [...this.order]
+    newOrder = newOrder || this._order
+    const finalOrder: string[] = [...this._order]
     insertIndex = Math.min(insertIndex, finalOrder.length - newOrder.length)
     for (let i = 0; i < finalOrder.length; i++) {
       const key = finalOrder[i]
@@ -125,16 +199,16 @@ export class UberProps {
     }
 
     finalOrder.splice(insertIndex, 0, ...newOrder)
-    this.order = finalOrder
+    this._order = finalOrder
   }
 
   reorder(newOrder?: string[], insertIndex: number = 0) {
     this.reorderKeys(newOrder, insertIndex)
     const newProps: Props = {}
-    for (const key of this.order) {
-      newProps[key] = this.props[key]
+    for (const key of this._order) {
+      newProps[key] = this._props[key]
     }
-    this.props = newProps
-    this.order = Object.keys(this.props)
+    this._props = newProps
+    this._order = Object.keys(this._props)
   }
 }

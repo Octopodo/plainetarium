@@ -3,7 +3,6 @@ import {
   useCreateRandomPlanet,
   useCreateBasePlanet,
   useCreateRandomLayers,
-  useCreateLayer,
   useCreatePlainSphere
 } from '@/composables/api'
 import * as Shaders from '@/components/api/Shaders'
@@ -14,8 +13,8 @@ InitPlayground.withRandomPlanet = function (
   layerRange: [number, number] = [3, 5]
 ) {
   const store = usePlaygroundStore()
-  store.addLayer({ component: StarField })
-  store.collapseLayer(store.layers[0])
+  // store.addLayer({ component: StarField })
+  // store.collapseLayer(store.layers[0])
   useCreateRandomPlanet(layerRange)
 }
 

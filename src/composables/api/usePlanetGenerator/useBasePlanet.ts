@@ -1,7 +1,10 @@
 import { usePlaygroundStore } from '@/stores'
-import * as Shaders from '@/components/api/Shaders'
+// import * as Shaders from '@/components/api/Shaders'
+import { useGetShaders } from '../useGetShaders'
 import { useRandomColor } from '@/composables/common'
 import { Random } from 'random-js'
+
+const Shaders = useGetShaders()
 
 export function useCreateBasePlanet() {
   const random = new Random()
@@ -50,10 +53,10 @@ export function useCreateBasePlanet() {
 
   store.setControlsValues(baseLight, {
     size: baseSize,
-    color: '#f1f2b5',
+    color: useRandomColor(100).value,
     xRotation: randomLightX * 2,
     yRotation: randomLightY * 2,
-    opacity: random.integer(65, 80),
+    opacity: random.integer(15, 80),
     sharpness: random.integer(0, 25),
     distance: random.integer(81, 95),
     light: !randomLight

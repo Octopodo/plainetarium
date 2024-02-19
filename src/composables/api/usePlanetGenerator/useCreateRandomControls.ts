@@ -22,14 +22,14 @@ export function createRandomControlValue(
   if (control.name === 'Opacity') {
     control.model.value = random.integer(options.minOpacity, options.maxOpacity)
     return
-  } else if (control.type === 'range') {
+  } else if (control.controlType === 'range') {
     control.model.value = random.integer(
       control.safeMin || control.min || 0,
       control.safeMax || control.max || 100
     )
-  } else if (control.type === 'color') {
+  } else if (control.controlType === 'color') {
     control.model.value = useRandomColor(100).value
-  } else if (control.type === 'checkbox') {
+  } else if (control.controlType === 'checkbox') {
     control.model.value = random.bool()
   }
 }

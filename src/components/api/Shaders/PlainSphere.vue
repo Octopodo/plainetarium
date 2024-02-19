@@ -2,9 +2,9 @@
 import { computed } from 'vue'
 import { useSphere, SphereProps, type SpherePropsType } from '@/composables/api'
 
-const props = defineProps(SphereProps)
+const props = defineProps(SphereProps.props)
 
-const { style: sphereStyle } = useSphere(props)
+const { style: sphereStyle } = useSphere(props as SpherePropsType)
 const mask = computed(() => {
   return { overflow: 'hidden' }
 })

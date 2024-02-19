@@ -1,7 +1,9 @@
-import * as Shaders from '@/components/api/Shaders'
 import { usePlaygroundStore } from '@/stores'
 import { getRandomAttribute } from '@/utils'
 import { useCreateRandomControls, createRandomControlValue } from '.'
+import { useGetShaders } from '../useGetShaders'
+
+const Shaders = useGetShaders()
 
 export function useCreateLayer(shader: any, name?: string) {
   const store = usePlaygroundStore()

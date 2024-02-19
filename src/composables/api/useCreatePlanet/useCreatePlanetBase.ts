@@ -1,5 +1,4 @@
-import LightSphere from '@/components/shaders/LightSphere.vue'
-import PlainSphere from '@/components/shaders/PlainSphere.vue'
+import { LightSphere, PlainSphere } from '@/components/api/Shaders'
 import { useRandomColor } from '@/composables/common'
 import { usePlaygroundStore } from '@/stores'
 import { Random } from 'random-js'

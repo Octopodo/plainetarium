@@ -34,11 +34,13 @@ export function useCreateControl(
   } else {
     const property = prop as ExtendedProp
     if (property.hideControl) return
-    const key = property.control as keyof typeof createControl
+    const key = property.type === Boolean ? 'checkbox' : property.control
+    if (!key) return
     try {
-      createControl[key](property, control)
+      createControl[key as keyof typeof createControl](property, control)
     } catch (e) {
-      console.error(control.name, key)
+      console.error('ERROR CREATING CONTROL', control.name, key)
+      console.log(e)
     }
   }
 
