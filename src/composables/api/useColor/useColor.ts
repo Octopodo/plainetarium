@@ -2,6 +2,7 @@ import tinycolor from 'tinycolor2'
 import type { PropsValues } from '@/types'
 import { computed } from 'vue'
 import { ExtendedProps } from '@/composables/api/'
+import { useRandomColor } from '@/composables/common'
 export interface ColorParams {
   color?: string
   saturation: number | string
@@ -30,14 +31,25 @@ export const ColorProps = new ExtendedProps('Color', {
     control: 'range',
     min: -100,
     max: 100
+  },
+  randomColor: {
+    type: Boolean,
+    default: false,
+    control: 'checkbox',
+    hideControl: true
   }
 })
 
 export function useColor(props: ColorParams & PropsValues) {
-  const colorAtrr = computed(() => String(props.color))
   const saturationAtrr = computed(() => Number(props.saturation))
   const lightnessAtt = computed(() => Number(props.lightness))
-
+  const colorAtrr = computed(() => {
+    if (props.random === true) {
+      return useRandomColor(saturationAtrr.value).value
+    } else {
+      return String(props.color)
+    }
+  })
   const color = computed(() => {
     const lightnessFn = lightnessAtt.value >= 0 ? 'lighten' : 'darken'
     const saturateFn = saturationAtrr.value >= 0 ? 'saturate' : 'desaturate'

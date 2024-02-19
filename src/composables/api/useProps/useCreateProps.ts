@@ -231,4 +231,11 @@ export class ExtendedProps {
     this._props = newProps
     this._order = Object.keys(this._props)
   }
+
+  renameProp(oldName: string, newName: string) {
+    const prop = this._props[oldName]
+    if (!prop) return
+    this.remove(oldName)
+    this.add(newName, prop)
+  }
 }

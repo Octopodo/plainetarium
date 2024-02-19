@@ -1,4 +1,5 @@
 export * from './useProps'
+export * from './use2DVector'
 
 export * from './useSize'
 export * from './useColor'
@@ -10,3 +11,4 @@ export * from './useLight'
 export * from './useShader'
 export * from './useStarfield'
 export * from './usePlanetGenerator'
+export * from './useSmallStar'

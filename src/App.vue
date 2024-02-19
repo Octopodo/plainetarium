@@ -6,6 +6,7 @@ import { InitPlayground } from '@/composables/ui'
 const store = usePlaygroundStore()
 
 const numLayers: [number, number] = [3, 10]
+// InitPlayground.withStarField()
 InitPlayground.withPlainSphere()
 
 function regenerateLayers() {

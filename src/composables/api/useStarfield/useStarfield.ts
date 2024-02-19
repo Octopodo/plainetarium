@@ -17,7 +17,7 @@ import {
   type SizeParams
 } from '@/composables/api'
 
-export interface StarfieldParams
+export interface StarfieldPropsType
   extends RangeSizeParams,
     ColorParams,
     OpacityParams,
@@ -64,17 +64,19 @@ StarfieldProps.merge(
     }
   }
 )
-export function useStarfield(props: Required<StarfieldParams>) {
+
+const stop = 0
+export function useStarfield(props: StarfieldPropsType) {
   let stars
-  let regenerate
+  let generateStars
   onMounted(() => {
-    stars = generateStars(props)
-    regenerate = () => generateStars(props)
+    stars = generateStarsMethod(props)
+    generateStars = () => generateStarsMethod(props)
   })
-  return { stars, regenerate }
+  return { stars, generateStars }
 }
 
-function generateStars(props: Required<StarfieldParams>) {
+function generateStarsMethod(props: StarfieldPropsType) {
   const stars = [] as any[]
   const random = new Random()
   const { saturation, lightness } = useColor(props)

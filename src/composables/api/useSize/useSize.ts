@@ -1,72 +1,28 @@
-import type { PropType } from 'vue'
-import type { PropsValues } from '@/types'
-import { computed, ref, type Ref } from 'vue'
-import { ExtendedProps } from '@/composables/api'
+import type { Vector2dPropsType } from '@/composables/api'
+import { use2dVector, VectorProps } from '@/composables/api'
 
-export type Width = number | string | undefined
-export type Height = number | string | undefined
-export type Size = Width | [Width, Height] | { width: Width; height: Height }
+export interface SizePropsType extends Vector2dPropsType {}
 
-export interface SizeParams {
-  size?: Size
-  width: Width
-  height: Height
-}
+export const SizeProps = VectorProps.clone()
 
-export const SizeProps = new ExtendedProps('Size', {
-  size: {
-    type: [Number, String, Array, Object] as PropType<Size>,
-    default: 100,
-    control: 'range',
-    min: 0,
-    max: 1000
-  },
-  width: {
-    type: [Number, String] as PropType<Width>,
-    default: 100,
-    control: 'range',
-    min: 0,
-    max: 1000
-  },
-  height: {
-    type: [Number, String] as PropType<Height>,
-    default: 100,
-    control: 'range',
-    min: 0,
-    max: 1000
+SizeProps.renameProp('x', 'width')
+SizeProps.renameProp('y', 'height')
+SizeProps.renameProp('vector', 'size')
+
+export function useSize(props: Vector2dPropsType) {
+  const { style, size, width, height, cssWidth, cssHeight } = use2dVector(
+    props,
+    'px',
+    'width',
+    'height',
+    'size'
+  )
+  return {
+    style,
+    size,
+    width,
+    height,
+    cssWidth,
+    cssHeight
   }
-})
-
-export function useSize(props: SizeParams & PropsValues, units: string = 'px') {
-  const size = unwrapSize(props)
-  const width = computed(() => Number(size.width.value))
-  const height = computed(() => Number(size.height.value))
-
-  const cssWidth = computed(() => `${width.value}${units}`)
-  const cssHeight = computed(() => `${height.value}${units}`)
-
-  const style = computed(() => {
-    return {
-      width: cssWidth.value,
-      height: cssHeight.value
-    }
-  })
-  return { style, size, width, height, cssWidth, cssHeight }
-}
-
-function unwrapSize(props: SizeParams): {
-  width: Ref<Width>
-  height: Ref<Height>
-} {
-  const width = computed(() => {
-    if (Array.isArray(props.size)) return props.size[0]
-    if (typeof props.size === 'object') return props.size.width
-    return props.size
-  })
-  const height = computed(() => {
-    if (Array.isArray(props.size)) return props.size[1]
-    if (typeof props.size === 'object') return props.size.height
-    return props.size
-  })
-  return { width, height }
 }
