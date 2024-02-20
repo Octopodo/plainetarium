@@ -1,6 +1,5 @@
 import { computed } from 'vue'
 import type { ComputedRef } from 'vue'
-import { Random } from 'random-js'
 import { type NumericProp } from '@/types'
 import { ExtendedProps } from '@/composables/api'
 import {
@@ -75,10 +74,23 @@ StarfieldProps.merge({
   }
 })
 
-const random = new Random()
-
 export function useStarfield(props: StarfieldPropsType) {
   const count = computed(() => Number(props.count))
-
-  return { count }
+  const width = computed(() => Number(props.width))
+  const height = computed(() => Number(props.height))
+  const minSize = computed(() => Number(props.minSize))
+  const maxSize = computed(() => Number(props.maxSize))
+  const saturation = computed(() => Number(props.saturation))
+  const opacity = computed(() => Number(props.opacity))
+  const lightness = computed(() => Number(props.lightness))
+  return {
+    count,
+    width,
+    height,
+    minSize,
+    maxSize,
+    saturation,
+    opacity,
+    lightness
+  }
 }
