@@ -2,6 +2,7 @@ import type { PropType, ComputedRef } from 'vue'
 import type { PropsValues } from '@/types'
 import { computed, type Ref } from 'vue'
 import { ExtendedProps } from '@/composables/api'
+import { isArray, isObject } from '@/utils'
 
 export type X = number | string | undefined
 export type Y = number | string | undefined
@@ -9,8 +10,8 @@ export type Vector2d = X | [X, Y] | { x: X; y: Y }
 
 export interface Vector2dPropsType {
   vector?: Vector2d
-  x: X
-  y: Y
+  x?: X
+  y?: Y
 }
 
 export const VectorProps = new ExtendedProps('Vector', {
@@ -57,8 +58,6 @@ export function use2dVector(
       [yKey]: cssY.value
     }
   })
-  const cssXkey = `css${xKey.charAt(0).toUpperCase()}${xKey.slice(1)}`
-  const cssYkey = `css${yKey.charAt(0).toUpperCase()}${yKey.slice(1)}`
   return {
     style,
     vector,
@@ -104,11 +103,3 @@ function unwrapVector(
 
 // HELPERS:
 // Dirty Github Copilot checkers
-
-function isObject(value: any): value is Record<string, any> {
-  return value !== null && typeof value === 'object' && !Array.isArray(value)
-}
-
-function isArray(value: any): value is any[] {
-  return Array.isArray(value)
-}
