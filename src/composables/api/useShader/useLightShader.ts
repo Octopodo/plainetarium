@@ -21,15 +21,13 @@ export interface LightShaderPropsType
 }
 
 export const LightShaderProps = new ExtendedProps('LightShader', {
-  light: { type: Boolean, default: true }
+  light: { type: Boolean, default: true },
+  ...LightDistanceProps.props,
+  ...LightRotationProps.props,
+  ...SphereProps.props
 })
 
-LightShaderProps.merge(
-  LightDistanceProps.clone(),
-  LightRotationProps.clone(),
-  SphereProps.clone(),
-  { container: { default: true } }
-)
+LightShaderProps.merge({ container: { default: true } })
 
 LightShaderProps.reorder([
   'size',

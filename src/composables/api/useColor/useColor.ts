@@ -44,7 +44,7 @@ export function useColor(props: ColorParams & PropsValues) {
   const saturationAtrr = computed(() => Number(props.saturation))
   const lightnessAtt = computed(() => Number(props.lightness))
   const colorAtrr = computed(() => {
-    if (props.random === true) {
+    if (props.randomColor === true) {
       return useRandomColor(saturationAtrr.value).value
     } else {
       return String(props.color)

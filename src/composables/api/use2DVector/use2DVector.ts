@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, ComputedRef } from 'vue'
 import type { PropsValues } from '@/types'
 import { computed, type Ref } from 'vue'
 import { ExtendedProps } from '@/composables/api'
@@ -40,9 +40,9 @@ export const VectorProps = new ExtendedProps('Vector', {
 export function use2dVector(
   props: Vector2dPropsType & PropsValues,
   units: string = 'px',
+  vectorKey: string = 'vector',
   xKey: string = 'x',
-  yKey: string = 'y',
-  vectorKey: string = 'vector'
+  yKey: string = 'y'
 ) {
   const vector = unwrapVector(props, xKey, yKey, vectorKey)
   const x = computed(() => Number(vector.x.value))
@@ -61,20 +61,12 @@ export function use2dVector(
   const cssYkey = `css${yKey.charAt(0).toUpperCase()}${yKey.slice(1)}`
   return {
     style,
-    [vectorKey]: vector,
-    [xKey]: x,
-    [yKey]: y,
-    [cssXkey]: cssX,
-    [cssYkey]: cssY
+    vector,
+    x,
+    y,
+    cssX,
+    cssY
   }
-}
-
-function isObject(value: any): value is Record<string, any> {
-  return value !== null && typeof value === 'object' && !Array.isArray(value)
-}
-
-function isArray(value: any): value is any[] {
-  return Array.isArray(value)
 }
 
 function unwrapVector(
@@ -82,13 +74,18 @@ function unwrapVector(
   xKey: string = 'x',
   yKey: string = 'y',
   vectorKey: string = 'vector'
-): {
-  x: Ref<X>
-  y: Ref<Y>
-} {
-  const vectorValue = computed(
-    () => props[vectorKey as keyof Vector2dPropsType]
-  )
+) {
+  const vectorValue = computed(() => {
+    const vector = props[vectorKey as keyof Vector2dPropsType]
+    if (!vector) {
+      return {
+        [xKey]: props[xKey as keyof Vector2dPropsType],
+        [yKey]: props[yKey as keyof Vector2dPropsType]
+      }
+    } else {
+      return vector
+    }
+  })
 
   const x = computed(() => {
     if (isArray(vectorValue.value)) return vectorValue.value[0]
@@ -103,4 +100,15 @@ function unwrapVector(
     return vectorValue.value
   })
   return { x, y }
+}
+
+// HELPERS:
+// Dirty Github Copilot checkers
+
+function isObject(value: any): value is Record<string, any> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value)
+}
+
+function isArray(value: any): value is any[] {
+  return Array.isArray(value)
 }

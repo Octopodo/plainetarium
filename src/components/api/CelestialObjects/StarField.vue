@@ -7,35 +7,39 @@ import SmallStar from './SmallStar.vue'
 
 const props = defineProps(StarfieldProps.props)
 const starfieldElement = ref(null)
-const { stars, generateStars } = useStarfield(props as StarfieldPropsType)
+const { count } = useStarfield(props as StarfieldPropsType)
 const width = computed(() => Number(props.width))
 const height = computed(() => Number(props.height))
+const minSize = computed(() => Number(props.minSize))
+const maxSize = computed(() => Number(props.maxSize))
+const saturation = computed(() => Number(props.saturation))
+const opacity = computed(() => Number(props.opacity))
+const lightness = computed(() => Number(props.lightness))
 </script>
 <template>
   <div class="star-field">
-    <template
-      v-for="(star, index) in stars"
-      :key="index"
-    >
+    <div class="starfield-position">
       <SmallStar
-        position=""
-        random-color
+        v-for="(star, index) in count"
+        :key="index"
+        :parentWidth="width"
+        :parentHeight="height"
+        :minSize="minSize"
+        :maxSize="maxSize"
+        :saturation="saturation"
+        :opacity="opacity"
+        :lightness="lightness"
       />
-    </template>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .star-field {
-  position: fixed;
+  position: fixed !important;
   width: v-bind('width');
   height: v-bind('height');
-  top: 0;
   left: 0;
-}
-
-.star {
-  position: absolute;
-  border-radius: 50%;
+  top: 0;
 }
 </style>

@@ -72,14 +72,12 @@ export function useRangeSize(props: RangeSizeParams & PropsValues) {
   )
 
   onMounted(() => {
-    setSize()
-    setSizeRatio(size.value)
+    resetSize()
   })
 
   const style = computed(() => {
     return {
-      width: `${size.value}px`,
-      height: `${size.value}px`
+      transform: `scale(${size.value / 1000})`
     }
   })
 

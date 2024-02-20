@@ -7,7 +7,8 @@ const store = usePlaygroundStore()
 
 const numLayers: [number, number] = [3, 10]
 // InitPlayground.withStarField()
-InitPlayground.withPlainSphere()
+InitPlayground.withStarField()
+InitPlayground.withRandomPlanet(numLayers)
 
 function regenerateLayers() {
   store.cleanLayers()

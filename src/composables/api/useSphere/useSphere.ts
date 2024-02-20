@@ -22,10 +22,13 @@ export type SpherePropsType = PropsValues &
   OpacityParams
 
 export const SphereProps = new ExtendedProps('SphereProps', {
+  ...ColorProps.props,
+  ...SizeProps.props,
+  ...OpacityProps.props,
   container: { type: Boolean, default: false, hideControl: true }
 })
 
-SphereProps.merge(ColorProps.clone(), OpacityProps.clone(), SizeProps.clone(), {
+SphereProps.merge({
   size: {
     default: 500,
     min: 0,

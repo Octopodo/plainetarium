@@ -8,27 +8,101 @@ import {
   type ComputedRef
 } from 'vue'
 import { Random } from 'random-js'
-import { useSphere, SphereProps, ExtendedProps } from '@/composables/api'
-import type { SpherePropsType } from '@/composables/api'
+import {
+  useSphere,
+  usePosition,
+  useRangeSize,
+  useRandomPosition,
+  PositionProps,
+  SphereProps,
+  RangeSizeProps,
+  ExtendedProps
+} from '@/composables/api'
+import type {
+  RangeSizeParams,
+  SpherePropsType,
+  RandomPositionParams
+} from '@/composables/api'
 
-export interface SmallStarPropsType extends SpherePropsType {}
+import type { PropsValues } from '@/types'
 
-export const SmallStarProps = new ExtendedProps('SmallStar', {})
+export interface SmallStarPropsType
+  extends SpherePropsType,
+    RangeSizeParams,
+    RandomPositionParams,
+    ExtendedProps {}
 
-SmallStarProps.merge(SphereProps.clone(), {
-  size: {
-    min: 1,
-    max: 50,
-    default: 3
+export const SmallStarProps = new ExtendedProps('SmallStar', {
+  ...SphereProps.props,
+  ...PositionProps.props,
+  ...RangeSizeProps.props,
+  parentWidth: {
+    type: [Number, String],
+    default: 1000
   },
-  opacity: {
-    min: 10,
-    max: 100
+  parentHeight: {
+    type: [Number, String],
+    default: 1000
   }
 })
 
-export function useSmallStar(props: SmallStarPropsType) {
-  const { style, sizeStyle, opacityStyle, colorStyle, opacity, color } =
-    useSphere(props)
-  return { style, sizeStyle, opacityStyle, colorStyle, opacity, color }
+SmallStarProps.merge({
+  opacity: {
+    min: 10,
+    max: 100
+  },
+  minSize: {
+    default: 1,
+    min: 1,
+    max: 10
+  },
+  maxSize: {
+    default: 3,
+    min: 1,
+    max: 10
+  },
+  randomColor: {
+    default: true
+  }
+})
+
+SmallStarProps.remove('size')
+
+const random = new Random()
+export function useSmallStar(props: SmallStarPropsType & PropsValues) {
+  const {
+    style: sphereStyle,
+    opacityStyle,
+    colorStyle,
+    opacity,
+    color
+  } = useSphere(props)
+
+  const { style: positionStyle, resetPosition } = useRandomPosition(props)
+  const { style: rangeSizeStyle, resetSize } = useRangeSize(props)
+  const starStyle = computed(() => {
+    return {
+      ...colorStyle.value,
+      ...sphereStyle.value,
+      ...positionStyle.value,
+      ...rangeSizeStyle.value,
+      position: 'fixed',
+      transformOrigin: 'left top'
+    }
+  })
+
+  function resetStar() {
+    resetStar()
+    resetSize()
+  }
+
+  return {
+    style: starStyle,
+    opacityStyle,
+    colorStyle,
+    positionStyle,
+    opacity,
+    color,
+    resetStar
+  }
 }
