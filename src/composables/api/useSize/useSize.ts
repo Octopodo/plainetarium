@@ -1,8 +1,12 @@
 import { computed } from 'vue'
-import type { Vector2dPropsType } from '@/composables/api'
+import type { Vector2dPropsType, X, Y, Vector2d } from '@/composables/api'
 import { use2dVector, VectorProps } from '@/composables/api'
 
-export interface SizePropsType extends Vector2dPropsType {}
+export interface SizePropsType {
+  size?: Vector2d
+  width?: X
+  height?: Y
+}
 
 export const SizeProps = VectorProps.clone()
 
