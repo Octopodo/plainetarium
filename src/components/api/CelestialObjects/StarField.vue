@@ -2,19 +2,21 @@
 import { ref, onMounted, computed } from 'vue'
 import { useStarfield, StarfieldProps } from '@/composables/api'
 import type { StarfieldPropsType } from '@/composables/api'
-import { useElementSize } from '@vueuse/core'
+import { useWindowSize } from '@vueuse/core'
 import SmallStar from './SmallStar.vue'
 
 const props = defineProps(StarfieldProps.props)
 const starfieldElement = ref(null)
-const { count } = useStarfield(props as StarfieldPropsType)
-const width = computed(() => Number(props.width))
-const height = computed(() => Number(props.height))
-const minSize = computed(() => Number(props.minSize))
-const maxSize = computed(() => Number(props.maxSize))
-const saturation = computed(() => Number(props.saturation))
-const opacity = computed(() => Number(props.opacity))
-const lightness = computed(() => Number(props.lightness))
+const {
+  count,
+  width,
+  height,
+  minSize,
+  maxSize,
+  saturation,
+  opacity,
+  lightness
+} = useStarfield(props as StarfieldPropsType)
 </script>
 <template>
   <div class="star-field">
