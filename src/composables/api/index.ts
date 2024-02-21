@@ -14,4 +14,5 @@ export * from './useShader'
 export * from './useStarfield'
 export * from './usePlanetGenerator'
 export * from './useSmallStar'
-export * from './useRandomPosition';
+export * from './useRandomPosition'
+export * from './useBlur'
