@@ -19,6 +19,7 @@ export function createRandomControlValue(
 ) {
   if (!control) return
   const random = new Random()
+  if (control.name === 'Dev') return
   if (control.name === 'Opacity') {
     control.model.value = random.integer(options.minOpacity, options.maxOpacity)
     return

@@ -22,7 +22,8 @@ export const ColorProps = new ExtendedProps('Color', {
     default: 0,
     control: 'range',
     min: -100,
-    max: 100
+    max: 100,
+    safeMin: -25
   },
 
   lightness: {
@@ -30,7 +31,8 @@ export const ColorProps = new ExtendedProps('Color', {
     default: 0,
     control: 'range',
     min: -100,
-    max: 100
+    max: 100,
+    safeMin: 0
   },
   randomColor: {
     type: Boolean,

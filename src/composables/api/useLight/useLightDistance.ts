@@ -13,7 +13,7 @@ export const LightDistanceProps = new ExtendedProps('LightDistance', {
     default: 37,
     control: 'range',
     min: 0,
-    max: 150,
+    max: 100,
     safeMin: 50,
     safeMax: 100
   },
@@ -22,7 +22,7 @@ export const LightDistanceProps = new ExtendedProps('LightDistance', {
     default: 104,
     control: 'range',
     min: 0,
-    max: 140,
+    max: 100,
     safeMin: 70,
     safeMax: 100
   }
@@ -30,13 +30,13 @@ export const LightDistanceProps = new ExtendedProps('LightDistance', {
 
 const CENTER = 50
 
-export function useLightDistance(
-  props: LightDistanceParams & PropsObject,
-  baseDistanceBias = -100
-) {
-  const sharpness = computed(() => Number(props.sharpness))
-  const distance = computed(() => Number(props.distance))
+export function useLightDistance(props: LightDistanceParams & PropsObject) {
   const { xRotation, yRotation } = useLightRotation(props)
+
+  const thickness = computed(() => 100 - Number(props.sharpness))
+  const radius = computed(
+    () => Number(props.distance) + CIRCLE_CORNER_EXTENTS / 100
+  )
 
   const distanceToCenter = computed(() => {
     const dx = xRotation.value - CENTER
@@ -44,33 +44,23 @@ export function useLightDistance(
     return Math.sqrt(dx * dx + dy * dy)
   })
 
-  const adjustedSharpness = computed(() => {
-    return sharpness.value / (1 + distanceToCenter.value / 360) // Ajusta esta fórmula según tus necesidades
-  })
-
-  const adjustedDistance = computed(() => {
-    return distance.value / (1 + distanceToCenter.value / 360) // Ajusta esta fórmula según tus necesidades
-  })
-
-  const baseDistance = computed(() => adjustedDistance.value + baseDistanceBias)
-
-  const gradientEndPoint = computed(
-    () => (adjustedDistance.value / 100) * CIRCLE_CORNER_EXTENTS
+  const baseDistance = computed(
+    () => radius.value / (1 + distanceToCenter.value / 100) - 100
   )
-  const gradientStartPoint = computed(() => {
-    const start =
-      (adjustedSharpness.value / 100) * CIRCLE_CORNER_EXTENTS +
-      baseDistance.value
-    return start >= gradientEndPoint.value ? gradientEndPoint.value : start
+
+  const outPoint = computed(() => {
+    return radius.value + thickness.value + baseDistance.value
   })
 
-  const cssStartPoint = computed(() => `${gradientStartPoint.value}%`)
-  const cssEndPoint = computed(() => `${gradientEndPoint.value}%`)
+  const inPoint = computed(() => {
+    return radius.value - thickness.value + baseDistance.value
+  })
+
   return {
-    lightCenter: gradientStartPoint,
-    lightEnd: gradientEndPoint,
-    cssLightCenter: cssStartPoint,
-    cssLightEnd: cssEndPoint,
+    lightCenter: inPoint,
+    lightEnd: outPoint,
+    cssLightCenter: computed(() => inPoint.value + '%'),
+    cssLightEnd: computed(() => outPoint.value + '%'),
     distanceToCenter
   }
 }

@@ -15,8 +15,8 @@ export const LightRotationProps = new ExtendedProps('LightRotation', {
     control: 'range',
     min: -300,
     max: 300,
-    safeMin: -100,
-    safeMax: 100,
+    safeMin: -50,
+    safeMax: 50,
     hideControl: false
   },
   yRotation: {
@@ -25,8 +25,8 @@ export const LightRotationProps = new ExtendedProps('LightRotation', {
     control: 'range',
     min: -300,
     max: 300,
-    safeMin: -100,
-    safeMax: 100,
+    safeMin: -50,
+    safeMax: 50,
     hideControl: false
   }
 })

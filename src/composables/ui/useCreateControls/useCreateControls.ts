@@ -65,6 +65,8 @@ function createRangeControl(prop: ExtendedProp, control: Control) {
   control.controlType = prop.control
   control.min = prop.min
   control.max = prop.max
+  control.safeMin = prop.safeMin
+  control.safeMax = prop.safeMax
   control.callback = prop.callback || (() => {})
 }
 

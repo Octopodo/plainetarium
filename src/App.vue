@@ -7,7 +7,7 @@ const store = usePlaygroundStore()
 
 const numLayers: [number, number] = [3, 10]
 // InitPlayground.withLightSphere()
-// InitPlayground.withStarField()
+InitPlayground.withStarField()
 // InitPlayground.withRandomPlanet(numLayers)
 InitPlayground.withKnownLightSphere()
 function regenerateLayers() {
