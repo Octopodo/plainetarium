@@ -14,7 +14,7 @@ SizeProps.renameProp('vector', 'size')
 SizeProps.renameProp('x', 'width')
 SizeProps.renameProp('y', 'height')
 
-export function useSize(props: Vector2dPropsType, units?: 'px') {
+export function useSize(props: SizePropsType, units?: 'px') {
   const {
     vector: size,
     x: width,

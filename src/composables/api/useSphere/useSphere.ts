@@ -25,7 +25,8 @@ export const SphereProps = new ExtendedProps('SphereProps', {
   ...ColorProps.props,
   ...SizeProps.props,
   ...OpacityProps.props,
-  container: { type: Boolean, default: false, hideControl: true }
+  container: { type: Boolean, default: false, hideControl: true },
+  dev: { type: Boolean, default: false }
 })
 
 SphereProps.merge({
@@ -54,13 +55,16 @@ export function useSphere(props: SpherePropsType) {
   const { style: opacityStyle, opacity } = useOpacity(props)
   const { style: colorStyle, color } = useColor(props)
 
+  const borderRadius = computed(() => {
+    return props.dev === true ? '0%' : '50%'
+  })
   const style = computed(() => {
     return {
       width: '1000px',
       height: '1000px',
       opacity: opacity.value,
       backgroundColor: color.value,
-      borderRadius: '50%',
+      borderRadius: borderRadius.value,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',

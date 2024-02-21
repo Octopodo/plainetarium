@@ -47,6 +47,7 @@ InitPlayground.withKnownLightSphere = function () {
     yRotation: 0,
     sharpness: 39,
     distance: 121,
-    color: '#60f321'
+    color: '#60f321',
+    dev: true
   })
 }
