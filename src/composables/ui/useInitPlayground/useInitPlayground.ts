@@ -35,3 +35,18 @@ InitPlayground.withStarField = function () {
   const store = usePlaygroundStore()
   store.addLayer({ component: StarField })
 }
+
+InitPlayground.withKnownLightSphere = function () {
+  const store = usePlaygroundStore()
+  const lightSphere = store.addLayer({ component: Shaders.LightSphere })
+  lightSphere.expanded = true
+  store.setControlsValues(lightSphere, {
+    size: 500,
+    opacity: 38,
+    xRotation: 0,
+    yRotation: 0,
+    sharpness: 39,
+    distance: 121,
+    color: '#60f321'
+  })
+}

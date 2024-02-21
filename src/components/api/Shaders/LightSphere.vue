@@ -4,7 +4,6 @@ import {
   useSphere,
   useLightShader,
   SphereProps,
-  OpacityProps,
   LightShaderProps,
   type LightShaderPropsType,
   type SpherePropsType

@@ -18,8 +18,6 @@ const { layerElement, layerData, selectLayer } = useLayer(
   props,
   playgroundStore
 )
-
-// useDraggableLayer(layerElement)
 </script>
 <template>
   <div
