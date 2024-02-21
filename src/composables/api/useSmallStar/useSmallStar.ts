@@ -1,16 +1,8 @@
-import {
-  ref,
-  onMounted,
-  computed,
-  watch,
-  watchEffect,
-  type Ref,
-  type ComputedRef
-} from 'vue'
+import { computed, type ComputedRef } from 'vue'
 import { Random } from 'random-js'
+
 import {
   useSphere,
-  usePosition,
   useRangeSize,
   useRandomPosition,
   PositionProps,
@@ -18,6 +10,7 @@ import {
   RangeSizeProps,
   ExtendedProps
 } from '@/composables/api'
+
 import type {
   RangeSizeParams,
   SpherePropsType,
@@ -25,6 +18,15 @@ import type {
 } from '@/composables/api'
 
 import type { PropsValues } from '@/types'
+
+export interface Star {
+  x: ComputedRef<number>
+  y: ComputedRef<number>
+  size: ComputedRef<number>
+  color: ComputedRef<string>
+  opacity: ComputedRef<number>
+  blur: ComputedRef<number>
+}
 
 export interface SmallStarPropsType
   extends SpherePropsType,
@@ -68,7 +70,6 @@ SmallStarProps.merge({
 
 SmallStarProps.remove('size')
 
-const random = new Random()
 export function useSmallStar(props: SmallStarPropsType & PropsValues) {
   const {
     style: sphereStyle,
@@ -103,6 +104,7 @@ export function useSmallStar(props: SmallStarPropsType & PropsValues) {
     positionStyle,
     opacity,
     color,
-    resetStar
+    resetStar,
+    resetPosition
   }
 }

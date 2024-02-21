@@ -1,30 +1,30 @@
 import { computed } from 'vue'
 import type { ComputedRef } from 'vue'
 import { type NumericProp } from '@/types'
-import { ExtendedProps } from '@/composables/api'
+
+import type {
+  RangeSizeParams,
+  ColorParams,
+  OpacityParams,
+  SizePropsType,
+  BlurParams
+} from '@/composables/api'
+
 import {
+  ExtendedProps,
   SizeProps,
   ColorProps,
   OpacityProps,
   RangeSizeProps,
-  type RangeSizeParams,
-  type ColorParams,
-  type OpacityParams,
-  type SizePropsType
+  BlurProps
 } from '@/composables/api'
 
-export interface Star {
-  x: ComputedRef<number>
-  y: ComputedRef<number>
-  size: ComputedRef<number>
-  color: ComputedRef<string>
-  opacity: ComputedRef<number>
-}
 export interface StarfieldPropsType
   extends RangeSizeParams,
     ColorParams,
     OpacityParams,
-    SizePropsType {
+    SizePropsType,
+    BlurParams {
   count: NumericProp
 }
 
@@ -33,6 +33,7 @@ export const StarfieldProps = new ExtendedProps('Starfield', {
   ...SizeProps.props,
   ...OpacityProps.props,
   ...RangeSizeProps.props,
+  ...BlurProps.props,
   count: {
     type: [Number, String],
     default: 500,
@@ -43,6 +44,9 @@ export const StarfieldProps = new ExtendedProps('Starfield', {
 })
 
 StarfieldProps.merge({
+  blur: {
+    default: 0
+  },
   color: {
     hideControl: true
   },
@@ -83,6 +87,7 @@ export function useStarfield(props: StarfieldPropsType) {
   const saturation = computed(() => Number(props.saturation))
   const opacity = computed(() => Number(props.opacity))
   const lightness = computed(() => Number(props.lightness))
+  const blur = computed(() => Number(props.blur))
   return {
     count,
     width,
