@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { CIRCLE_CORNER_EXTENTS } from '@/math'
 import { type PropsObject } from '@/types'
-import { ExtendedProps } from '@/composables/api'
+import { ExtendedProps, useLightRotation } from '@/composables/api'
 export interface LightDistanceParams {
   sharpness?: number | string
   distance?: number | string
@@ -28,21 +28,39 @@ export const LightDistanceProps = new ExtendedProps('LightDistance', {
   }
 })
 
+const CENTER = 50
+
 export function useLightDistance(
   props: LightDistanceParams & PropsObject,
   baseDistanceBias = -100
 ) {
   const sharpness = computed(() => Number(props.sharpness))
   const distance = computed(() => Number(props.distance))
+  const { xRotation, yRotation } = useLightRotation(props)
 
-  const baseDistance = computed(() => distance.value + baseDistanceBias)
+  const distanceToCenter = computed(() => {
+    const dx = xRotation.value - CENTER
+    const dy = yRotation.value - CENTER
+    return Math.sqrt(dx * dx + dy * dy)
+  })
+
+  const adjustedSharpness = computed(() => {
+    return sharpness.value / (1 + distanceToCenter.value / 360) // Ajusta esta fórmula según tus necesidades
+  })
+
+  const adjustedDistance = computed(() => {
+    return distance.value / (1 + distanceToCenter.value / 360) // Ajusta esta fórmula según tus necesidades
+  })
+
+  const baseDistance = computed(() => adjustedDistance.value + baseDistanceBias)
 
   const gradientEndPoint = computed(
-    () => (distance.value / 100) * CIRCLE_CORNER_EXTENTS
+    () => (adjustedDistance.value / 100) * CIRCLE_CORNER_EXTENTS
   )
   const gradientStartPoint = computed(() => {
     const start =
-      (sharpness.value / 100) * CIRCLE_CORNER_EXTENTS + baseDistance.value
+      (adjustedSharpness.value / 100) * CIRCLE_CORNER_EXTENTS +
+      baseDistance.value
     return start >= gradientEndPoint.value ? gradientEndPoint.value : start
   })
 
@@ -52,6 +70,7 @@ export function useLightDistance(
     lightCenter: gradientStartPoint,
     lightEnd: gradientEndPoint,
     cssLightCenter: cssStartPoint,
-    cssLightEnd: cssEndPoint
+    cssLightEnd: cssEndPoint,
+    distanceToCenter
   }
 }
