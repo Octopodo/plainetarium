@@ -1,20 +1,22 @@
 import { computed, type ComputedRef } from 'vue'
-import { Random } from 'random-js'
 
 import {
   useSphere,
   useRangeSize,
+  useBlur,
   useRandomPosition,
   PositionProps,
   SphereProps,
   RangeSizeProps,
+  BlurProps,
   ExtendedProps
 } from '@/composables/api'
 
 import type {
   RangeSizeParams,
   SpherePropsType,
-  RandomPositionParams
+  RandomPositionParams,
+  BlurParams
 } from '@/composables/api'
 
 import type { PropsValues } from '@/types'
@@ -32,12 +34,14 @@ export interface SmallStarPropsType
   extends SpherePropsType,
     RangeSizeParams,
     RandomPositionParams,
+    BlurParams,
     ExtendedProps {}
 
 export const SmallStarProps = new ExtendedProps('SmallStar', {
   ...SphereProps.props,
   ...PositionProps.props,
   ...RangeSizeProps.props,
+  ...BlurProps.props,
   parentWidth: {
     type: [Number, String],
     default: 1000
@@ -81,12 +85,14 @@ export function useSmallStar(props: SmallStarPropsType & PropsValues) {
 
   const { style: positionStyle, resetPosition } = useRandomPosition(props)
   const { style: rangeSizeStyle, resetSize } = useRangeSize(props)
+  const { style: blurStyle, blur } = useBlur(props)
   const starStyle = computed(() => {
     return {
       ...colorStyle.value,
       ...sphereStyle.value,
       ...positionStyle.value,
       ...rangeSizeStyle.value,
+      ...blurStyle.value,
       position: 'fixed',
       transformOrigin: 'left top'
     }
@@ -104,6 +110,7 @@ export function useSmallStar(props: SmallStarPropsType & PropsValues) {
     positionStyle,
     opacity,
     color,
+    blur,
     resetStar,
     resetPosition
   }

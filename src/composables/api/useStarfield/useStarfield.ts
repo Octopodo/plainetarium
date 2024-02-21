@@ -69,15 +69,26 @@ StarfieldProps.merge({
   minSize: {
     default: 1,
     min: 1,
-    max: 10
+    max: 50
   },
   maxSize: {
     default: 3,
     min: 1,
-    max: 10
+    max: 50
   }
 })
 
+StarfieldProps.reorder([
+  'count',
+  'width',
+  'height',
+  'minSize',
+  'maxSize',
+  'saturation',
+  'opacity',
+  'lightness',
+  'blur'
+])
 export function useStarfield(props: StarfieldPropsType) {
   const count = computed(() => Number(props.count))
   const width = computed(() => Number(props.width))
@@ -96,6 +107,7 @@ export function useStarfield(props: StarfieldPropsType) {
     maxSize,
     saturation,
     opacity,
-    lightness
+    lightness,
+    blur
   }
 }

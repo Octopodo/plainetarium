@@ -6,7 +6,6 @@ import { useWindowSize } from '@vueuse/core'
 import SmallStar from './SmallStar.vue'
 
 const props = defineProps(StarfieldProps.props)
-const starfieldElement = ref(null)
 const {
   count,
   width,
@@ -15,7 +14,8 @@ const {
   maxSize,
   saturation,
   opacity,
-  lightness
+  lightness,
+  blur
 } = useStarfield(props as StarfieldPropsType)
 </script>
 <template>
@@ -31,6 +31,7 @@ const {
         :saturation="saturation"
         :opacity="opacity"
         :lightness="lightness"
+        :blur="blur"
       />
     </div>
   </div>

@@ -1,6 +1,6 @@
 import tinycolor from 'tinycolor2'
 import type { PropsValues } from '@/types'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { ExtendedProps } from '@/composables/api/'
 import { useRandomColor } from '@/composables/common'
 export interface ColorParams {
@@ -19,18 +19,19 @@ export const ColorProps = new ExtendedProps('Color', {
 
   saturation: {
     type: [Number, String],
-    default: 0,
+    default: 100,
     control: 'range',
-    min: -100,
+    min: 0,
     max: 100,
-    safeMin: -25
+    safeMin: -25,
+    step: 0.2
   },
 
   lightness: {
     type: [Number, String],
-    default: 0,
+    default: 50,
     control: 'range',
-    min: -100,
+    min: 0,
     max: 100,
     safeMin: 0
   },
@@ -43,11 +44,13 @@ export const ColorProps = new ExtendedProps('Color', {
 })
 
 export function useColor(props: ColorParams & PropsValues) {
-  const saturationAtrr = computed(() => Number(props.saturation))
-  const lightnessAtt = computed(() => Number(props.lightness))
+  const randomColor = ref(useRandomColor().value)
+  const saturationAtrr = computed(() => Number(props.saturation) * 2 - 100)
+  const lightnessAtt = computed(() => Number(props.lightness) * 2 - 100)
   const colorAtrr = computed(() => {
     if (props.randomColor === true) {
-      return useRandomColor(saturationAtrr.value).value
+      // return useRandomColor(saturationAtrr.value).value
+      return randomColor.value
     } else {
       return String(props.color)
     }
