@@ -9,13 +9,6 @@ const { style: sphereStyle } = useSphere(props as SphereParams)
 const mask = computed(() => {
   return { overflow: 'hidden' }
 })
-
-watch(
-  () => sphereStyle.value,
-  () => {
-    const stop = 0
-  }
-)
 </script>
 
 <template>

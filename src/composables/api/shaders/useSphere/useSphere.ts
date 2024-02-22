@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { type PropsValues } from '@/types'
 
 import {
@@ -45,6 +45,7 @@ SphereProps.merge({
 })
 
 SphereProps.reorder(['size', 'opacity', 'color'])
+
 export function useSphere(props: SphereParams) {
   const {
     style: sizeStyle,
@@ -59,6 +60,12 @@ export function useSphere(props: SphereParams) {
   const borderRadius = computed(() => {
     return props.dev === true ? '0%' : '50%'
   })
+
+  // onMounted(() => {
+  //   if (props.size) {
+  //     props.size.max = window.innerHeight
+  //   }
+  // })
   const style = computed(() => {
     return {
       width: '1000px',
