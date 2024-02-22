@@ -74,7 +74,7 @@ watch(value, (newValue) => {
   grid-template-columns: 1.2fr 2fr 1fr;
   gap: 10px;
   justify-items: start;
-  width: 100%;
+  width: 95%;
 }
 
 .control-title {

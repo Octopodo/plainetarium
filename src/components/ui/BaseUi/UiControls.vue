@@ -26,6 +26,10 @@ const updateControl = (control: Control, value: any) => {
 
 <style scoped>
 .controls {
-  padding-left: 50px;
+  border-top: 1px solid #383838;
+  padding-left: 14px;
+  padding-top: 6px;
+  width: 100%;
+  background-color: #262626;
 }
 </style>

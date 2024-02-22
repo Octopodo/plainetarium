@@ -52,5 +52,6 @@ const { layerElement, layerData, selectLayer } = useLayer(
 
 .selected {
   border: solid 1px #047cde;
+  background-color: #3c3c3c;
 }
 </style>
