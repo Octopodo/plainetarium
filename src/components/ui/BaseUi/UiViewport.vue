@@ -12,7 +12,7 @@ const layers = computed(() => playgroundStore.layers)
       :key="layer.id"
     >
       <component
-        v-if="layer.visible"
+        v-show="layer.visible"
         class="viewport-layer"
         :is="toRaw(layer.component)"
         v-bind="layer.props"
