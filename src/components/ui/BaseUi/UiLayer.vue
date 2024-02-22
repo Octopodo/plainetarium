@@ -45,7 +45,7 @@ const { layerElement, layerData, selectLayer } = useLayer(
 <style scoped>
 .ui-layer {
   width: 100%;
-  border: 1px solid #0d0d0d;
+  border-bottom: 1px solid #0d0d0d;
   font-size: 0.8rem;
   /* cursor: pointer; */
 }

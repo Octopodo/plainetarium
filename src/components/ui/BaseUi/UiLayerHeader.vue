@@ -124,7 +124,7 @@ function textDoubleClick() {
 
 .close-icon {
   position: absolute;
-  top: 25%;
+  top: 10%;
   right: 4px;
   padding: 5px;
   border-radius: 50%;
