@@ -1,24 +1,17 @@
 <script lang="ts" setup>
 import { ExtendedProps } from '@/composables/api'
 import {
-  useSphere,
   useLightShader,
-  SphereProps,
   LightShaderProps,
-  type LightShaderPropsType,
-  type SphereParams
+  type LightShaderParams
 } from '@/composables/api'
 
-const LightSphereProps = new ExtendedProps('Light Sphere Props')
-LightSphereProps.merge(SphereProps, LightShaderProps)
-
 const props = defineProps(LightShaderProps.props)
-const { style: shaderStyle } = useLightShader(props as LightShaderPropsType)
-const { style: sphereStyle } = useSphere(props as SphereParams)
+const { style: lightStyle } = useLightShader(props as LightShaderParams)
 </script>
 <template>
   <div
     class="shader"
-    :style="[sphereStyle, shaderStyle]"
+    :style="[lightStyle]"
   ></div>
 </template>

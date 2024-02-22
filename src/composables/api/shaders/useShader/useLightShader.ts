@@ -2,6 +2,7 @@ import { computed, type CSSProperties } from 'vue'
 import { type PropsValues } from '@/types'
 import { ExtendedProps } from '@/composables/api'
 import {
+  useSphere,
   useLightDistance,
   useLightColor,
   useLightRotation,
@@ -9,13 +10,15 @@ import {
   LightRotationProps,
   SphereProps,
   type LightDistanceParams,
-  type LightRotationParams
+  type LightRotationParams,
+  type SphereParams
 } from '@/composables/api/shaders'
 
 import type { ColorParams } from '@/composables/api/graphics'
 
-export interface LightShaderPropsType
+export interface LightShaderParams
   extends LightDistanceParams,
+    SphereParams,
     ColorParams,
     LightRotationParams {
   light?: boolean
@@ -43,10 +46,11 @@ LightShaderProps.reorder([
   'light'
 ])
 
-export function useLightShader(props: LightShaderPropsType & PropsValues) {
+export function useLightShader(props: LightShaderParams & PropsValues) {
   const { transparentColor, solidColor } = useLightColor(props)
   const { cssLightCenter, cssLightEnd } = useLightDistance(props)
   const { cssXRotation, cssYRotation } = useLightRotation(props)
+  const { style: sphereStyle } = useSphere(props)
 
   const fromColor = computed(() =>
     props.light ? solidColor.value : transparentColor.value
@@ -57,6 +61,7 @@ export function useLightShader(props: LightShaderPropsType & PropsValues) {
 
   const style = computed(() => {
     const cssProps: CSSProperties = {
+      ...sphereStyle.value,
       position: 'absolute',
       background: `radial-gradient(
         circle at ${cssXRotation.value} ${cssYRotation.value},
