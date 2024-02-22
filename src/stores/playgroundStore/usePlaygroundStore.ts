@@ -28,8 +28,8 @@ export const usePlaygroundStore = defineStore('playground', {
     },
 
     cleanLayers() {
-      this.layers.forEach((layer) => {
-        if (!layer.locked) {
+      this.layers.forEach((layer, i) => {
+        if (!layer.locked && i !== 0) {
           this.deleteLayer(layer)
         }
       })

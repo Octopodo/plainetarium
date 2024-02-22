@@ -3,8 +3,9 @@ import UiLayout from '@/components/ui/BaseUi/UiLayout.vue'
 import TestingLab from '@/components/TestingLab.vue'
 import { usePlaygroundStore } from './stores'
 import { InitPlayground } from '@/composables/ui'
+import { Random } from 'random-js'
 const store = usePlaygroundStore()
-
+const random = new Random()
 const numLayers: [number, number] = [3, 10]
 // InitPlayground.withLightSphere()
 InitPlayground.withStarField()
@@ -12,6 +13,7 @@ InitPlayground.withRandomPlanet(numLayers)
 // InitPlayground.withKnownLightSphere()
 function regenerateLayers() {
   store.cleanLayers()
+
   InitPlayground.withRandomPlanet(numLayers)
 }
 </script>
