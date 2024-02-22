@@ -34,7 +34,7 @@ SphereProps.merge({
   size: {
     default: 500,
     min: 0,
-    max: 1000
+    max: 700
   },
   width: {
     hideControl: true
