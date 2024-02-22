@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
 import { type StyleValue } from 'vue'
-import { useSmallStar, SmallStarProps } from '@/composables/api'
-import type { SmallStarPropsType } from '@/composables/api'
+import {
+  useSmallStar,
+  SmallStarProps,
+  type SmallStarPropsType
+} from '@/composables/api'
 const props = defineProps(SmallStarProps.props)
 const { style } = useSmallStar(props as SmallStarPropsType)
 </script>

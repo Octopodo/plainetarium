@@ -6,7 +6,7 @@ import {
   SphereProps,
   LightShaderProps,
   type LightShaderPropsType,
-  type SpherePropsType
+  type SphereParams
 } from '@/composables/api'
 
 const LightSphereProps = new ExtendedProps('Light Sphere Props')
@@ -14,7 +14,7 @@ LightSphereProps.merge(SphereProps, LightShaderProps)
 
 const props = defineProps(LightShaderProps.props)
 const { style: shaderStyle } = useLightShader(props as LightShaderPropsType)
-const { style: sphereStyle } = useSphere(props as SpherePropsType)
+const { style: sphereStyle } = useSphere(props as SphereParams)
 </script>
 <template>
   <div

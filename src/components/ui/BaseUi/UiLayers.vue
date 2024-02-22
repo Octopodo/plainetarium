@@ -43,7 +43,7 @@ useSortableList(layersRef)
   flex-direction: column;
   width: 400px;
   height: 700px;
-  background-color: #272727;
+  background-color: #0c9292;
   height: 75vh;
   overflow: auto;
   overflow-y: scroll;

@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed } from 'vue'
-import { useStarfield, StarfieldProps } from '@/composables/api'
-import type { StarfieldPropsType } from '@/composables/api'
-import { useWindowSize } from '@vueuse/core'
+import {
+  useStarfield,
+  StarfieldProps,
+  type StarfieldPropsType
+} from '@/composables/api'
 import SmallStar from './SmallStar.vue'
 
 const props = defineProps(StarfieldProps.props)

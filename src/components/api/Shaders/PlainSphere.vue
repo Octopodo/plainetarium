@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { computed, watch } from 'vue'
-import { useSphere, SphereProps, type SpherePropsType } from '@/composables/api'
+import { useSphere, SphereProps, type SphereParams } from '@/composables/api'
 
 const props = defineProps(SphereProps.props)
 
-const { style: sphereStyle } = useSphere(props as SpherePropsType)
+const { style: sphereStyle } = useSphere(props as SphereParams)
 
 const mask = computed(() => {
   return { overflow: 'hidden' }
