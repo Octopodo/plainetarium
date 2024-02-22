@@ -31,11 +31,18 @@ const props = defineProps({
   iconSize: {
     type: [Number, String],
     default: 18
+  },
+  noBox: {
+    type: Boolean,
+    default: false
   }
 })
 
 const active = ref(props.active)
 const iconSize = computed(() => `${props.iconSize}px`)
+const activeColor = computed(() => {
+  return props.noBox ? '' : props.activeColor
+})
 const icon = computed(() => {
   const activeIcon = props.icon
   const inactiveIcon =
@@ -44,6 +51,7 @@ const icon = computed(() => {
     ? MdiIcons[activeIcon as keyof typeof MdiIcons]
     : MdiIcons[inactiveIcon as keyof typeof MdiIcons]
 })
+
 function clickCommand(payload: MouseEvent) {
   active.value = !active.value
   props.command(payload)
@@ -52,7 +60,7 @@ function clickCommand(payload: MouseEvent) {
 <template>
   <div
     class="switch-box"
-    :class="{ 'active-box': active }"
+    :class="{ 'active-box': active, 'box-background': !props.noBox }"
     @click="clickCommand"
   >
     <SvgIcon
@@ -66,18 +74,21 @@ function clickCommand(payload: MouseEvent) {
 
 <style scoped>
 .switch-box {
-  background-color: #181818;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 18px;
   height: 18px;
-  box-shadow: inset -1px -1px 2px 0 rgba(0, 0, 0, 0.4);
+
   border-radius: 3px;
   margin: 0 2px;
 }
 
+.box-background {
+  background-color: #181818;
+  box-shadow: inset -1px -1px 2px 0 rgba(0, 0, 0, 0.4);
+}
 .active-box {
   background-color: v-bind('activeColor');
 }

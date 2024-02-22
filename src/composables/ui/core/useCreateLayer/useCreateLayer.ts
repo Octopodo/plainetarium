@@ -12,6 +12,7 @@ export interface LayerOptions {
   index?: number
   parent?: Layer | null
   id?: string
+  locked?: boolean
 }
 
 export function useCreateLayer(options: LayerOptions) {
@@ -38,7 +39,8 @@ export function useCreateLayer(options: LayerOptions) {
     index: index || -1,
     selected: selected || false,
     soloHidden: soloHidden || false,
-    solo: solo || false
+    solo: solo || false,
+    locked: options.locked || false
   }
   layer.controls.forEach((control) => {
     if (!control.modelName) return

@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { usePlaygroundStore } from '@/stores'
-import { ref, computed, onMounted, type Ref, type PropType } from 'vue'
+import { ref, computed, type Ref, type PropType } from 'vue'
 
-import Sortable from 'sortablejs'
 import UiAddLayersToolbar from './UiAddLayersToolbar.vue'
 import UiLayer from './UiLayer.vue'
 

@@ -45,12 +45,17 @@ export function useLayerHeader(
     store.soloLayer(props.layerData)
   }
 
+  const lockLayer = () => {
+    store.lockLayer(props.layerData)
+  }
+
   return {
     layerName,
     expandLayer,
     hideLayer,
     removeLayer,
     changeLayerName,
-    soloLayer
+    soloLayer,
+    lockLayer
   }
 }

@@ -9,14 +9,7 @@ import {
   useLayer,
   useLayerHeader
 } from '@/composables/ui'
-import {
-  mdiEyeOutline,
-  mdiEyeOffOutline,
-  mdiCloseCircle,
-  mdiAlphaS,
-  mdiAlphaSBox,
-  mdiViewHeadline
-} from '@mdi/js'
+import { mdiCloseCircle } from '@mdi/js'
 import SvgIcon from '@jamescoyle/vue-icon'
 import UiClickableInputText from '../Controls/UiClickableInputText.vue'
 
@@ -34,7 +27,8 @@ const {
   removeLayer,
   changeLayerName,
   expandLayer,
-  soloLayer
+  soloLayer,
+  lockLayer
 } = useLayerHeader(props)
 
 function delayedExpandLayer() {
@@ -57,6 +51,13 @@ function textDoubleClick() {
       class="expand-area"
       @click="expandLayer"
     ></div>
+    <SwitchBoxIcon
+      icon="mdiLock"
+      inactive-icon="mdiLockOpenVariant"
+      :command="lockLayer"
+      :icon-size="14"
+      no-box
+    />
     <SwitchBoxIcon
       icon="mdiAlphaS"
       active-color="#f33"

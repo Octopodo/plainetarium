@@ -3,12 +3,7 @@ import { type PropsValues } from '@/types'
 import { usePlaygroundStore } from '@/stores'
 import UiLayerHeader from './UiLayerHeader.vue'
 import UiControls from './UiControls.vue'
-import {
-  useLayer,
-  LayerProps,
-  useDraggableLayer,
-  type LayerPropsType
-} from '@/composables/ui'
+import { useLayer, LayerProps, type LayerPropsType } from '@/composables/ui'
 import UiLayer from './UiLayer.vue'
 
 const playgroundStore = usePlaygroundStore()

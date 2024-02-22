@@ -14,4 +14,5 @@ export interface Layer {
   soloHidden: boolean
   index: number
   selected: boolean
+  locked: boolean
 }

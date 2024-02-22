@@ -33,7 +33,10 @@ InitPlayground.withPlainSphere = function () {
 
 InitPlayground.withStarField = function () {
   const store = usePlaygroundStore()
-  store.addLayer({ component: StarField })
+  const starfield = store.addLayer({ component: StarField })
+  store.setControlsValues(starfield, {
+    locked: true
+  })
 }
 
 InitPlayground.withKnownLightSphere = function () {

@@ -28,11 +28,11 @@ export const usePlaygroundStore = defineStore('playground', {
     },
 
     cleanLayers() {
-      if (this.layers[0] && this.layers[0].component.__name === 'StarField') {
-        this.layers = [this.layers[0]]
-      } else {
-        this.layers = []
-      }
+      this.layers.forEach((layer) => {
+        if (!layer.locked) {
+          this.deleteLayer(layer)
+        }
+      })
     },
 
     duplicatelayer(layer: Layer) {
@@ -59,7 +59,7 @@ export const usePlaygroundStore = defineStore('playground', {
 
     deleteLayer(layerOrId: MaybeLayerOrId) {
       const layer = this.getLayer(layerOrId)
-      if (!layer) return
+      if (!layer || layer.locked) return
       this.detachLayer(layer)
       delete this.layersHashList[layer.id]
     },
@@ -118,7 +118,7 @@ export const usePlaygroundStore = defineStore('playground', {
       targetLayerOrID?: MaybeLayerOrId
     ) {
       const layer = this.getLayer(layerOrId)
-      if (!layer) return
+      if (!layer || layer.locked) return
       this.detachLayer(layer)
       this.insertLayer(layer, newIndex, targetLayerOrID)
       return layer
@@ -183,6 +183,10 @@ export const usePlaygroundStore = defineStore('playground', {
 
     hideLayer(layer: Layer) {
       layer.visible = !layer.visible
+    },
+
+    lockLayer(layer: Layer) {
+      layer.locked = !layer.locked
     },
 
     renameLayer(layer: Layer, name?: string) {
