@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import { usePlaygroundStore } from '@/stores'
-import { ref, computed, onMounted, type Ref } from 'vue'
+import { ref, computed, type Ref } from 'vue'
 import { useSortableList } from '@/composables/ui'
 
-import Sortable from 'sortablejs'
 import UiAddLayersToolbar from './UiAddLayersToolbar.vue'
 
 import UiLayer from './UiLayer.vue'
@@ -43,7 +42,7 @@ useSortableList(layersRef)
   flex-direction: column;
   width: 400px;
   height: 700px;
-  background-color: #0c9292;
+  background-color: #303030;
   height: 75vh;
   overflow: auto;
   overflow-y: scroll;
