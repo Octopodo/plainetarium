@@ -24,7 +24,7 @@ let clickTimeout: number | undefined
 
 function click(event: MouseEvent) {
   if (event.detail === 1) {
-    clickTimeout = setTimeout(() => {
+    clickTimeout = window.setTimeout(() => {
       emit('click')
     }, props.timeout)
   } else if (event.detail === 2) {

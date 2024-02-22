@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { PropsValues } from '@/types'
 import type { LayerPropsType, LayerHeaderPropsType } from '@/composables/ui'
-import { ref, onMounted, watch } from 'vue'
+import { ref } from 'vue'
+import { SwitchBoxIcon } from '@/components/ui/Widgets'
 import {
   LayerProps,
   LayerHeaderProps,
@@ -12,6 +13,8 @@ import {
   mdiEyeOutline,
   mdiEyeOffOutline,
   mdiCloseCircle,
+  mdiAlphaS,
+  mdiAlphaSBox,
   mdiViewHeadline
 } from '@mdi/js'
 import SvgIcon from '@jamescoyle/vue-icon'
@@ -25,8 +28,14 @@ const props = defineProps({
 const clickTimeout = ref(130)
 const isDoubleClick = ref(false)
 const { layerData } = useLayer(props)
-const { layerName, hideLayer, removeLayer, changeLayerName, expandLayer } =
-  useLayerHeader(props)
+const {
+  layerName,
+  hideLayer,
+  removeLayer,
+  changeLayerName,
+  expandLayer,
+  soloLayer
+} = useLayerHeader(props)
 
 function delayedExpandLayer() {
   setTimeout(() => {
@@ -48,20 +57,18 @@ function textDoubleClick() {
       class="expand-area"
       @click="expandLayer"
     ></div>
-    <div @click="hideLayer">
-      <SvgIcon
-        class="icon white-text"
-        type="mdi"
-        v-if="layerData.visible"
-        :path="mdiEyeOutline"
-      />
-      <SvgIcon
-        v-else
-        class="icon"
-        type="mdi"
-        :path="mdiEyeOffOutline"
-      />
-    </div>
+    <SwitchBoxIcon
+      icon="mdiAlphaS"
+      active-color="#f33"
+    />
+    <SwitchBoxIcon
+      class="show-icon"
+      icon="mdiEyeOutline"
+      inactive-icon="mdiEyeOffOutline"
+      icon-size="12"
+      :command="hideLayer"
+      active
+    />
     <UiClickableInputText
       style="z-index: 1"
       :class="[layerData.expanded ? 'white-text' : '']"
@@ -90,13 +97,12 @@ function textDoubleClick() {
   right: 10%;
   position: absolute;
   cursor: pointer;
-  /* background-color: rgb(99 0 0 / 50%); */
 }
 .white-text {
   color: #fff;
 }
 .ui-layer-header:hover {
-  background-color: #0d0d0d;
+  background-color: #3e3e3e;
   color: #fff;
 }
 
@@ -105,26 +111,15 @@ function textDoubleClick() {
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* border-bottom: 1px solid #0d0d0d; */
   cursor: pointer;
   width: 100%;
-  padding: 0.2rem 1rem;
+  padding: 0.3rem 1rem;
+  padding-left: 8px;
 }
 
-.icon {
+.show-icon {
   margin-right: 10px;
-  margin-top: 5px;
-  padding: 5px;
-  border-radius: 50%;
 }
-
-.icon:hover {
-  cursor: pointer;
-  background-color: #0d0d0d;
-}
-
-/* Duración de la transición */
-/* Estado inicial de la transición de entrada y estado final de la transición de salida */
 
 .close-icon {
   position: absolute;

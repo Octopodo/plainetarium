@@ -41,11 +41,16 @@ export function useLayerHeader(
     store.renameLayer(props.layerData, newName)
   }
 
+  const soloLayer = () => {
+    store.soloLayer(props.layerData)
+  }
+
   return {
     layerName,
     expandLayer,
     hideLayer,
     removeLayer,
-    changeLayerName
+    changeLayerName,
+    soloLayer
   }
 }
