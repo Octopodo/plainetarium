@@ -10,6 +10,8 @@ export interface Layer {
   props: PropsValues
   expanded: boolean
   visible: boolean
+  solo: boolean
+  soloHidden: boolean
   index: number
   selected: boolean
 }

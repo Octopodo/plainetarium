@@ -60,6 +60,7 @@ function textDoubleClick() {
     <SwitchBoxIcon
       icon="mdiAlphaS"
       active-color="#f33"
+      :command="soloLayer"
     />
     <SwitchBoxIcon
       class="show-icon"

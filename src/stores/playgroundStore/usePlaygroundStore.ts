@@ -13,7 +13,8 @@ type MaybeLayerOrId = MaybeLayer | string
 export const usePlaygroundStore = defineStore('playground', {
   state: () => ({
     layers: [] as Layer[],
-    layersHashList: {} as Record<string, Layer>
+    layersHashList: {} as Record<string, Layer>,
+    soloLayers: [] as Layer[]
   }),
 
   actions: {
@@ -147,6 +148,33 @@ export const usePlaygroundStore = defineStore('playground', {
 
     selectLayer(layer: Layer) {
       layer.selected = true
+    },
+
+    soloLayer(layer: MaybeLayerOrId) {
+      layer = this.getLayer(layer)
+      if (!layer) return
+      if (layer.solo === false) {
+        this.soloLayers.push(layer)
+        layer.solo = true
+        layer.soloHidden = false
+      } else {
+        const index = this.soloLayers.indexOf(layer)
+        this.soloLayers.splice(index, 1)
+        layer.solo = false
+      }
+      if (this.soloLayers.length === 0) {
+        this.layers.forEach((layer) => {
+          layer.soloHidden = false
+        })
+      } else {
+        this.layers.forEach((layer) => {
+          if (layer.solo) {
+            layer.soloHidden = false
+          } else {
+            layer.soloHidden = true
+          }
+        })
+      }
     },
 
     deselectLayer(layer: Layer) {

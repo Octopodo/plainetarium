@@ -1,12 +1,13 @@
 import { type Layer, type PropsValues } from '@/types'
 import { useCreateControls } from '@/composables/ui'
 import { unWrapCamelCase } from '@/utils'
-import { reactive } from 'vue'
 
 export interface LayerOptions {
   component: any
   expanded?: boolean
   visible?: boolean
+  solo?: boolean
+  soloHidden?: boolean
   selected?: boolean
   index?: number
   parent?: Layer | null
@@ -14,7 +15,16 @@ export interface LayerOptions {
 }
 
 export function useCreateLayer(options: LayerOptions) {
-  const { component, expanded, visible, selected, index, parent } = options
+  const {
+    component,
+    expanded,
+    visible,
+    selected,
+    index,
+    parent,
+    solo,
+    soloHidden
+  } = options
   const layer: Layer = {
     id: options.id || '',
     parent: !parent ? null : parent,
@@ -26,7 +36,9 @@ export function useCreateLayer(options: LayerOptions) {
     expanded: expanded || false,
     visible: visible || true,
     index: index || -1,
-    selected: selected || false
+    selected: selected || false,
+    soloHidden: soloHidden || false,
+    solo: solo || false
   }
   layer.controls.forEach((control) => {
     if (!control.modelName) return
@@ -36,9 +48,7 @@ export function useCreateLayer(options: LayerOptions) {
   return layer
 }
 
-
 interface test {
   lay: number
   stone: string
 }
-
