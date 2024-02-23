@@ -1,6 +1,10 @@
 import { computed, type ComputedRef } from 'vue'
 
-import { useSphere, SphereProps, type SphereParams } from '@/composables/api'
+import {
+  usePlainSphere,
+  PlainSphereProps,
+  type PlainSphereParams
+} from '@/composables/api'
 import {
   BlurProps,
   ExtendedProps,
@@ -26,14 +30,14 @@ export interface Star {
 }
 
 export interface SmallStarPropsType
-  extends SphereParams,
+  extends PlainSphereParams,
     RangeSizeParams,
     RandomPositionParams,
     BlurParams,
     ExtendedProps {}
 
 export const SmallStarProps = new ExtendedProps('SmallStar', {
-  ...SphereProps.props,
+  ...PlainSphereProps.props,
   ...PositionProps.props,
   ...RangeSizeProps.props,
   ...BlurProps.props,
@@ -76,7 +80,7 @@ export function useSmallStar(props: SmallStarPropsType & PropsValues) {
     colorStyle,
     opacity,
     color
-  } = useSphere(props)
+  } = usePlainSphere(props)
 
   const { style: positionStyle, resetPosition } = useRandomPosition(props)
   const { style: rangeSizeStyle, resetSize } = useRangeSize(props)

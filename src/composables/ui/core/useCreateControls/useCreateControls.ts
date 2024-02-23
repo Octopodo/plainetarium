@@ -2,9 +2,7 @@ import { ref } from 'vue'
 import { type ExtendedProp, type Control } from '@/types'
 import { unWrapCamelCase } from '@/utils'
 
-export function useCreateControls(props: {
-  [key: string]: ExtendedProp | BooleanConstructor
-}) {
+export function useCreateControls(props: { [key: string]: ExtendedProp }) {
   const controls = [] as Control[]
   Object.keys(props).forEach((k) => {
     const key = k as keyof typeof props
@@ -17,12 +15,9 @@ export function useCreateControls(props: {
   return controls
 }
 
-export function useCreateControl(
-  name: string,
-  prop: ExtendedProp | BooleanConstructor
-) {
+export function useCreateControl(name: string, prop: ExtendedProp) {
   const control: Control = {
-    name: unWrapCamelCase(name),
+    name: prop.controlName || unWrapCamelCase(name),
     model: ref(''),
     controlType: '',
     modelName: name

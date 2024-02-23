@@ -1,4 +1,4 @@
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { type PropsValues } from '@/types'
 
 import {
@@ -17,12 +17,12 @@ import {
 export interface SphereContainerInterface {
   container: boolean
 }
-export type SphereParams = PropsValues &
+export type PlainSphereParams = PropsValues &
   ColorParams &
   SizePropsType &
   OpacityParams
 
-export const SphereProps = new ExtendedProps('SphereProps', {
+export const PlainSphereProps = new ExtendedProps('SphereProps', {
   ...ColorProps.props,
   ...SizeProps.props,
   ...OpacityProps.props,
@@ -30,7 +30,7 @@ export const SphereProps = new ExtendedProps('SphereProps', {
   dev: { type: Boolean, default: false }
 })
 
-SphereProps.merge({
+PlainSphereProps.merge({
   size: {
     default: 500,
     min: 0,
@@ -44,9 +44,9 @@ SphereProps.merge({
   }
 })
 
-SphereProps.reorder(['size', 'opacity', 'color'])
+PlainSphereProps.reorder(['size', 'opacity', 'color'])
 
-export function useSphere(props: SphereParams) {
+export function usePlainSphere(props: PlainSphereParams) {
   const {
     style: sizeStyle,
     width,
@@ -61,22 +61,17 @@ export function useSphere(props: SphereParams) {
     return props.dev === true ? '0%' : '50%'
   })
 
-  // onMounted(() => {
-  //   if (props.size) {
-  //     props.size.max = window.innerHeight
-  //   }
-  // })
   const style = computed(() => {
     return {
-      width: '1000px',
-      height: '1000px',
+      width: cssWidth.value,
+      height: cssHeight.value,
       opacity: opacity.value,
       backgroundColor: color.value,
       borderRadius: borderRadius.value,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      transform: `scale(${width.value / 1000})`
+      position: 'absolute'
     }
   })
 

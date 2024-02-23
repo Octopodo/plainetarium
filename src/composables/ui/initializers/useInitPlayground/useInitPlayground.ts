@@ -31,6 +31,13 @@ InitPlayground.withPlainSphere = function () {
   const stop = 0
 }
 
+InitPlayground.withLayer = function (layer: String) {
+  const store = usePlaygroundStore()
+  const component = Shaders[layer as keyof typeof Shaders]
+  if (!component) return
+  store.addLayer({ component })
+}
+
 InitPlayground.withStarField = function () {
   const store = usePlaygroundStore()
   const starfield = store.addLayer({ component: StarField })

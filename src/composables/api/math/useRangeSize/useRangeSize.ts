@@ -77,7 +77,8 @@ export function useRangeSize(props: RangeSizeParams & PropsValues) {
 
   const style = computed(() => {
     return {
-      transform: `scale(${size.value / 1000})`
+      width: `${size.value}px`,
+      height: `${size.value}px`
     }
   })
 

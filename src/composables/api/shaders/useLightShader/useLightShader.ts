@@ -2,23 +2,23 @@ import { computed, type CSSProperties } from 'vue'
 import { type PropsValues } from '@/types'
 import { ExtendedProps } from '@/composables/api'
 import {
-  useSphere,
+  usePlainSphere,
   useLightDistance,
   useLightColor,
   useLightRotation,
   LightDistanceProps,
   LightRotationProps,
-  SphereProps,
+  PlainSphereProps,
   type LightDistanceParams,
   type LightRotationParams,
-  type SphereParams
+  type PlainSphereParams
 } from '@/composables/api/shaders'
 
 import type { ColorParams } from '@/composables/api/graphics'
 
 export interface LightShaderParams
   extends LightDistanceParams,
-    SphereParams,
+    PlainSphereParams,
     ColorParams,
     LightRotationParams {
   light?: boolean
@@ -28,7 +28,7 @@ export const LightShaderProps = new ExtendedProps('LightShader', {
   light: { type: Boolean, default: true },
   ...LightDistanceProps.props,
   ...LightRotationProps.props,
-  ...SphereProps.props
+  ...PlainSphereProps.props
 })
 
 LightShaderProps.merge({ container: { default: true } })
@@ -50,7 +50,7 @@ export function useLightShader(props: LightShaderParams & PropsValues) {
   const { transparentColor, solidColor } = useLightColor(props)
   const { cssLightCenter, cssLightEnd } = useLightDistance(props)
   const { cssXRotation, cssYRotation } = useLightRotation(props)
-  const { style: sphereStyle } = useSphere(props)
+  const { style: sphereStyle } = usePlainSphere(props)
 
   const fromColor = computed(() =>
     props.light ? solidColor.value : transparentColor.value

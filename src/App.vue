@@ -9,7 +9,8 @@ const random = new Random()
 const numLayers: [number, number] = [3, 10]
 // InitPlayground.withLightSphere()
 InitPlayground.withStarField()
-InitPlayground.withRandomPlanet(numLayers)
+// InitPlayground.withRandomPlanet(numLayers)
+InitPlayground.withLayer('VolumeSphere')
 // InitPlayground.withKnownLightSphere()
 function regenerateLayers() {
   store.cleanLayers()

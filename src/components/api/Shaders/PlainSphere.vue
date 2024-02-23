@@ -1,10 +1,14 @@
 <script lang="ts" setup>
-import { computed, watch } from 'vue'
-import { useSphere, SphereProps, type SphereParams } from '@/composables/api'
+import { computed, type StyleValue } from 'vue'
+import {
+  usePlainSphere,
+  PlainSphereProps,
+  type PlainSphereParams
+} from '@/composables/api'
 
-const props = defineProps(SphereProps.props)
+const props = defineProps(PlainSphereProps.props)
 
-const { style: sphereStyle } = useSphere(props as SphereParams)
+const { style: sphereStyle } = usePlainSphere(props as PlainSphereParams)
 
 const mask = computed(() => {
   return { overflow: 'hidden' }
@@ -14,7 +18,7 @@ const mask = computed(() => {
 <template>
   <div
     class="plain-sphere"
-    :style="[sphereStyle, mask]"
+    :style="[sphereStyle as StyleValue, mask]"
   >
     <slot v-bind="{ ...props }" />
   </div>
