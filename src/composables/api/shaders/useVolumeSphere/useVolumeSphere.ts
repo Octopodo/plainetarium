@@ -88,6 +88,15 @@ export const VolumeSphereProps = new ExtendedProps('VolumeSphere', {
 })
 
 VolumeSphereProps.merge({
+  xRotation: {
+    min: -150,
+    max: 150
+  },
+  yRotation: {
+    min: -150,
+    max: 150
+  },
+
   light: {
     hideControl: true
   },
