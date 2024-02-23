@@ -89,12 +89,12 @@ export const VolumeSphereProps = new ExtendedProps('VolumeSphere', {
 
 VolumeSphereProps.merge({
   xRotation: {
-    min: -150,
-    max: 150
+    min: -200,
+    max: 200
   },
   yRotation: {
-    min: -150,
-    max: 150
+    min: -200,
+    max: 200
   },
 
   light: {
