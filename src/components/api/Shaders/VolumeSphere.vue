@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { PlainSphere, LightSphere } from '@/components/api/Shaders'
+import {
+  PlainSphere,
+  LightSphere,
+  ReflectionLight
+} from '@/components/api/Shaders'
 
 import { VolumeSphereProps } from '@/composables/api'
 
@@ -26,6 +30,16 @@ const stop = 0
       :distance="props.lightDistance"
       :sharpness="props.lightSharpness"
       light
+    />
+    <ReflectionLight
+      v-bind="props"
+      :color="props.reflectionColor"
+      :opacity="props.reflectionOpacity"
+      :distance="props.reflectionDistance"
+      :sharpness="props.reflectionSharpness"
+      :light="false"
+      :reduction="props.reflectionReduction"
+      :blur="props.reflectionBlur"
     />
   </PlainSphere>
 </template>

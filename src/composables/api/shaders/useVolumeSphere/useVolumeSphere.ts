@@ -90,6 +90,24 @@ export const VolumeSphereProps = new ExtendedProps('VolumeSphere', {
     control: 'range',
     controlName: 'Shadow Sharpness'
   },
+  reflectionColor: {
+    type: String,
+    default: '#efaeec',
+    control: 'color',
+    controlName: 'Shadow Color'
+  },
+  reflectionOpacity: {
+    type: Number,
+    default: 100,
+    min: 0,
+    max: 100,
+    control: 'range',
+    controlName: 'Shadow Opacity'
+  },
+  reflectionDistance: LightShaderProps.props.distance,
+  reflectionSharpness: LightShaderProps.props.sharpness,
+  reflectionReduction: ReflectionLightProps.props.reduction,
+  reflectionBlur: ReflectionLightProps.props.blur
 })
 
 VolumeSphereProps.merge({
@@ -101,7 +119,9 @@ VolumeSphereProps.merge({
     min: -200,
     max: 200
   },
-
+  reduction: {
+    hideControl: true
+  },
   light: {
     hideControl: true
   },
@@ -110,7 +130,11 @@ VolumeSphereProps.merge({
   },
   distance: {
     hideControl: true
-  }
+  },
+  reflectionReduction: {
+    default: 6
+  },
+  blur: { hideControl: true }
 })
 
 VolumeSphereProps.reorder([
@@ -129,7 +153,12 @@ VolumeSphereProps.reorder([
   'shadowOpacity',
   'shadowDistance',
   'shadowSharpness',
-  'blur',
+  'reflectionColor',
+  'reflectionOpacity',
+  'reflectionDistance',
+  'reflectionSharpness',
+  'reflectionReduction',
+  'reflectionBlur',
   'dev'
 ])
 const stop = 0
