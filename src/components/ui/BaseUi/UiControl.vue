@@ -71,7 +71,7 @@ watch(value, (newValue) => {
 <style>
 .control {
   display: grid;
-  grid-template-columns: 1.2fr 2fr 1fr;
+  grid-template-columns: 1.4fr 2fr 1fr;
   gap: 10px;
   justify-items: start;
   width: 95%;
@@ -79,6 +79,7 @@ watch(value, (newValue) => {
 
 .control-title {
   margin-bottom: 0.5rem;
+  font-size: 0.7rem;
 }
 
 .control-input {
