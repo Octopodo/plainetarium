@@ -11,6 +11,8 @@ const numLayers: [number, number] = [3, 10]
 InitPlayground.withStarField()
 // InitPlayground.withRandomPlanet(numLayers)
 InitPlayground.withLayer('VolumeSphere')
+// InitPlayground.withPlainSphere()
+// InitPlayground.withLayer('ReflectionLight')
 // InitPlayground.withKnownLightSphere()
 function regenerateLayers() {
   store.cleanLayers()

@@ -2,7 +2,7 @@ import { computed } from 'vue'
 import type { X, Y, Vector2d } from '@/composables/api'
 import { use2dVector, VectorProps } from '@/composables/api'
 
-export interface SizePropsType {
+export interface SizeParams {
   size?: Vector2d
   width?: X
   height?: Y
@@ -14,7 +14,7 @@ SizeProps.renameProp('vector', 'size')
 SizeProps.renameProp('x', 'width')
 SizeProps.renameProp('y', 'height')
 
-export function useSize(props: SizePropsType, units?: 'px') {
+export function useSize(props: SizeParams, units?: 'px') {
   const {
     vector: size,
     x: width,

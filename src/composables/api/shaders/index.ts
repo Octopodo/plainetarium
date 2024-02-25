@@ -5,5 +5,6 @@ export * from './useSmallStar'
 export * from './useStarfield'
 export * from './useAtmosphere'
 export * from './useVolumeSphere'
+export * from './useReflectionLight'
 
 export * from './useGetShaders'

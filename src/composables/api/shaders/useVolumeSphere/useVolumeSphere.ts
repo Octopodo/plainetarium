@@ -4,10 +4,13 @@ import {
   usePlainSphere,
   useLightShader,
   useBlur,
+  useReflectionLight,
   PlainSphereProps,
   LightShaderProps,
   BlurProps,
   ExtendedProps,
+  ReflectionLightProps,
+  type ReflectionLightParams,
   type BlurParams,
   type PlainSphereParams,
   type LightShaderParams
@@ -17,11 +20,13 @@ export interface VolumeSphereParams
   extends PropsValues,
     PlainSphereParams,
     LightShaderParams,
+    ReflectionLightParams,
     BlurParams {}
 
 export const VolumeSphereProps = new ExtendedProps('VolumeSphere', {
   ...PlainSphereProps.props,
   ...LightShaderProps.props,
+  ...ReflectionLightProps.props,
   ...BlurProps.props,
   lightColor: {
     type: String,
@@ -84,7 +89,7 @@ export const VolumeSphereProps = new ExtendedProps('VolumeSphere', {
     max: 100,
     control: 'range',
     controlName: 'Shadow Sharpness'
-  }
+  },
 })
 
 VolumeSphereProps.merge({

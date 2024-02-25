@@ -47,3 +47,4 @@ function addLayer(component: Object) {
   background-color: #0d0d0d;
 }
 </style>
+@/components/api/shaders

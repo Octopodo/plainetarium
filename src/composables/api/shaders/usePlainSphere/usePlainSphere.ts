@@ -11,7 +11,7 @@ import {
   useSize,
   type ColorParams,
   type OpacityParams,
-  type SizePropsType
+  type SizeParams
 } from '@/composables/api'
 
 export interface SphereContainerInterface {
@@ -19,7 +19,7 @@ export interface SphereContainerInterface {
 }
 export type PlainSphereParams = PropsValues &
   ColorParams &
-  SizePropsType &
+  SizeParams &
   OpacityParams
 
 export const PlainSphereProps = new ExtendedProps('SphereProps', {
