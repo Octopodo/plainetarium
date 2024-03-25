@@ -6,7 +6,12 @@ import {
   mdiAlphaSBox,
   mdiViewHeadline,
   mdiLock,
-  mdiLockOpenVariant
+  mdiLockOpenVariant,
+  mdiSphere,
+  mdiRadius,
+  mdiDiameterOutline,
+  mdiRadiusOutline,
+  mdiCircleSlice8
 } from '@mdi/js'
 
 export const MdiIcons = {
@@ -17,5 +22,10 @@ export const MdiIcons = {
   mdiAlphaSBox,
   mdiViewHeadline,
   mdiLock,
-  mdiLockOpenVariant
+  mdiLockOpenVariant,
+  mdiSphere,
+  mdiRadius,
+  mdiDiameterOutline,
+  mdiRadiusOutline,
+  mdiCircleSlice8
 }
