@@ -12,7 +12,7 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "create": "node ./scripts/create.js"
+    "kt": "node ./scripts/create-components.js kt"
   },
   "dependencies": {
     "@jamescoyle/vue-icon": "^0.1.2",
