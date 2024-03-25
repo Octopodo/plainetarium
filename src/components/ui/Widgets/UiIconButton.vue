@@ -16,7 +16,7 @@ const props = defineProps({
 <template>
   <div>
     <SvgIcon
-      class="icon"
+      class="ui-icon-button"
       type="mdi"
       :path="icon"
     />
@@ -24,13 +24,13 @@ const props = defineProps({
 </template>
 
 <style scoped>
-.icon {
+.ui-icon-button {
   color: v-bind('color');
   transition: color 0.1s;
   cursor: pointer;
 }
 
-.icon:hover {
+.ui-icon-button:hover {
   color: v-bind('hoverColor');
 }
 </style>
