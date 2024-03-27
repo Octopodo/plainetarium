@@ -3,8 +3,6 @@ import { usePlaygroundStore } from '@/stores'
 import { ref, computed, type Ref } from 'vue'
 import { useSortableList } from '@/composables/ui'
 
-import UiAddLayersToolbar from './UiAddLayersToolbar.vue'
-
 import UiLayer from './UiLayer.vue'
 
 const playgroundStore = usePlaygroundStore()
@@ -14,7 +12,6 @@ useSortableList(layersRef)
 </script>
 <template>
   <div class="ui-layers-panel unselectable">
-    <UiAddLayersToolbar />
     <div
       class="ui-layers"
       ref="layersRef"
@@ -33,7 +30,8 @@ useSortableList(layersRef)
 .ui-layers-panel {
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
+  margin-top: 0 !important;
+  backdrop-filter: blur(10px);
 }
 .ui-layers {
   /* position: absolute; */

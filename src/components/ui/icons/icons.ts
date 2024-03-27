@@ -1,4 +1,6 @@
 import {
+  mdiPlusCircle,
+  mdiLightbulbOn10,
   mdiEyeOutline,
   mdiEyeOffOutline,
   mdiCloseCircle,
@@ -15,6 +17,8 @@ import {
 } from '@mdi/js'
 
 export const MdiIcons = {
+  mdiPlusCircle,
+  mdiLightbulbOn10,
   mdiEyeOutline,
   mdiEyeOffOutline,
   mdiCloseCircle,

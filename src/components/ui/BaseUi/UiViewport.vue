@@ -29,8 +29,8 @@ const layers = computed(() => playgroundStore.layers)
   gap: 1rem;
   justify-items: center;
   align-items: center;
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
 }
 
 .viewport-layer {

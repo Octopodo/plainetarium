@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import UiLayout from '@/components/ui/BaseUi/UiLayout.vue'
-import TestingLab from '@/components/TestingLab.vue'
 import { usePlaygroundStore } from './stores'
 import { InitPlayground } from '@/composables/ui'
 import { Random } from 'random-js'
@@ -21,7 +20,7 @@ function regenerateLayers() {
 }
 </script>
 <template>
-  <div class="header">
+  <!-- <div class="header">
     <img
       src="/favicon.svg"
       width="50"
@@ -30,38 +29,8 @@ function regenerateLayers() {
       @click="regenerateLayers"
     />
     <h1 class="title">Plainetarium</h1>
-  </div>
+  </div> -->
   <UiLayout element-name="LightSphere"> </UiLayout>
-  <TestingLab />
 </template>
 
-<style scoped>
-.header {
-  display: flex;
-  flex-direction: row;
-  top: 0;
-  position: fixed;
-  font-family: 'Exo 2', sans-serif;
-  font-size: 1.5rem;
-  z-index: 100;
-  left: 42%;
-  background-color: rgba(0, 0, 0, 0.6);
-  width: 100%;
-  left: 0;
-  backdrop-filter: blur(7px);
-}
-
-.logo {
-  margin-right: 1rem;
-  margin-top: 0.5rem;
-  margin-left: 1.5rem;
-  cursor: pointer;
-}
-
-.title {
-  font-size: 2.5em;
-  background: linear-gradient(to top right, red, rgb(78, 78, 255));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-</style>
+<style scoped></style>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import SvgIcon from '@jamescoyle/vue-icon'
 const props = defineProps({
   icon: String,
@@ -10,14 +11,21 @@ const props = defineProps({
   hoverColor: {
     type: String,
     default: '#51f6cf'
+  },
+  size: {
+    type: Number,
+    default: 24
   }
 })
+// const hoverColor = computed(() => props.hoverColor)
+// const color = computed(() => props.color)
 </script>
 <template>
-  <div>
+  <div class="ui-icon-button">
     <SvgIcon
-      class="ui-icon-button"
+      class="ui-icon"
       type="mdi"
+      :size="size"
       :path="icon"
     />
   </div>
@@ -25,12 +33,19 @@ const props = defineProps({
 
 <style scoped>
 .ui-icon-button {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ui-icon {
   color: v-bind('color');
   transition: color 0.1s;
   cursor: pointer;
 }
 
-.ui-icon-button:hover {
+.ui-icon-button:hover > .ui-icon {
   color: v-bind('hoverColor');
 }
 </style>

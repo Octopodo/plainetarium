@@ -2,7 +2,6 @@
 import { usePlaygroundStore } from '@/stores'
 import { ref, computed, type Ref, type PropType } from 'vue'
 
-import UiAddLayersToolbar from './UiAddLayersToolbar.vue'
 import UiLayer from './UiLayer.vue'
 
 import { type Layer } from '@/types'
@@ -15,7 +14,6 @@ const layersRef: Ref<HTMLElement | null> = ref(null)
 </script>
 <template>
   <div class="ui-layers-panel unselectable">
-    <UiAddLayersToolbar />
     <div
       class="ui-layers"
       ref="layersRef"
