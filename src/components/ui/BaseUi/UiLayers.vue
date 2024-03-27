@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import { usePlaygroundStore } from '@/stores'
-import { ref, computed, type Ref } from 'vue'
+import { ref, computed, watch, type Ref } from 'vue'
 import { useSortableList } from '@/composables/ui'
-
 import UiLayer from './UiLayer.vue'
 
 const playgroundStore = usePlaygroundStore()
-const layers = computed(() => playgroundStore.layers)
+const layers = ref(playgroundStore.layers)
 const layersRef: Ref<HTMLElement | null> = ref(null)
 useSortableList(layersRef)
 </script>

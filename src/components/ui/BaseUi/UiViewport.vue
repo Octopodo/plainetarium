@@ -1,12 +1,23 @@
 <script lang="ts" setup>
 import { usePlaygroundStore } from '@/stores'
-import { toRaw, computed } from 'vue'
+import { ref, toRaw, computed, watch } from 'vue'
 
 const playgroundStore = usePlaygroundStore()
 const layers = computed(() => playgroundStore.layers)
+const layersRef = ref<HTMLElement | null>(null)
+watch(
+  () => layers.value.length,
+  () => {
+    const html = layersRef.value?.outerHTML
+    console.log(html)
+  }
+)
 </script>
 <template>
-  <div class="ui-viewport">
+  <div
+    class="ui-viewport"
+    ref="layersRef"
+  >
     <template
       v-for="layer in layers"
       :key="layer.id"
