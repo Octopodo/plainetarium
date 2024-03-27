@@ -20,22 +20,13 @@ import { UiTopMenu, UiAddLayersToolbar } from '.'
     <div class="right-panel"></div>
     <div class="bottom-panel"></div>
   </div>
-  <!-- <div class="Ui-layout">
-    <div class="header">
-      
-    </div>
-    <div class="workarea">
-      
-      
-    </div>
-  </div> -->
 </template>
 
 <style scoped>
 .app-layout {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  grid-template-rows: 1.5fr 20fr 1.5fr;
+  grid-template-rows: 1fr 20fr 1.5fr;
   width: 100vw;
   height: 100vh;
 }
@@ -45,14 +36,13 @@ import { UiTopMenu, UiAddLayersToolbar } from '.'
   grid-column: 1 / 5;
   grid-row: 1 / 2;
   display: grid;
-  grid-template-rows: 1fr 0.8fr;
+  grid-template-rows: 1fr 1fr;
   z-index: 100;
   backdrop-filter: blur(5px);
 }
 
 .left-panel {
   /* background-color: #1bb048; */
-  margin-top: 20px;
   grid-column: 1 / 2;
   grid-row: 2 / 3;
   z-index: 50;
@@ -64,7 +54,7 @@ import { UiTopMenu, UiAddLayersToolbar } from '.'
 }
 
 .right-panel {
-  background-color: #1bb048;
+  /* background-color: #1bb048; */
   grid-column: 3 / 4;
   grid-row: 2 / 3;
 }
@@ -73,6 +63,6 @@ import { UiTopMenu, UiAddLayersToolbar } from '.'
   width: 100%;
   grid-column: 1 / 5;
   grid-row: 3 / 4;
-  background-color: #a13f3f;
+  /* background-color: #a13f3f; */
 }
 </style>

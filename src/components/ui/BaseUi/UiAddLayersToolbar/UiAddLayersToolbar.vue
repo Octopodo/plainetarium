@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { UiAddLayerButton } from '@/components/ui/BaseUi'
-
+import { fromCamelCaseToSpaces } from '@/utils'
 const layers = {
   base: {
     icon: 'mdiPlusCircle',
@@ -35,12 +35,13 @@ const layers = {
   <div class="ui-layers-toolbar">
     <div class="ui-layers-toolbar-buttons">
       <UiAddLayerButton
+        class="ui-add-layer-button"
         v-for="(layer, key) in layers"
         :key="key"
         :icon="layer.icon"
         :shader="layer.shader"
         :hover-color="layer.hoverColor"
-        :title="layer.shader"
+        :title="fromCamelCaseToSpaces(layer.shader)"
         :size="28"
         :icon-size="12"
       ></UiAddLayerButton>
@@ -53,12 +54,18 @@ const layers = {
   position: relative;
   display: flex;
   width: 100%;
-  background-color: rgba(26, 26, 26, 0.2);
+  background-color: rgba(4, 30, 44, 0.6);
+  justify-content: center;
 }
 .ui-layers-toolbar-buttons {
   position: relative;
   display: flex;
   left: 20px;
   top: 2px;
+  align-items: center;
+}
+
+.ui-add-layer-button {
+  margin-right: 3px;
 }
 </style>

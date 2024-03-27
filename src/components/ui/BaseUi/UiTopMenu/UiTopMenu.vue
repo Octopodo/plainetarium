@@ -37,6 +37,7 @@ function regenerateLayers() {
   width: 100vw;
   background-color: rgb(0 0 0/ 0.6);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  /* justify-content: center; */
 }
 
 .logo {

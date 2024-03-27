@@ -26,7 +26,7 @@ const props = defineProps({
   },
   buttonSize: {
     type: Number,
-    default: 24
+    default: 28
   },
   title: {
     type: String,
@@ -63,11 +63,12 @@ function addLayer() {
 <style scoped>
 .ui-add-layer-button {
   position: relative;
-  background-color: #131313;
+  background-color: #222222;
   border-radius: 20%;
   width: v-bind('buttonSize');
   height: v-bind('buttonSize');
   cursor: pointer;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+  padding: 3px;
 }
 </style>
