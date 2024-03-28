@@ -4,10 +4,11 @@ import { usePlaygroundStore } from '@/stores'
 import { InitPlayground } from '@/composables/ui'
 const store = usePlaygroundStore()
 const numLayers: [number, number] = [3, 10]
-function regenerateLayers() {
-  store.cleanLayers()
+async function regenerateLayers() {
+  await store.cleanLayers()
 
-  InitPlayground.withRandomPlanet(numLayers)
+  await InitPlayground.withRandomPlanet(numLayers)
+  store.updateCode()
 }
 </script>
 <template>

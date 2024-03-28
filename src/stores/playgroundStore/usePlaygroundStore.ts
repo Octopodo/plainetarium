@@ -6,18 +6,69 @@ import {
   type LayerOptions
 } from '@/composables/ui'
 import { v4 as uuidv4 } from 'uuid'
-
+import { formatRawHtml, formatVueHtml } from '@/composables/api'
+import { type Ref, ref } from 'vue'
 type MaybeLayer = Layer | null | undefined
 type MaybeLayerOrId = MaybeLayer | string
+
+const COMPONENTS_PATH = `'./components'` //Chaange it whe the api is bundled
 
 export const usePlaygroundStore = defineStore('playground', {
   state: () => ({
     layers: [] as Layer[],
     layersHashList: {} as Record<string, Layer>,
-    soloLayers: [] as Layer[]
+    soloLayers: [] as Layer[],
+    viewport: ref<HTMLElement | null>(null),
+    elementsToRemove: ['.star-field'],
+    htmlCode: '',
+    vueCode: ''
   }),
 
   actions: {
+    async updateHtmlCode() {
+      this.htmlCode = await formatRawHtml(
+        this.viewport?.outerHTML || '',
+        this.elementsToRemove
+      )
+    },
+    async updateVueCode() {
+      let vueCode = ''
+      let vueHtmlCode = ''
+      let imports = 'import {'
+      const components: { [key: string]: boolean } = {}
+      for (let i = 0; i < this.layers.length; i++) {
+        const layer = this.layers[i]
+        const componentKey = layer.component.__name as keyof typeof components
+        components[componentKey] = true
+        vueHtmlCode += await this.layerToVueCode(layer)
+      }
+
+      for (const component in components) {
+        imports += `${component}, `
+      }
+
+      imports += `} from ${COMPONENTS_PATH}\n\n`
+
+      vueCode += `<script setup>\n${imports}\n</script>\n\n<template>\n${vueHtmlCode}\n</template>\n\n`
+      vueHtmlCode = await formatVueHtml(vueCode)
+      this.vueCode = vueHtmlCode
+    },
+    updateCode() {
+      this.updateHtmlCode()
+      this.updateVueCode()
+    },
+
+    layerToVueCode(layer: Layer) {
+      const { component, props } = layer
+      const propsString = Object.entries(props)
+        .map(([key, value]) => {
+          value = value[0] && value[0] === '#' ? `'${value}'` : value
+          return `:${key}="${value}"`
+        })
+        .join(' ')
+      const vueCode = `<${component.__name} ${propsString} />`
+      return vueCode
+    },
     addLayer(options: LayerOptions) {
       options.id = options.id || this.generateLayerId()
       const layer = useCreateLayer(options)

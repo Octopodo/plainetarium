@@ -1,10 +1,12 @@
 <script lang="ts" setup="{ props }">
 import UiViewport from './UiViewport.vue'
 import UiLayers from './UiLayers.vue'
-import { UiTopMenu, UiAddLayersToolbar } from '.'
+import { UiTopMenu, UiAddLayersToolbar, UiCodePanel } from '.'
+import Trhash from '@/components/Thrash.vue'
 </script>
 <template>
   <div class="app-layout">
+    <!-- <Trhash /> -->
     <div class="top-panel">
       <UiTopMenu />
       <UiAddLayersToolbar class="ui-layers-toolbar" />
@@ -17,7 +19,9 @@ import { UiTopMenu, UiAddLayersToolbar } from '.'
         <slot />
       </UiViewport>
     </div>
-    <div class="right-panel"></div>
+    <div class="right-panel">
+      <UiCodePanel class="ui-code-panel" />
+    </div>
     <div class="bottom-panel"></div>
   </div>
 </template>
@@ -57,6 +61,7 @@ import { UiTopMenu, UiAddLayersToolbar } from '.'
   /* background-color: #1bb048; */
   grid-column: 3 / 4;
   grid-row: 2 / 3;
+  z-index: 50;
 }
 
 .bottom-panel {

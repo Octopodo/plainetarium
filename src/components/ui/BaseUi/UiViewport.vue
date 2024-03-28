@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { usePlaygroundStore } from '@/stores'
-import { ref, toRaw, computed, watch } from 'vue'
+import { ref, toRaw, computed, watch, onMounted } from 'vue'
 
 const playgroundStore = usePlaygroundStore()
 const layers = computed(() => playgroundStore.layers)
 const layersRef = ref<HTMLElement | null>(null)
+
 watch(
   () => layers.value.length,
   () => {
@@ -12,11 +13,26 @@ watch(
     console.log(html)
   }
 )
+
+const playgroundStyle = computed(() => {
+  return {
+    display: 'grid',
+    gap: '1rem',
+    justifyItems: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%'
+  }
+})
+onMounted(() => {
+  playgroundStore.viewport = layersRef.value
+})
 </script>
 <template>
   <div
-    class="ui-viewport"
+    class="planet"
     ref="layersRef"
+    :style="playgroundStyle"
   >
     <template
       v-for="layer in layers"
@@ -34,15 +50,14 @@ watch(
 </template>
 
 <style scoped>
-.ui-viewport {
+/* .ui-viewport {
   display: grid;
-  /* grid-template-columns: 1fr 3fr; */
   gap: 1rem;
   justify-items: center;
   align-items: center;
   width: 100%;
   height: 100%;
-}
+} */
 
 .viewport-layer {
   width: 100%;

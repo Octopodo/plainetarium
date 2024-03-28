@@ -15,5 +15,8 @@ export default defineConfig({
   base: '/plainetarium/',
   build: {
     outDir: 'docs'
+  },
+  optimizeDeps: {
+    include: ['js-beautify']
   }
 })

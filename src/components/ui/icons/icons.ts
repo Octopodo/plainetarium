@@ -13,7 +13,8 @@ import {
   mdiRadius,
   mdiDiameterOutline,
   mdiRadiusOutline,
-  mdiCircleSlice8
+  mdiCircleSlice8,
+  mdiChevronDown
 } from '@mdi/js'
 
 export const MdiIcons = {
@@ -31,5 +32,6 @@ export const MdiIcons = {
   mdiRadius,
   mdiDiameterOutline,
   mdiRadiusOutline,
-  mdiCircleSlice8
+  mdiCircleSlice8,
+  mdiChevronDown
 }
