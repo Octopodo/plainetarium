@@ -7,9 +7,14 @@ const store = usePlaygroundStore()
 const random = new Random()
 const numLayers: [number, number] = [3, 10]
 // InitPlayground.withLightSphere()
-InitPlayground.withStarField()
-// InitPlayground.withRandomPlanet(numLayers)
-InitPlayground.withLayer('VolumeSphere')
+async function init() {
+  await InitPlayground.withStarField()
+  await InitPlayground.withRandomPlanet(numLayers)
+  store.updateCode()
+}
+
+init()
+// InitPlayground.withLayer('VolumeSphere')
 // InitPlayground.withPlainSphere()
 // InitPlayground.withLayer('ReflectionLight')
 // InitPlayground.withKnownLightSphere()
