@@ -2,7 +2,7 @@
 import UiViewport from './UiViewport.vue'
 import UiLayers from './UiLayers.vue'
 import { UiTopMenu, UiAddLayersToolbar, UiCodePanel } from '.'
-import Trhash from '@/components/Thrash.vue'
+// import Trhash from '@/components/Thrash.vue'
 </script>
 <template>
   <div class="app-layout">
