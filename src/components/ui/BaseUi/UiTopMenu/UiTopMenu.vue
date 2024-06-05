@@ -20,7 +20,7 @@ async function regenerateLayers() {
       class="logo"
       @click="regenerateLayers"
     />
-    <h1 class="title">Plainetarium</h1>
+    <h1 class="title">PlainetariumCss</h1>
   </div>
 </template>
 
