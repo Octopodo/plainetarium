@@ -2,6 +2,9 @@
 import { ref, computed, onMounted } from 'vue'
 import { UiAddLayerButton } from '@/components/ui/BaseUi'
 import { fromCamelCaseToSpaces } from '@/utils'
+import { usePlaygroundStore } from '@/stores'
+import { InitPlayground } from '@/composables/ui'
+const store = usePlaygroundStore()
 const layers = {
   base: {
     icon: 'mdiPlusCircle',
@@ -29,11 +32,24 @@ const layers = {
     hoverColor: '#82d8f2'
   }
 }
+const numLayers: [number, number] = [3, 10]
+async function regenerateLayers() {
+  await store.cleanLayers()
+
+  await InitPlayground.withRandomPlanet(numLayers)
+  store.updateCode()
+}
 </script>
 
 <template>
   <div class="ui-layers-toolbar">
     <div class="ui-layers-toolbar-buttons">
+      <div
+        class="random-button"
+        @click="regenerateLayers"
+      >
+        Random Planet
+      </div>
       <UiAddLayerButton
         class="ui-add-layer-button"
         v-for="(layer, key) in layers"
@@ -67,5 +83,17 @@ const layers = {
 
 .ui-add-layer-button {
   margin-right: 3px;
+}
+
+.random-button {
+  background-color: #222222;
+  padding: 2px 10px;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.random-button:hover {
+  background-color: #505050;
+  cursor: pointer;
 }
 </style>
