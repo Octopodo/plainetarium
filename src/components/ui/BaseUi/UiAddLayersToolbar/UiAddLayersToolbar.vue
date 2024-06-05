@@ -45,7 +45,7 @@ async function regenerateLayers() {
   <div class="ui-layers-toolbar">
     <div class="ui-layers-toolbar-buttons">
       <div
-        class="random-button"
+        class="random-button blue-neon"
         @click="regenerateLayers"
       >
         Random Planet
@@ -95,5 +95,15 @@ async function regenerateLayers() {
 .random-button:hover {
   background-color: #505050;
   cursor: pointer;
+}
+
+.blue-neon {
+  color: #82d8f2;
+  text-shadow:
+    0 0 10px #82d8f2,
+    0 0 20px #82d8f2,
+    0 0 40px #82d8f2,
+    0 0 60px #82d8f2;
+  animation: animate 1s linear infinite;
 }
 </style>
