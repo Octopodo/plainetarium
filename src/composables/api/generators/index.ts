@@ -1,2 +1,2 @@
 export * from './usePlanetGenerator'
-export * from './useHtmlGenerator'
+export * from './useCodeGenerator'

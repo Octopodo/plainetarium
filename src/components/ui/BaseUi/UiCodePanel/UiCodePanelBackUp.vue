@@ -2,28 +2,28 @@
 import { ref, computed, onMounted } from 'vue'
 import { UiIconButton } from '@/components/ui/Widgets'
 import { mdiChevronDown, mdiClipboardTextOutline } from '@mdi/js'
-import { useCodeStore } from '@/stores'
-import {generators} from '@/composables/api/generators/useCodeGenerator'
+import { usePlaygroundStore } from '@/stores'
 import { copyToClipboard } from '@/composables/ui/utilities'
-import { capitalize } from 'vue'
 import '@/assets/atom-dark.css'
 
-const codeStore = useCodeStore()
+const playgroundStore = usePlaygroundStore()
+const htmlCodeRef = ref<HTMLElement | null>(null)
+const vueCodeRef = ref<HTMLElement | null>(null)
 
-const code = computed(() => codeStore.code)
-
-
-
+const htmlCode = computed(() => playgroundStore.htmlCode)
+const vueCode = computed(() => {
+  return playgroundStore.vueCode
+})
 const show = ref(true)
-
+const removeItems = ref<string[]>([])
 const htmlCodeSelected = ref(true)
 
-async function copyCodeToClipboard  (){
-  await codeStore.update()
-  const copyCode = code.value
-    
-  if (copyCode !== '') {
-    copyToClipboard(copyCode)
+const copyCodeToClipboard = () => {
+  const code = htmlCodeSelected.value
+    ? htmlCodeRef.value?.textContent
+    : vueCodeRef.value?.textContent
+  if (code) {
+    copyToClipboard(code)
   }
 }
 </script>
@@ -49,12 +49,17 @@ async function copyCodeToClipboard  (){
     <div class="tabs">
       <div
         class="tab"
-        v-for="(generator, index) in generators"
-        :key="index"
-        :class="generator.selected ? 'tab-selected' : ''"
-        @click="codeStore.update(generator.name)"
+        :class="htmlCodeSelected ? 'tab-selected' : ''"
+        @click="htmlCodeSelected = true"
       >
-        {{capitalize(generator.name)}}
+        HTML
+      </div>
+      <div
+        class="tab"
+        :class="!htmlCodeSelected ? 'tab-selected' : ''"
+        @click="htmlCodeSelected = false"
+      >
+        Vue
       </div>
     </div>
     <div class="ui-code-panel-box">
@@ -66,13 +71,18 @@ async function copyCodeToClipboard  (){
         class="ui-code-panel-clipboard-icon"
         @click="copyCodeToClipboard"
       />
-      
       <pre
         ref="htmlCodeRef"
-        v-html="code"
+        v-show="htmlCodeSelected"
+        v-html="htmlCode"
         class="code"
       ></pre>
-
+      <pre
+        ref="vueCodeRef"
+        v-show="!htmlCodeSelected"
+        v-html="vueCode"
+        class="code"
+      ></pre>
     </div>
   </div>
 </template>

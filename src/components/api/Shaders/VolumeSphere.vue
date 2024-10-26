@@ -8,7 +8,6 @@ import {
 import { VolumeSphereProps } from '@/composables/api'
 
 const props = defineProps(VolumeSphereProps.props)
-const stop = 0
 </script>
 <template>
   <PlainSphere
