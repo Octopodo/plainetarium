@@ -22,6 +22,7 @@ export const usePlaygroundStore = defineStore('playground', {
     loading: true
   }),
   
+  
   actions: {
     addLayer(options: LayerOptions) {
       options.id = options.id || this.generateLayerId()
@@ -62,11 +63,11 @@ export const usePlaygroundStore = defineStore('playground', {
       layer.parent = targetParent
     },
 
-    deleteLayer(layerOrId: MaybeLayerOrId) {
+    async deleteLayer(layerOrId: MaybeLayerOrId) {
       const layer = this.getLayer(layerOrId)
       if (!layer || layer.locked) return
       this.detachLayer(layer)
-      delete this.layersHashList[layer.id]
+      await delete this.layersHashList[layer.id]
       updateLayersEvent.emit()
     },
 
@@ -99,6 +100,7 @@ export const usePlaygroundStore = defineStore('playground', {
       layer.index = newIndex
       layer.parent = target
       this.layersHashList[layer.id] = layer
+      updateLayersEvent.emit()
     },
 
     isAncestor(

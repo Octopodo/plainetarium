@@ -1,4 +1,4 @@
-import * as CodeGenerators from './codeGenerators'
+import CodeGenerators from './codeGenerators'
 import { BeautifyFormatter } from './codeFormatters/formatters';
 import type { CodeGenerator } from './codeGenerators/BaseCodeGenerator'
 import type { Layer } from '@/types'
@@ -16,11 +16,11 @@ for (const t in CodeGenerators) {
 
 type GeneratorSource = HTMLElement | string | Layer[] | Layer | null
 
-export  function useCodeGenerator (source: GeneratorSource, type: string, ...args: any[]) {
+export  async function useCodeGenerator (source: GeneratorSource, type: string, ...args: any[]) {
 
-  const generator = Object.values(generators).find(gen => gen.name === type);
-  generator?.generate(source, ...args);
-  generator?.format(generator.code.value);
+  const generator = await Object.values(generators).find(gen => gen.name === type);
+  await generator?.generate(source, ...args);
+  await generator?.format(generator.code.value);
 
   return {
     generator

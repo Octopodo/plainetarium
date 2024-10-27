@@ -13,10 +13,8 @@ const codeStore = useCodeStore()
 const code = computed(() => codeStore.code)
 
 
-
 const show = ref(true)
 
-const htmlCodeSelected = ref(true)
 
 async function copyCodeToClipboard  (){
   await codeStore.update()
@@ -26,6 +24,7 @@ async function copyCodeToClipboard  (){
     copyToClipboard(copyCode)
   }
 }
+
 </script>
 <template>
   <div class="ui-code-panel-header">

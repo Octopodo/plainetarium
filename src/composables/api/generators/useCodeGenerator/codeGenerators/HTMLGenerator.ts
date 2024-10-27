@@ -7,7 +7,7 @@ type HTMLParseArgs = [removeElements: string[], removeAttributes: boolean]
 export class HTMLGenerator  extends BaseCodeGenerator {
     name = 'html';
     
-    generate(source: HTMLSource, ...args: HTMLParseArgs[]){
+    async generate(source: HTMLSource, ...args: HTMLParseArgs[]){
         source = source as HTMLElement;
         source = source.outerHTML;
 

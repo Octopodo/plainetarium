@@ -1,7 +1,7 @@
 import { BeautifyFormatter } from "../codeFormatters/formatters";
 import type { BaseFormatter } from "../codeFormatters/formatters/BaseFormatter";
 import { type HTMLSource } from "@/types";
-import {ref, type Ref} from 'vue'
+import {computed, ref, type Ref} from 'vue'
 
 export abstract class BaseCodeGenerator {
     abstract name: string;
@@ -15,9 +15,14 @@ export abstract class BaseCodeGenerator {
         }
     }
 
-    abstract generate(source: HTMLSource, ...args: any[]): void;
+    abstract generate(source: HTMLSource, ...args: any[]): Promise<void>;
     format(code: string) {
-        this.code.value = this.formatter.format(code)
+        
+            this.formatter.format(code).then((formattedCode) => {
+                this.code.value = formattedCode;
+                
+            })
+     
     }
 }
 

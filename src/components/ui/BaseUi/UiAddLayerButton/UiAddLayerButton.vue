@@ -45,7 +45,6 @@ const buttonSize = computed(() => `${props.buttonSize}px`)
 const iconSize = computed(() => Number(props.iconSize))
 function addLayer() {
   store.addLayer({ component: Shaders[shaderName.value] })
-  store.updateCode()
 }
 </script>
 <template>
