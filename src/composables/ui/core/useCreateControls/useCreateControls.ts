@@ -18,7 +18,7 @@ export function useCreateControls(props: { [key: string]: ExtendedProp }) {
 export function useCreateControl(name: string, prop: ExtendedProp) {
   const control: Control = {
     name: prop.controlName || unWrapCamelCase(name),
-    model: ref(''),
+    model: ref(prop.default),
     controlType: '',
     modelName: name
   }
@@ -42,10 +42,11 @@ export function useCreateControl(name: string, prop: ExtendedProp) {
 }
 
 function createCheckboxControl(
-  prop: BooleanConstructor | ExtendedProp,
+  prop:  ExtendedProp,
   control: Control
 ) {
-  control.model = ref(false)
+  const value = prop as ExtendedProp
+  control.model = ref(value.default)
   control.controlType = 'checkbox'
 }
 

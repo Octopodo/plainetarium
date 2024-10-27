@@ -31,7 +31,10 @@ export const LightShaderProps = new ExtendedProps('LightShader', {
   ...PlainSphereProps.props
 })
 
-LightShaderProps.merge({ container: { default: true } })
+LightShaderProps.merge({
+    container: { default: true },
+    color: { default: '#fff4d6' },
+  })
 
 LightShaderProps.reorder([
   'size',

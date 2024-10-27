@@ -31,6 +31,9 @@ export const PlainSphereProps = new ExtendedProps('SphereProps', {
 })
 
 PlainSphereProps.merge({
+  color: {
+    default: '#4db2ff'
+  },
   size: {
     default: 500,
     min: 0,

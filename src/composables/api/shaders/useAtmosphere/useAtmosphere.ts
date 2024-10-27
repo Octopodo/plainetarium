@@ -20,6 +20,18 @@ export const AtmosphereProps = new ExtendedProps('Atmosphere', {
 })
 
 AtmosphereProps.merge({
+
+  color: {
+    default: '#dbb9f9'
+  },
+  size: {
+    default: 700,
+    min: 0,
+    max: 1000
+  },
+  sharpness: {
+    default: 62   
+  },
   xRotation: {
     default: 0,
     hideControl: true

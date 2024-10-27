@@ -33,8 +33,11 @@ export const ReflectionLightProps = new ExtendedProps('ReflectionLight', {
 })
 
 ReflectionLightProps.merge({
+  light: {
+    default: false
+  },
   color: {
-    default: '#f9ce75'
+    default: '#ffffff'
   },
   blur: {
     default: 5,
@@ -43,7 +46,7 @@ ReflectionLightProps.merge({
   },
   distance: {
     default: 90
-  }
+  },
 })
 
 export function useReflectionLight(props: ReflectionLightParams & PropsValues) {
