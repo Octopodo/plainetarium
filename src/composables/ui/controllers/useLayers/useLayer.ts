@@ -1,7 +1,7 @@
 import { type Layer, type PropsValues } from '@/types'
 import { ref, computed, type PropType } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import { usePlaygroundStore } from '@/stores'
+import { useLayerStore } from '@/stores'
 
 export interface LayerPropsType {
   layerData: Layer
@@ -13,7 +13,7 @@ export const LayerProps = {
 
 export function useLayer(
   props: LayerPropsType & PropsValues,
-  store = usePlaygroundStore()
+  store = useLayerStore()
 ) {
   const layerElement = ref<HTMLInputElement | null>(null)
   const layerData = computed(() => props.layerData)

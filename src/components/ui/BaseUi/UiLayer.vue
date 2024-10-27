@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { type PropsValues } from '@/types'
-import { usePlaygroundStore } from '@/stores'
+import { useLayerStore } from '@/stores'
 import UiLayerHeader from './UiLayerHeader.vue'
 import UiControls from './UiControls.vue'
 import { useLayer, LayerProps, type LayerPropsType } from '@/composables/ui'
 import UiLayer from './UiLayer.vue'
 
-const playgroundStore = usePlaygroundStore()
+const layerStore = useLayerStore()
 
 const props = defineProps(LayerProps) as LayerPropsType & PropsValues
 const { layerElement, layerData, selectLayer } = useLayer(
   props,
-  playgroundStore
+  layerStore
 )
 </script>
 <template>

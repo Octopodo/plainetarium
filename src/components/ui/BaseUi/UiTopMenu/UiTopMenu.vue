@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { usePlaygroundStore } from '@/stores'
+import { useLayerStore } from '@/stores'
 import { InitPlayground } from '@/composables/ui'
-const store = usePlaygroundStore()
+const layerStore = useLayerStore()
 const numLayers: [number, number] = [3, 10]
 async function regenerateLayers() {
-  await store.cleanLayers()
+  await layerStore.cleanLayers()
 
   await InitPlayground.withRandomPlanet(numLayers)
-  store.updateCode()
+  
 }
 </script>
 <template>

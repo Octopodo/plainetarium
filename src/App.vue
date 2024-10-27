@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import UiLayout from '@/components/ui/BaseUi/UiLayout.vue'
-import { useCodeStore, usePlaygroundStore } from './stores'
+import { useCodeStore, useLayerStore } from './stores'
 import { InitPlayground } from '@/composables/ui'
 import { Random } from 'random-js'
 import { onMounted } from 'vue';
-const playGroundStore = usePlaygroundStore()
+const layerStore = useLayerStore()
 const codeStore = useCodeStore()
 const random = new Random()
 const numLayers: [number, number] = [3, 10]
@@ -21,7 +21,7 @@ init()
 // InitPlayground.withLayer('ReflectionLight')
 // InitPlayground.withKnownLightSphere()
 function regenerateLayers() {
-  playGroundStore.cleanLayers()
+  layerStore.cleanLayers()
 
   InitPlayground.withRandomPlanet(numLayers)
 }

@@ -3,10 +3,10 @@ import { ref, computed, onMounted } from 'vue'
 import { MdiIcons } from '@/components/ui/icons'
 import { useGetShaders } from '@/composables/api'
 import { UiIconButton } from '@/components/ui/Widgets'
-import { usePlaygroundStore } from '@/stores'
+import { useLayerStore } from '@/stores'
 
 
-const playgroundStore = usePlaygroundStore()
+const layerStore = useLayerStore()
 const Shaders = useGetShaders()
 const props = defineProps({
   shader: {
@@ -45,7 +45,7 @@ const iconComponent = computed(() => MdiIcons[iconName.value])
 const buttonSize = computed(() => `${props.buttonSize}px`)
 const iconSize = computed(() => Number(props.iconSize))
 function addLayer() {
-  playgroundStore.addLayer({ component: Shaders[shaderName.value] })
+  layerStore.addLayer({ component: Shaders[shaderName.value] })
 }
 </script>
 <template>

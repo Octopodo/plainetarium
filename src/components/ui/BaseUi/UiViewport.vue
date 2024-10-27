@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { usePlaygroundStore } from '@/stores'
+import { useLayerStore } from '@/stores'
 import { ref, toRaw, computed, watch, onMounted } from 'vue'
 
-const playgroundStore = usePlaygroundStore()
-const layers = computed(() => playgroundStore.getLayers())
+const layerStore = useLayerStore()
+const layers = computed(() => layerStore.getLayers())
 const layersRef = ref<HTMLElement | null>(null)
 
 // watch(
@@ -25,7 +25,7 @@ const playgroundStyle = computed(() => {
   }
 })
 onMounted(() => {
-  playgroundStore.setViewport(layersRef.value)
+  layerStore.setViewport(layersRef.value)
 })
 </script>
 <template>

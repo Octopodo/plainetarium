@@ -5,7 +5,7 @@ import { LayerProps } from '.'
 import { computed } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import { unWrapCamelCase } from '@/utils'
-import { usePlaygroundStore } from '@/stores'
+import { useLayerStore } from '@/stores'
 
 export interface LayerHeaderPropsType extends LayerPropsType {
   parentRef: HTMLElement | null
@@ -17,7 +17,7 @@ export const LayerHeaderProps = {
 
 export function useLayerHeader(
   props: LayerHeaderPropsType & PropsValues,
-  store = usePlaygroundStore()
+  store = useLayerStore()
 ) {
   const layerName = computed(() => unWrapCamelCase(props.layerData.name))
 

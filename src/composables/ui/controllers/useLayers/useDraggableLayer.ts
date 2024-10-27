@@ -1,10 +1,10 @@
 import Sortable from 'sortablejs'
 import { onMounted, type Ref } from 'vue'
 import { useMouseInElement } from '@vueuse/core'
-import { usePlaygroundStore } from '@/stores/playgroundStore'
+import { useLayerStore } from '@/stores/layerStore'
 
 export function useDraggableLayer(layer: Ref<HTMLElement | null>) {
-  const store = usePlaygroundStore()
+  const layerStore = useLayerStore()
   function onDragEnd(event: any) {
     const layerHeaderElement = event.from
     const newParentElement = event.to
@@ -20,7 +20,7 @@ export function useDraggableLayer(layer: Ref<HTMLElement | null>) {
     const newIndex = Array.from(newParentElement.children).indexOf(layerElement)
 
     // Mueve la capa a su nueva ubicación
-    store.moveLayer(layerId, newParentId, newIndex)
+    layerStore.moveLayer(layerId, newParentId, newIndex)
   }
 
   function onMove(event: any, originalEvent: any) {

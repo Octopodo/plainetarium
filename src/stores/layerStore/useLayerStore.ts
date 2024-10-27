@@ -13,7 +13,7 @@ type MaybeLayer = Layer | null | undefined
 type MaybeLayerOrId = MaybeLayer | string
 
 
-export const usePlaygroundStore = defineStore('playground',() => {
+export const useLayerStore = defineStore('playground',() => {
 
     const layers = ref([]) as Ref<Layer[]>
     const layersHashList = ref({}) as Ref<Record<string, Layer>>

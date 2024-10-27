@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { usePlaygroundStore } from '@/stores'
+import { useLayerStore } from '@/stores'
 import { ref, computed, type Ref, type PropType } from 'vue'
 
 import UiLayer from './UiLayer.vue'
 
 import { type Layer } from '@/types'
-const playgroundStore = usePlaygroundStore()
+const layerStore = useLayerStore()
 const props = defineProps({
   layers: { type: Array as PropType<Layer[]>, required: true }
 })

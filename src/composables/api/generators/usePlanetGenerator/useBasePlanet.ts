@@ -1,4 +1,4 @@
-import { usePlaygroundStore } from '@/stores'
+import { useLayerStore } from '@/stores'
 // import * as Shaders from '@/components/api/Shaders'
 import { useGetShaders } from '@/composables/api'
 import { useRandomColor } from '@/composables/common'
@@ -8,27 +8,27 @@ const Shaders = useGetShaders()
 
 export function useCreateBasePlanet() {
   const random = new Random()
-  const store = usePlaygroundStore()
-  store.freezeUpdate()
+  const layerStore = useLayerStore()
+  layerStore.freezeUpdate()
   const baseSize = random.integer(100, 800)
-  const baseLayer = store.addLayer({ component: Shaders.PlainSphere })
-  const baseAmbientShadowLayer = store.addLayer({
+  const baseLayer = layerStore.addLayer({ component: Shaders.PlainSphere })
+  const baseAmbientShadowLayer = layerStore.addLayer({
     component: Shaders.LightSphere
   })
-  const baseShadow = store.addLayer({ component: Shaders.LightSphere })
-  const baseLight = store.addLayer({ component: Shaders.LightSphere })
+  const baseShadow = layerStore.addLayer({ component: Shaders.LightSphere })
+  const baseLight = layerStore.addLayer({ component: Shaders.LightSphere })
 
-  store.renameLayer(baseLayer, 'Base')
-  store.renameLayer(baseAmbientShadowLayer, 'Ambient Shadow')
-  store.renameLayer(baseShadow, 'Shadow')
-  store.renameLayer(baseLight, 'Light')
+  layerStore.renameLayer(baseLayer, 'Base')
+  layerStore.renameLayer(baseAmbientShadowLayer, 'Ambient Shadow')
+  layerStore.renameLayer(baseShadow, 'Shadow')
+  layerStore.renameLayer(baseLight, 'Light')
 
-  store.setControlsValues(baseLayer, {
+  layerStore.setControlsValues(baseLayer, {
     size: baseSize,
     color: useRandomColor(100).value
   })
 
-  store.setControlsValues(baseAmbientShadowLayer, {
+  layerStore.setControlsValues(baseAmbientShadowLayer, {
     size: baseSize,
     color: '#050a15',
     xRotation: 0,
@@ -41,7 +41,7 @@ export function useCreateBasePlanet() {
   const randomLight = false //random.bool()
   const randomLightX = random.integer(-9, 9)
   const randomLightY = random.integer(-9, 9)
-  store.setControlsValues(baseShadow, {
+  layerStore.setControlsValues(baseShadow, {
     size: baseSize,
     color: '#050a15',
     xRotation: randomLightX,
@@ -52,7 +52,7 @@ export function useCreateBasePlanet() {
     light: randomLight
   })
 
-  store.setControlsValues(baseLight, {
+  layerStore.setControlsValues(baseLight, {
     size: baseSize,
     color: useRandomColor(100).value,
     xRotation: randomLightX * 2,
@@ -62,5 +62,5 @@ export function useCreateBasePlanet() {
     distance: random.integer(81, 95),
     light: !randomLight
   })
-  store.unfreezeUpdate()
+  layerStore.unfreezeUpdate()
 }

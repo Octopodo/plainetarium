@@ -6,13 +6,13 @@ import {
   useCreatePlainSphere
 } from '@/composables/api'
 import * as Shaders from '@/components/api/Shaders'
-import { usePlaygroundStore } from '@/stores'
+import { useLayerStore } from '@/stores'
 export function InitPlayground() {}
 
 InitPlayground.withRandomPlanet = function (
   layerRange: [number, number] = [3, 5]
 ) {
-  const store = usePlaygroundStore()
+  const layerStore = useLayerStore()
   // store.addLayer({ component: StarField })
   // store.collapseLayer(store.layers[0])
   useCreateRandomPlanet(layerRange)
@@ -27,30 +27,30 @@ InitPlayground.withLightSphere = function () {
 }
 InitPlayground.withPlainSphere = function () {
   useCreatePlainSphere()
-  const store = usePlaygroundStore()
+  const layerStore = useLayerStore()
   const stop = 0
 }
 
 InitPlayground.withLayer = function (layer: String) {
-  const store = usePlaygroundStore()
+  const layerStore = useLayerStore()
   const component = Shaders[layer as keyof typeof Shaders]
   if (!component) return
-  store.addLayer({ component })
+  layerStore.addLayer({ component })
 }
 
 InitPlayground.withStarField = function () {
-  const store = usePlaygroundStore()
-  const starfield = store.addLayer({ component: StarField })
-  store.setControlsValues(starfield, {
+  const layerStore = useLayerStore()
+  const starfield = layerStore.addLayer({ component: StarField })
+  layerStore.setControlsValues(starfield, {
     locked: true
   })
 }
 
 InitPlayground.withKnownLightSphere = function () {
-  const store = usePlaygroundStore()
-  const lightSphere = store.addLayer({ component: Shaders.LightSphere })
+  const layerStore = useLayerStore()
+  const lightSphere = layerStore.addLayer({ component: Shaders.LightSphere })
   lightSphere.expanded = true
-  store.setControlsValues(lightSphere, {
+  layerStore.setControlsValues(lightSphere, {
     size: 500,
     opacity: 38,
     xRotation: 0,

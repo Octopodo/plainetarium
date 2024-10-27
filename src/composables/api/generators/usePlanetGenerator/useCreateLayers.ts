@@ -1,4 +1,4 @@
-import { usePlaygroundStore } from '@/stores'
+import { useLayerStore } from '@/stores'
 import { getRandomAttribute } from '@/utils'
 import { useCreateRandomControls, createRandomControlValue } from '.'
 import { useGetShaders } from '@/composables/api'
@@ -6,11 +6,11 @@ import { useGetShaders } from '@/composables/api'
 const Shaders = useGetShaders()
 
 export function useCreateLayer(shader: any, name?: string) {
-  const store = usePlaygroundStore()
-  store.freezeUpdate()
-  const layer = store.addLayer({ component: shader })
-  store.renameLayer(layer, name)
-  store.unfreezeUpdate()
+  const layerStore = useLayerStore()
+  layerStore.freezeUpdate()
+  const layer = layerStore.addLayer({ component: shader })
+  layerStore.renameLayer(layer, name)
+  layerStore.unfreezeUpdate()
   return layer
 }
 
@@ -30,11 +30,11 @@ export function useCreateRandomLayers(
 }
 
 function createRandomLayer(shaders = Shaders) {
-  const store = usePlaygroundStore()
-  store.freezeUpdate()
+  const layerStore = useLayerStore()
+  layerStore.freezeUpdate()
   const component = getRandomAttribute(shaders)
-  const layer = store.addLayer({ component })
-  store.renameLayer(layer, component.__name || 'Layer')
+  const layer = layerStore.addLayer({ component })
+  layerStore.renameLayer(layer, component.__name || 'Layer')
   useCreateRandomControls(layer)
-  store.unfreezeUpdate()
+  layerStore.unfreezeUpdate()
 }
