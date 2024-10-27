@@ -20,7 +20,7 @@ export function useDraggableLayer(layer: Ref<HTMLElement | null>) {
     const newIndex = Array.from(newParentElement.children).indexOf(layerElement)
 
     // Mueve la capa a su nueva ubicación
-    layerStore.moveLayer(layerId, newParentId, newIndex)
+    layerStore.moveLayer(layerId, newIndex, newParentId)
   }
 
   function onMove(event: any, originalEvent: any) {
