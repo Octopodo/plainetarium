@@ -6,13 +6,13 @@ const playgroundStore = usePlaygroundStore()
 const layers = computed(() => playgroundStore.getLayers())
 const layersRef = ref<HTMLElement | null>(null)
 
-watch(
-  () => layers.value.length,
-  () => {
-    const html = layersRef.value?.outerHTML
-    console.log(html)
-  }
-)
+// watch(
+//   () => layers.value.length,
+//   () => {
+//     const html = layersRef.value?.outerHTML
+//     console.log(html)
+//   }
+// )
 
 const playgroundStyle = computed(() => {
   return {

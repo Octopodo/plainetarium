@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import UiControl from './UiControl.vue'
 import { type Control } from '@/types'
+import { updateLayersEvent } from '@/events';
 
 const props = defineProps({
   controls: {
@@ -11,6 +12,7 @@ const props = defineProps({
 
 const updateControl = (control: Control, value: any) => {
   control.model = value
+  updateLayersEvent.emit()
 }
 </script>
 <template>
