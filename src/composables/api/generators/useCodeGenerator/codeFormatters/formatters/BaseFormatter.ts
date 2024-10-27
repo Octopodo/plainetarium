@@ -7,6 +7,6 @@ export abstract class BaseFormatter {
         this.source = source;
     }
 
-    abstract format(source: string, ...args:any[]): Promise<string>;
+    abstract format(source: string, ...args:any[]):string;
 }
 

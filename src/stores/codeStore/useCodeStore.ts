@@ -1,8 +1,8 @@
 import {defineStore} from 'pinia'
 import { usePlaygroundStore } from '@/stores/playgroundStore'
 import { useCodeGenerator, type GeneratorType } from '@/composables/api/generators/useCodeGenerator'
-import { ref, type Ref } from 'vue'
-
+import { ref, onMounted, onUnmounted, type Ref } from 'vue'
+import {updateLayersEvent} from '@/events'
 
 
 const generators: Record<string, { generator: any, selected: boolean }> = {}
@@ -13,11 +13,12 @@ export const useCodeStore = defineStore('code', () => {
     const code: Ref<Code> = ref('')
     const currentGenerator = ref('html')
     const playgroundStore = usePlaygroundStore()
-    async function update(type?: string) {
+    
+    function update(type?: string) {
         currentGenerator.value = type as GeneratorType || currentGenerator.value
         const source = currentGenerator.value === 'html' ? playgroundStore.viewport : playgroundStore.layers
         const t = type as GeneratorType
-        const {generator} = await useCodeGenerator(source, currentGenerator.value)
+        const {generator} = useCodeGenerator(source, currentGenerator.value)
         code.value = generator?.code.value
     }
 
@@ -28,7 +29,9 @@ export const useCodeStore = defineStore('code', () => {
       }
     }
 
-    
+
+    updateLayersEvent.on(update)
+
 
     return {
         code,
@@ -36,3 +39,4 @@ export const useCodeStore = defineStore('code', () => {
         select
     }
 })
+

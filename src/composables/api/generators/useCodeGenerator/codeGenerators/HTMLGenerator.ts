@@ -7,13 +7,13 @@ type HTMLParseArgs = [removeElements: string[], removeAttributes: boolean]
 export class HTMLGenerator  extends BaseCodeGenerator {
     name = 'html';
     
-    async generate(source: HTMLSource, ...args: HTMLParseArgs[]) {
+    generate(source: HTMLSource, ...args: HTMLParseArgs[]){
         source = source as HTMLElement;
         source = source.outerHTML;
 
         let [removeElements, removeAttributes] = args;
 
-        removeElements = removeElements || [];
+        removeElements = removeElements || ['.star-field'];
         
         removeAttributes = removeAttributes || true;
 
@@ -22,7 +22,7 @@ export class HTMLGenerator  extends BaseCodeGenerator {
     
         // Remove the elements that you don't want
         if (removeElements.length > 0) {
-            const elementsToRemove = tempDiv.querySelectorAll(removeElements.join(','));
+            const elementsToRemove =  tempDiv.querySelectorAll(removeElements.join(','));
             elementsToRemove.forEach((element) => element.remove());
         }
         
@@ -40,6 +40,7 @@ export class HTMLGenerator  extends BaseCodeGenerator {
         }
     
         this.code.value = tempDiv.innerHTML;
+        
     }
 }
 

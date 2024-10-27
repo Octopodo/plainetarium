@@ -2,7 +2,7 @@ import type { Ref } from 'vue'
 import { onMounted } from 'vue'
 import Sortable from 'sortablejs'
 import { usePlaygroundStore } from '@/stores/playgroundStore'
-
+import {updateLayersEvent} from '@/events'
 export function useSortableList(target: Ref<HTMLElement> | Ref<null>) {
   const playgroundStore = usePlaygroundStore()
 
@@ -20,10 +20,11 @@ export function useSortableList(target: Ref<HTMLElement> | Ref<null>) {
         }
       },
 
-      onEnd: function (event: any) {
+      onEnd: async function (event: any) {
         const newIndex = event.newIndex
         const layerId = event.item.id
-        playgroundStore.moveLayer(layerId, newIndex)
+        await playgroundStore.moveLayer(layerId, newIndex)
+        updateLayersEvent.emit()
       }
     })
   })

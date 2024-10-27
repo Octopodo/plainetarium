@@ -6,7 +6,7 @@ const COMPONENTS_PATH = `'./components'`
 export class VueCodeGenerator extends BaseCodeGenerator {
     name = 'vue';
     
-    async generate (source: HTMLSource): Promise<void> {
+    generate (source: HTMLSource) {
   
         let htmlCode = '';
         let imports =  'import {'
@@ -16,7 +16,7 @@ export class VueCodeGenerator extends BaseCodeGenerator {
             const layer = layers[i]
             const componentKey = layer.component.__name as keyof typeof components
             components[componentKey] = true
-            htmlCode += await layerToVueCode(layer)
+            htmlCode += layerToVueCode(layer)
         }
 
         for (const component in components) {
@@ -27,6 +27,7 @@ export class VueCodeGenerator extends BaseCodeGenerator {
 
         const finalCode = `<script setup>\n${imports}\n</script>\n\n<template>\n${htmlCode}\n</template>\n\n`
         this.code.value = finalCode
+        
     }
 }
 

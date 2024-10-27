@@ -1,5 +1,5 @@
 import * as CodeGenerators from './codeGenerators'
-import { BeautifyFormatter } from '../../useFormatter/formatters';
+import { BeautifyFormatter } from './codeFormatters/formatters';
 import type { CodeGenerator } from './codeGenerators/BaseCodeGenerator'
 import type { Layer } from '@/types'
 
@@ -16,11 +16,11 @@ for (const t in CodeGenerators) {
 
 type GeneratorSource = HTMLElement | string | Layer[] | Layer | null
 
-export async function useCodeGenerator (source: GeneratorSource, type: string, ...args: any[]) {
+export  function useCodeGenerator (source: GeneratorSource, type: string, ...args: any[]) {
 
   const generator = Object.values(generators).find(gen => gen.name === type);
-  await generator?.generate(source, ...args);
-  await generator?.format(generator.code.value);
+  generator?.generate(source, ...args);
+  generator?.format(generator.code.value);
 
   return {
     generator

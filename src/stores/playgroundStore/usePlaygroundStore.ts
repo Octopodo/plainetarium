@@ -7,6 +7,7 @@ import {
 } from '@/composables/ui'
 import { v4 as uuidv4 } from 'uuid'
 import { ref } from 'vue'
+import { updateLayersEvent } from '@/events'
 type MaybeLayer = Layer | null | undefined
 type MaybeLayerOrId = MaybeLayer | string
 
@@ -18,20 +19,10 @@ export const usePlaygroundStore = defineStore('playground', {
     soloLayers: [] as Layer[],
     viewport: ref<HTMLElement | null>(null),
     elementsToRemove: ['.star-field'],
+    loading: true
   }),
-
+  
   actions: {
-    layerToVueCode(layer: Layer) {
-      const { component, props } = layer
-      const propsString = Object.entries(props)
-        .map(([key, value]) => {
-          value = value[0] && value[0] === '#' ? `'${value}'` : value
-          return `:${key}="${value}"`
-        })
-        .join(' ')
-      const vueCode = `<${component.__name} ${propsString} />`
-      return vueCode
-    },
     addLayer(options: LayerOptions) {
       options.id = options.id || this.generateLayerId()
       const layer = useCreateLayer(options)
@@ -76,6 +67,7 @@ export const usePlaygroundStore = defineStore('playground', {
       if (!layer || layer.locked) return
       this.detachLayer(layer)
       delete this.layersHashList[layer.id]
+      updateLayersEvent.emit()
     },
 
     detachLayer(layerOrId: MaybeLayerOrId) {
