@@ -7,8 +7,10 @@ const Shaders = useGetShaders()
 
 export function useCreateLayer(shader: any, name?: string) {
   const store = usePlaygroundStore()
+  store.freezeUpdate()
   const layer = store.addLayer({ component: shader })
   store.renameLayer(layer, name)
+  store.unfreezeUpdate()
   return layer
 }
 
@@ -29,8 +31,10 @@ export function useCreateRandomLayers(
 
 function createRandomLayer(shaders = Shaders) {
   const store = usePlaygroundStore()
+  store.freezeUpdate()
   const component = getRandomAttribute(shaders)
   const layer = store.addLayer({ component })
   store.renameLayer(layer, component.__name || 'Layer')
   useCreateRandomControls(layer)
+  store.unfreezeUpdate()
 }

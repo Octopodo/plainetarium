@@ -3,6 +3,7 @@ import UiLayout from '@/components/ui/BaseUi/UiLayout.vue'
 import { useCodeStore, usePlaygroundStore } from './stores'
 import { InitPlayground } from '@/composables/ui'
 import { Random } from 'random-js'
+import { onMounted } from 'vue';
 const playGroundStore = usePlaygroundStore()
 const codeStore = useCodeStore()
 const random = new Random()
@@ -11,7 +12,7 @@ const numLayers: [number, number] = [3, 10]
 async function init() {
   await InitPlayground.withStarField()
   await InitPlayground.withRandomPlanet(numLayers)
-  codeStore.update('html')
+  codeStore.update()
 }
 
 init()
@@ -24,6 +25,7 @@ function regenerateLayers() {
 
   InitPlayground.withRandomPlanet(numLayers)
 }
+
 </script>
 <template>
   <!-- <div class="header">

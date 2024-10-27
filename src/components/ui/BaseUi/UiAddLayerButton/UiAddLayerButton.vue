@@ -5,7 +5,8 @@ import { useGetShaders } from '@/composables/api'
 import { UiIconButton } from '@/components/ui/Widgets'
 import { usePlaygroundStore } from '@/stores'
 
-const store = usePlaygroundStore()
+
+const playgroundStore = usePlaygroundStore()
 const Shaders = useGetShaders()
 const props = defineProps({
   shader: {
@@ -44,7 +45,7 @@ const iconComponent = computed(() => MdiIcons[iconName.value])
 const buttonSize = computed(() => `${props.buttonSize}px`)
 const iconSize = computed(() => Number(props.iconSize))
 function addLayer() {
-  store.addLayer({ component: Shaders[shaderName.value] })
+  playgroundStore.addLayer({ component: Shaders[shaderName.value] })
 }
 </script>
 <template>
@@ -57,6 +58,7 @@ function addLayer() {
     ref="UiAddLayerButton"
     class="ui-add-layer-button"
     @click="addLayer"
+
   ></UiIconButton>
 </template>
 

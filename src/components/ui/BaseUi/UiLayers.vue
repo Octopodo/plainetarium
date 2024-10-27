@@ -5,7 +5,7 @@ import { useSortableList } from '@/composables/ui'
 import UiLayer from './UiLayer.vue'
 
 const playgroundStore = usePlaygroundStore()
-const layers = ref(playgroundStore.layers)
+const layers = ref(playgroundStore.getLayers())
 const layersRef: Ref<HTMLElement | null> = ref(null)
 useSortableList(layersRef)
 </script>

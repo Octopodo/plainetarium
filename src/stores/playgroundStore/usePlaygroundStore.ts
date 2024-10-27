@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import { ref, type Ref } from 'vue'
+
 import { type Layer } from '@/types'
 import {
   useCreateLayer,
@@ -6,44 +8,42 @@ import {
   type LayerOptions
 } from '@/composables/ui'
 import { v4 as uuidv4 } from 'uuid'
-import { ref } from 'vue'
 import { updateLayersEvent } from '@/events'
 type MaybeLayer = Layer | null | undefined
 type MaybeLayerOrId = MaybeLayer | string
 
 
-export const usePlaygroundStore = defineStore('playground', {
-  state: () => ({
-    layers: [] as Layer[],
-    layersHashList: {} as Record<string, Layer>,
-    soloLayers: [] as Layer[],
-    viewport: ref<HTMLElement | null>(null),
-    elementsToRemove: ['.star-field'],
-    loading: true
-  }),
-  
-  
-  actions: {
-    addLayer(options: LayerOptions) {
-      options.id = options.id || this.generateLayerId()
-      const layer = useCreateLayer(options)
-      const targetId = this.getLayerId(options.parent)
-      const index = this.getLayerIndex(layer)
-      this.insertLayer(layer, index, targetId)
-      return layer
-    },
+export const usePlaygroundStore = defineStore('playground',() => {
 
-    cleanLayers() {
-      this.layers.forEach((layer, i) => {
+    const layers = ref([]) as Ref<Layer[]>
+    const layersHashList = ref({}) as Ref<Record<string, Layer>>
+    const soloLayers = ref([]) as Ref<Layer[]>
+    const viewport = ref<HTMLElement | null>(null)
+    const freezed = ref(false)
+
+
+    //PUBLIC LAYER MODIFICATIORS METHODS
+    function addLayer(options: LayerOptions) {
+      options.id = options.id || generateLayerId()
+      const layer = useCreateLayer(options)
+      const targetId = getLayerId(options.parent)
+      const index = getLayerIndex(layer)
+      insertLayer(layer, index, targetId)
+      !freezed.value && updateLayersEvent.emit()
+      return layer
+    }
+
+    function cleanLayers() {
+      layers.value.forEach((layer, i) => {
         if (!layer.locked && i !== 0) {
-          this.deleteLayer(layer)
+          deleteLayer(layer)
         }
       })
-    },
+    }
 
-    duplicatelayer(layer: Layer) {
+    function duplicatelayer(layer: Layer) {
       const { component, expanded, visible, selected, parent, index } = layer
-      this.addLayer({
+      addLayer({
         component,
         expanded,
         visible,
@@ -51,47 +51,195 @@ export const usePlaygroundStore = defineStore('playground', {
         parent,
         index: index + 1
       })
-    },
+      !freezed.value && updateLayersEvent.emit()
+    }
 
-    setLayerParent(
+    async function deleteLayer(layerOrId: MaybeLayerOrId) {
+      const layer = getLayer(layerOrId)
+      if (!layer || layer.locked) return
+      detachLayer(layer)
+      await delete layersHashList.value[layer.id]
+      !freezed.value && updateLayersEvent.emit()
+    }
+
+    function moveLayer(
+      layerOrId: MaybeLayerOrId,
+      newIndex?: number,
+      targetLayerOrID?: MaybeLayerOrId
+    ) {
+      const layer = getLayer(layerOrId)
+      if (!layer || layer.locked) return
+      detachLayer(layer)
+      insertLayer(layer, newIndex, targetLayerOrID)
+      !freezed.value && updateLayersEvent.emit()
+      return layer
+    }
+
+
+    //PUBLIC SETTERS
+    function setControlsValues(layer: Layer, propValues: Record<string, any>) {
+      useSetControlValues(layer, propValues)
+      !freezed.value && updateLayersEvent.emit()
+    }
+
+    function deselectLayer(layer: Layer) {
+      layer.selected = false
+    }
+
+    function hideLayer(layer: Layer) {
+      layer.visible = !layer.visible
+      !freezed.value && updateLayersEvent.emit()
+      !freezed.value && updateLayersEvent.emit()
+    }
+
+    function lockLayer(layer: Layer) {
+      layer.locked = !layer.locked
+    }
+
+    function renameLayer(layer: Layer, name?: string) {
+      if (!name) return
+      layer.name = name
+      !freezed.value && updateLayersEvent.emit()
+      
+    }
+
+    function expandLayer(layer: Layer) {
+      layer.expanded = true
+    }
+
+    function collapseLayer(layer: Layer) {
+      layer.expanded = false
+    }
+
+    function selectLayer(layer: Layer) {
+      layer.selected = true
+    }
+
+    function soloLayer(layer: MaybeLayerOrId) {
+      const selectedLayer = getLayer(layer)
+      if (!selectedLayer) return
+      if (selectedLayer.solo === false) {
+        soloLayers.value.push(selectedLayer)
+        selectedLayer.solo = true
+        selectedLayer.soloHidden = false
+      } else {
+        const index = soloLayers.value.indexOf(selectedLayer)
+        soloLayers.value.splice(index, 1)
+        selectedLayer.solo = false
+      }
+      if (soloLayers.value.length === 0) {
+        layers.value.forEach((layer) => {
+          layer.soloHidden = false
+        })
+      } else {
+        layers.value.forEach((layer) => {
+          if (layer.solo) {
+            layer.soloHidden = false
+          } else {
+            layer.soloHidden = true
+          }
+        })
+      }
+      !freezed.value && updateLayersEvent.emit()
+    }
+
+    function setViewport(viewportElement: HTMLElement | null) {
+      viewport.value = viewportElement
+    }
+
+    function freezeUpdate() {
+      freezed.value = true
+    }
+
+    function unfreezeUpdate() {
+      freezed.value = false
+    }
+
+
+    //PUBLIC GETTERS
+    function getLayerByIndex(index: number) {
+      return layers.value[index]
+    }
+
+    function getLayer(layerOrId: MaybeLayerOrId) {
+      return typeof layerOrId === 'string'
+        ? getLayerById(layerOrId)
+        : layerOrId
+    }
+
+    function getLayerById(id: string) {
+      return layersHashList.value[id] || null
+    }
+
+    function getLayerId(layer: MaybeLayer) {
+      return layer ? layer.id : undefined
+    }
+
+    function getLayerIndex(layer: MaybeLayer) {
+      return layer ? layer.index : -1
+    }
+
+    function getTargetList(target: MaybeLayer) {
+      return target ? target.children : layers.value
+    }
+
+    function getViewport() {
+      return viewport.value
+    }
+
+    type LayerType = 'solo' | 'visible' | 'locked' | 'selected' | 'expanded' | 'collapsed' | 'all'
+
+    function getLayers(type?: LayerType) {
+      if (type === 'solo') {
+        return soloLayers.value
+      } else if (type === 'visible') {
+        return layers.value.filter((layer) => layer.visible)
+      } else if (type === 'locked') {
+        return layers.value.filter((layer) => layer.locked)
+      } else if (type === 'selected') {
+        return layers.value.filter((layer) => layer.selected)
+      } else if (type === 'expanded') {
+        return layers.value.filter((layer) => layer.expanded)
+      } else if (type === 'collapsed') {
+        return layers.value.filter((layer) => !layer.expanded)
+      } else {
+        return layers.value
+      }
+    }
+
+
+    //PRIVATE METHODS
+    function setLayerParent(
       layerOrId: MaybeLayerOrId,
       targetLayerOrId?: MaybeLayerOrId
     ) {
-      const layer = this.getLayer(layerOrId)
+      const layer = getLayer(layerOrId)
       if (!layer) return
-      const targetParent = this.getLayer(targetLayerOrId) || null
+      const targetParent = getLayer(targetLayerOrId) || null
       layer.parent = targetParent
-    },
+    }
 
-    async deleteLayer(layerOrId: MaybeLayerOrId) {
-      const layer = this.getLayer(layerOrId)
-      if (!layer || layer.locked) return
-      this.detachLayer(layer)
-      await delete this.layersHashList[layer.id]
-      updateLayersEvent.emit()
-    },
-
-    detachLayer(layerOrId: MaybeLayerOrId) {
-      const layer = this.getLayer(layerOrId)
+    function detachLayer(layerOrId: MaybeLayerOrId) {
+      const layer = getLayer(layerOrId)
       if (!layer) return
-      const targetList = this.getTargetList(layer.parent)
+      const targetList = getTargetList(layer.parent)
       const index = targetList.indexOf(layer)
       if (index === -1) return
       targetList.splice(index, 1)
       layer.index = -1
       layer.parent = null
       return layer
-    },
+    }
 
-    insertLayer(
+    function insertLayer(
       layerOrId: MaybeLayerOrId,
       newIndex?: number,
       targetLayerOrId?: MaybeLayerOrId
     ) {
-      const layer = this.getLayer(layerOrId)
+      const layer = getLayer(layerOrId)
       if (!layer) return
-      const target = this.getLayer(targetLayerOrId) || null
-      const targetList = this.getTargetList(target)
+      const target = getLayer(targetLayerOrId) || null
+      const targetList = getTargetList(target)
       newIndex =
         newIndex === undefined || newIndex === null || newIndex === -1
           ? targetList.length
@@ -99,16 +247,15 @@ export const usePlaygroundStore = defineStore('playground', {
       targetList.splice(newIndex, 0, layer)
       layer.index = newIndex
       layer.parent = target
-      this.layersHashList[layer.id] = layer
-      updateLayersEvent.emit()
-    },
+      layersHashList.value[layer.id] = layer
+    }
 
-    isAncestor(
+    function isAncestor(
       targetAncestorLayerOrId: MaybeLayerOrId,
       layerOrId: MaybeLayerOrId
     ): boolean {
-      const targetAncestor = this.getLayer(targetAncestorLayerOrId)
-      const layer = this.getLayer(layerOrId)
+      const targetAncestor = getLayer(targetAncestorLayerOrId)
+      const layer = getLayer(layerOrId)
       if (!targetAncestor || !layer) return false
       let currentAcestor = layer.parent
       while (currentAcestor !== null) {
@@ -118,112 +265,43 @@ export const usePlaygroundStore = defineStore('playground', {
         currentAcestor = currentAcestor.parent
       }
       return false
-    },
+    }
 
-    moveLayer(
-      layerOrId: MaybeLayerOrId,
-      newIndex?: number,
-      targetLayerOrID?: MaybeLayerOrId
-    ) {
-      const layer = this.getLayer(layerOrId)
-      if (!layer || layer.locked) return
-      this.detachLayer(layer)
-      this.insertLayer(layer, newIndex, targetLayerOrID)
-      return layer
-    },
-
-    setControlsValues(layer: Layer, propValues: Record<string, any>) {
-      useSetControlValues(layer, propValues)
-    },
-
-    getLayerByIndex(index: number) {
-      return this.layers[index]
-    },
-
-    getLayer(layerOrId: MaybeLayerOrId) {
-      return typeof layerOrId === 'string'
-        ? this.getLayerById(layerOrId)
-        : layerOrId
-    },
-
-    expandLayer(layer: Layer) {
-      layer.expanded = true
-    },
-
-    collapseLayer(layer: Layer) {
-      layer.expanded = false
-    },
-
-    selectLayer(layer: Layer) {
-      layer.selected = true
-    },
-
-    soloLayer(layer: MaybeLayerOrId) {
-      layer = this.getLayer(layer)
-      if (!layer) return
-      if (layer.solo === false) {
-        this.soloLayers.push(layer)
-        layer.solo = true
-        layer.soloHidden = false
-      } else {
-        const index = this.soloLayers.indexOf(layer)
-        this.soloLayers.splice(index, 1)
-        layer.solo = false
-      }
-      if (this.soloLayers.length === 0) {
-        this.layers.forEach((layer) => {
-          layer.soloHidden = false
-        })
-      } else {
-        this.layers.forEach((layer) => {
-          if (layer.solo) {
-            layer.soloHidden = false
-          } else {
-            layer.soloHidden = true
-          }
-        })
-      }
-    },
-
-    deselectLayer(layer: Layer) {
-      layer.selected = false
-    },
-
-    hideLayer(layer: Layer) {
-      layer.visible = !layer.visible
-    },
-
-    lockLayer(layer: Layer) {
-      layer.locked = !layer.locked
-    },
-
-    renameLayer(layer: Layer, name?: string) {
-      if (!name) return
-      layer.name = name
-    },
-
-    getLayerById(id: string) {
-      return this.layersHashList[id] || null
-    },
-
-    getLayerId(layer: MaybeLayer) {
-      return layer ? layer.id : undefined
-    },
-
-    getLayerIndex(layer: MaybeLayer) {
-      return layer ? layer.index : -1
-    },
-
-    getTargetList(target: MaybeLayer) {
-      return target ? target.children : this.layers
-    },
-
-    generateLayerId() {
+    function generateLayerId() {
       let uuid = uuidv4()
-      while (this.layersHashList[uuid]) {
+      while (layersHashList.value[uuid]) {
         uuid = uuidv4()
       }
       return uuid
     }
-  }
+
+    
+    return {
+        layers,
+        freezed,
+        addLayer,
+        cleanLayers,
+        collapseLayer,
+        deleteLayer,
+        deselectLayer,
+        duplicatelayer,
+        expandLayer,
+        freezeUpdate,
+        getLayer,
+        getLayerById,
+        getLayerByIndex,
+        getLayerId,
+        getLayerIndex,
+        getLayers,
+        getViewport,
+        hideLayer,
+        lockLayer,
+        moveLayer,
+        renameLayer,
+        selectLayer,
+        setControlsValues,
+        setViewport,
+        soloLayer,
+        unfreezeUpdate
+    }
 })

@@ -9,6 +9,7 @@ const Shaders = useGetShaders()
 export function useCreateBasePlanet() {
   const random = new Random()
   const store = usePlaygroundStore()
+  store.freezeUpdate()
   const baseSize = random.integer(100, 800)
   const baseLayer = store.addLayer({ component: Shaders.PlainSphere })
   const baseAmbientShadowLayer = store.addLayer({
@@ -61,4 +62,5 @@ export function useCreateBasePlanet() {
     distance: random.integer(81, 95),
     light: !randomLight
   })
+  store.unfreezeUpdate()
 }

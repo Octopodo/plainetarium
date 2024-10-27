@@ -3,7 +3,7 @@ import { usePlaygroundStore } from '@/stores'
 import { ref, toRaw, computed, watch, onMounted } from 'vue'
 
 const playgroundStore = usePlaygroundStore()
-const layers = computed(() => playgroundStore.layers)
+const layers = computed(() => playgroundStore.getLayers())
 const layersRef = ref<HTMLElement | null>(null)
 
 watch(
@@ -25,7 +25,7 @@ const playgroundStyle = computed(() => {
   }
 })
 onMounted(() => {
-  playgroundStore.viewport = layersRef.value
+  playgroundStore.setViewport(layersRef.value)
 })
 </script>
 <template>

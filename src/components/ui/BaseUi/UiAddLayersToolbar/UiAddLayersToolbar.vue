@@ -37,7 +37,7 @@ async function regenerateLayers() {
   await store.cleanLayers()
 
   await InitPlayground.withRandomPlanet(numLayers)
-  store.updateCode()
+  // store.updateCode()
 }
 </script>
 
