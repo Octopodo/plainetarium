@@ -12,7 +12,7 @@ import {
   type RangeSizeParams,
   type ColorParams,
   type OpacityParams,
-  type SizePropsType,
+  type SizeParams,
   type BlurParams
 } from '@/composables/api'
 
@@ -20,7 +20,7 @@ export interface StarfieldPropsType
   extends RangeSizeParams,
     ColorParams,
     OpacityParams,
-    SizePropsType,
+    SizeParams,
     BlurParams {
   count: NumericProp
 }
