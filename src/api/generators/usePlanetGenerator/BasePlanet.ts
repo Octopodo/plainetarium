@@ -7,6 +7,6 @@ layers: Layer[];
   }
 
   generate() {
-    return this.planet;
+
   }
 }
