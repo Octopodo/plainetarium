@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import { useLayerStore } from '@/stores'
-import { useCodeGenerator, type GeneratorType } from '@/composables/api/generators/useCodeGenerator'
+import { useCodeGenerator, type GeneratorType } from '@/api/generators'
 import { ref, type Ref } from 'vue'
 import {updateLayersEvent} from '@/events'
 

@@ -16,3 +16,16 @@ export interface Layer {
   selected: boolean
   locked: boolean
 }
+
+export interface LayerOptions {
+  component: any
+  expanded?: boolean
+  visible?: boolean
+  solo?: boolean
+  soloHidden?: boolean
+  selected?: boolean
+  index?: number
+  parent?: Layer | null
+  id?: string
+  locked?: boolean
+}

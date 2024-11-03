@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import UiLayout from '@/components/ui/BaseUi/UiLayout.vue'
+import {MainLayout} from '@/ui/layouts/'
 import { useCodeStore, useLayerStore } from './stores'
-import { InitPlayground } from '@/composables/ui'
+import { InitPlayground } from '@/ui/utils'
 import { Random } from 'random-js'
 import { onMounted } from 'vue';
 const layerStore = useLayerStore()
@@ -38,7 +38,7 @@ function regenerateLayers() {
     />
     <h1 class="title">Plainetarium</h1>
   </div> -->
-  <UiLayout element-name="LightSphere"> </UiLayout>
+  <MainLayout element-name="LightSphere"> </MainLayout>
 </template>
 
 <style scoped></style>

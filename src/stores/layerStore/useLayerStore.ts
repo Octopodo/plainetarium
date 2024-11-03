@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
 import { ref, type Ref } from 'vue'
 
-import { type Layer } from '@/types'
+import type {Layer, LayerOptions } from '@/types'
+import { useCreateLayer } from '@/ui/layers'
+import { useCreateControl } from '@/ui/controls/useCreateControls'
 import {
-  useCreateLayer,
   useSetControlValues,
-  type LayerOptions
-} from '@/composables/ui'
+} from '@/ui/controls'
 import { v4 as uuidv4 } from 'uuid'
 import { updateLayersEvent } from '@/events'
 type MaybeLayer = Layer | null | undefined
@@ -23,7 +23,7 @@ export const useLayerStore = defineStore('playground',() => {
 
 
     //PUBLIC LAYER MODIFICATIORS METHODS
-    function addLayer(options: LayerOptions) {
+    function addLayer(options: LayerOptions): Layer {
       options.id = options.id || generateLayerId()
       const layer = useCreateLayer(options)
       const targetId = getLayerId(options.parent)
