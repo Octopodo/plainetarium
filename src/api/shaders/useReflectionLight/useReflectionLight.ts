@@ -37,7 +37,7 @@ ReflectionLightProps.merge({
     default: false
   },
   color: {
-    default: '#ffffff'
+    default: '#493f7c'
   },
   blur: {
     default: 5,

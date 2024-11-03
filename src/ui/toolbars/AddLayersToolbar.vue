@@ -83,6 +83,7 @@ async function regenerateLayers() {
 
 .ui-add-layer-button {
   margin-right: 3px;
+  width: 32px;
 }
 
 .random-button {

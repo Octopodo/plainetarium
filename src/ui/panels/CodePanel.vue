@@ -29,7 +29,7 @@ async function copyCodeToClipboard  (){
 </script>
 <template>
   <div class="ui-code-panel-header">
-    <UiIconButton
+    <IconButton
       :icon="mdiChevronDown"
       color="#ffffff"
       hoverColor="#ffffff"
