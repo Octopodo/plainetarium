@@ -34,11 +34,10 @@ export const useLayerStore = defineStore('playground',() => {
     }
 
     function cleanLayers() {
-      layers.value.forEach((layer, i) => {
-        if (!layer.locked && i !== 0) {
-          deleteLayer(layer)
-        }
-      })
+      const len = layers.value.length
+      for (let i = len - 1; i >= 1; i--) {
+        deleteLayer(layers.value[i])
+      }
     }
 
     function duplicatelayer(layer: Layer) {
@@ -59,6 +58,8 @@ export const useLayerStore = defineStore('playground',() => {
       if (!layer || layer.locked) return
       detachLayer(layer)
       await delete layersHashList.value[layer.id]
+      const index = await layers.value.indexOf(layer)
+      if (index !== -1) await layers.value.splice(index, 1)
       !freezed.value && updateLayersEvent.emit()
     }
 
