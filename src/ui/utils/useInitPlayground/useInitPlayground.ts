@@ -17,6 +17,8 @@ InitPlayground.withRandomPlanet = function (
   // store.addLayer({ component: StarField })
   // store.collapseLayer(store.layers[0])
   useCreateRandomPlanet(layerRange)
+  const lastLayer = layerStore.getLastLayer()
+  lastLayer.expanded = true
 }
 
 InitPlayground.withBasePlanet = function () {
