@@ -7,7 +7,7 @@ export interface PositionPropsType extends Vector2dPropsType {}
 export const PositionProps = VectorProps.clone()
 
 PositionProps.renameProp('vector', 'position')
-
+PositionProps.remove('position')
 export function usePosition(props: Vector2dPropsType, units?: 'px') {
   const {
     vector: possition,

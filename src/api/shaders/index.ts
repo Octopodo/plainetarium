@@ -7,7 +7,7 @@ export * from './useAtmosphere'
 export * from './useReflectionLight'
 export * from './useVolumeSphere'
 export * from './useGetShaders'
-
+export * from './useTexture'
 export * as shaders from './components'
 
 export  {default as SmallStar} from './components/SmallStar.vue'

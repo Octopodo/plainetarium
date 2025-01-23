@@ -7,16 +7,17 @@ import { onMounted } from 'vue';
 const layerStore = useLayerStore()
 const codeStore = useCodeStore()
 const random = new Random()
-const numLayers: [number, number] = [3, 10]
+const numLayers: [number, number] = [3, 6]
 // InitPlayground.withLightSphere()
 async function init() {
+  await layerStore.cleanLayers()
   await InitPlayground.withStarField()
   await InitPlayground.withRandomPlanet(numLayers)
+  // InitPlayground.withLayer('PatternSphere')
   codeStore.update()
 }
 
 init()
-// InitPlayground.withLayer('VolumeSphere')
 // InitPlayground.withPlainSphere()
 // InitPlayground.withLayer('ReflectionLight')
 // InitPlayground.withKnownLightSphere()

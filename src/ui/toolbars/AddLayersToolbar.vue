@@ -32,7 +32,7 @@ const layers = {
     hoverColor: '#82d8f2'
   }
 }
-const numLayers: [number, number] = [3, 10]
+const numLayers: [number, number] = [3, 6]
 async function regenerateLayers() {
   await layerStore.cleanLayers()
 
