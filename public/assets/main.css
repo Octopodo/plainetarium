@@ -1,0 +1,36 @@
+@import './base.css';
+
+body {
+  background-color: rgb(20, 20, 20);
+}
+#app {
+  font-weight: normal;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+    overflow-x: hidden;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* padding: 0 2rem; */
+  }
+}
+
+.unselectable {
+  -webkit-user-select: none; /* Chrome, Safari, Opera */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+}
