@@ -188,6 +188,15 @@ export const useLayerStore = defineStore('playground',() => {
       return viewport.value
     }
 
+    function getLastLayer() {
+      return layers.value[layers.value.length - 1]
+    }
+
+    //TODO: Take the first layer that is not starfield
+    function getFirstPlanetLayer() {
+      return layers.value[1]
+    }
+
     type LayerType = 'solo' | 'visible' | 'locked' | 'selected' | 'expanded' | 'collapsed' | 'all'
 
     function getLayers(type?: LayerType) {
@@ -288,6 +297,8 @@ export const useLayerStore = defineStore('playground',() => {
         duplicatelayer,
         expandLayer,
         freezeUpdate,
+        getFirstPlanetLayer,
+        getLastLayer,
         getLayer,
         getLayerById,
         getLayerByIndex,
